@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Share To Zotero</string>
+    <string name="state_your_business">State your business</string>
+    <string name="btn_send">Send</string>
 </resources>
