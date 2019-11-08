@@ -12,9 +12,8 @@ class SelectCollection : AppCompatActivity() {
         setContentView(R.layout.activity_select_collection)
         val textfield = findViewById<TextView>(R.id.textfield)
         if (intent?.action == Intent.ACTION_SEND) {
+            // We got here via a share menu.
             textfield.text = intent.getStringExtra(Intent.EXTRA_TEXT)
-        } else {
-            // Handle being started from home screen.
         }
     }
 }
