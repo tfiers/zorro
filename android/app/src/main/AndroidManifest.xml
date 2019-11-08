@@ -11,7 +11,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".SelectCollection">
+        <activity
+            android:name=".SelectCollection"
+            android:label="Add to Zotero"
+            >
+            <!-- Different label makes app appear high in alphabetically
+            sorted share menu's (e.g. Twitter's) -->
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
                 <category android:name="android.intent.category.DEFAULT" />
