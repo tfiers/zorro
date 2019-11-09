@@ -10,7 +10,7 @@ import org.json.JSONObject
 class CollectionsViewAdapter(private val collections: MutableList<JSONObject>) :
     RecyclerView.Adapter<CollectionsViewAdapter.MyViewHolder>() {
     class MyViewHolder(private val v: View) : RecyclerView.ViewHolder(v) {
-        val textView: TextView = v.findViewById(R.id.textView)
+        val textView: TextView = v.findViewById(R.id.collection_name)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
