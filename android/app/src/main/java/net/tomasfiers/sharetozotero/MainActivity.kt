@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.Response
+import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import org.json.JSONArray
 
 class MainActivity : AppCompatActivity() {
 
@@ -16,7 +18,7 @@ class MainActivity : AppCompatActivity() {
         val queue = Volley.newRequestQueue(this)
         val request = ZoteroAPIRequest("/collections",
             Response.Listener { response ->
-                textView.text = response
+                textView.text = response[0].toString()
             },
             Response.ErrorListener {
                 textView.text = "Downloading Zotero collection failed"
@@ -26,9 +28,8 @@ class MainActivity : AppCompatActivity() {
 }
 
 class ZoteroAPIRequest(
-    endpoint: String, listener: Response.Listener<String>, errorListener: Response.ErrorListener
-) : StringRequest(
-    Method.GET,
+    endpoint: String, listener: Response.Listener<JSONArray>, errorListener: Response.ErrorListener
+) : JsonArrayRequest(
     "https://api.zotero.org/users/4670453$endpoint",
     listener,
     errorListener
