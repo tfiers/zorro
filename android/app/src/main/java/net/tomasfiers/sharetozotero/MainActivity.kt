@@ -1,8 +1,14 @@
 package net.tomasfiers.sharetozotero
 
+import android.app.AlertDialog
+import android.app.Dialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.DialogFragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.*
 import com.android.volley.toolbox.HttpHeaderParser
 import com.android.volley.toolbox.Volley
@@ -16,18 +22,24 @@ const val STEPSIZE = 100
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var queue : RequestQueue
-    lateinit var textView : TextView
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var viewAdapter: RecyclerView.Adapter<*>
+    private lateinit var viewManager: RecyclerView.LayoutManager
+    private val collections = mutableListOf<JSONObject>()
+    private lateinit var requestQueue: RequestQueue
+    private lateinit var textView: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        queue = Volley.newRequestQueue(this.applicationContext)
-        textView = findViewById<TextView>(R.id.textView)
+
+        viewManager = LinearLayoutManager(this)
+//        viewAdapter = MyAdapter(collections)
+
+        requestQueue = Volley.newRequestQueue(this)
         fetchUntilDone()
     }
 
-    private val collections = mutableListOf<JSONObject>()
     private var start = 0
 
     private fun fetchUntilDone() {
@@ -43,15 +55,25 @@ class MainActivity : AppCompatActivity() {
                     fetchUntilDone()
                 }
             },
-            Response.ErrorListener {
-                textView.text = "Downloading Zotero collections failed. (Info for nerds: $it)"
+            Response.ErrorListener {err ->
+                val message = "Downloading Zotero collections failed.\n\n(Info for nerds: $err)"
+                ErrorDialog(message).show(supportFragmentManager, message)
             })
-        queue.add(request)
+        requestQueue.add(request)
     }
 
     private fun displayCollections() {
 //        textView.text = (collections[0] as JSONObject)["data"].toString()
-        textView.text = collections.size.toString()
+//        textView.text = collections.size.toString()
+    }
+}
+
+class ErrorDialog(private val message: String) : DialogFragment() {
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        var builder = AlertDialog.Builder(activity)
+        builder.setMessage(message)
+        builder.setNeutralButton("Shucks", DialogInterface.OnClickListener { dialog, int -> })
+        return builder.create()
     }
 }
 
