@@ -3,7 +3,6 @@ package net.tomasfiers.sharetozotero
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
@@ -15,8 +14,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         val textView = findViewById<TextView>(R.id.textView)
         val queue = Volley.newRequestQueue(this)
-        val request = StringRequest(Request.Method.GET, url,
-            Response.Listener<String> { response ->
+        val request = ZoteroAPIRequest("/collections",
+            Response.Listener { response ->
                 textView.text = response
             },
             Response.ErrorListener {
@@ -25,3 +24,20 @@ class MainActivity : AppCompatActivity() {
         queue.add(request)
     }
 }
+
+class ZoteroAPIRequest(
+    endpoint: String, listener: Response.Listener<String>, errorListener: Response.ErrorListener
+) : StringRequest(
+    Method.GET,
+    "https://api.zotero.org/users/4670453$endpoint",
+    listener,
+    errorListener
+) {
+    override fun getHeaders(): Map<String, String> {
+        val headers = HashMap<String, String>()
+        headers["Zotero-API-Version"] = "3"
+        headers["Zotero-API-Key"] = ZOTERO_API_KEY
+        return headers
+    }
+}
+
