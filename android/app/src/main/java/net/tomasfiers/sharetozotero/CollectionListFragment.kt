@@ -11,12 +11,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.RequestQueue
 import com.android.volley.Response
 import com.android.volley.toolbox.Volley
-import net.tomasfiers.sharetozotero.databinding.FragmentCollectionsBinding
+import net.tomasfiers.sharetozotero.databinding.FragmentCollectionListBinding
 import org.json.JSONObject
 
 const val ITEMS_PER_REQUEST = 100
 
-class CollectionsFragment : Fragment() {
+class CollectionListFragment : Fragment() {
 
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
@@ -27,9 +27,9 @@ class CollectionsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = DataBindingUtil.inflate<FragmentCollectionsBinding>(
+        val binding = DataBindingUtil.inflate<FragmentCollectionListBinding>(
             inflater,
-            R.layout.fragment_collections,
+            R.layout.fragment_collection_list,
             container,
             false
         )

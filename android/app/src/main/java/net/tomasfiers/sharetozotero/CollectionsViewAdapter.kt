@@ -9,13 +9,13 @@ import org.json.JSONObject
 
 class CollectionsViewAdapter(private val collections: MutableList<JSONObject>) :
     RecyclerView.Adapter<CollectionsViewAdapter.MyViewHolder>() {
-    class MyViewHolder(private val v: View) : RecyclerView.ViewHolder(v) {
+    class MyViewHolder(v: View) : RecyclerView.ViewHolder(v) {
         val textView: TextView = v.findViewById(R.id.collection_name)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val v = LayoutInflater.from(parent.context)
-            .inflate(R.layout.collection_in_list, parent, false)
+            .inflate(R.layout.fragment_collection, parent, false)
         return MyViewHolder(v)
     }
 
