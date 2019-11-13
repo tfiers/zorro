@@ -1,4 +1,4 @@
-package net.tomasfiers.sharetozotero
+package net.tomasfiers.zoro
 
 
 import android.os.Bundle
@@ -8,7 +8,8 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
-import net.tomasfiers.sharetozotero.databinding.FragmentCollectionBinding
+import net.tomasfiers.zoro.databinding.FragmentCollectionBinding
+import timber.log.Timber
 
 class CollectionFragment : Fragment() {
 
@@ -23,7 +24,7 @@ class CollectionFragment : Fragment() {
             false
         )
         val slide = { view: View ->
-            ErrorDialog("yo").show(activity!!.supportFragmentManager, "yo")
+            Timber.i("collection clicked")
             view.findNavController().navigate(R.id.action_collectionListFragment_self)
         }
         binding.collection.setOnClickListener(slide)

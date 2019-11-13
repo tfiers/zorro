@@ -1,4 +1,4 @@
-package net.tomasfiers.sharetozotero
+package net.tomasfiers.zoro
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.RequestQueue
 import com.android.volley.Response
 import com.android.volley.toolbox.Volley
-import net.tomasfiers.sharetozotero.databinding.FragmentCollectionListBinding
+import net.tomasfiers.zoro.databinding.FragmentCollectionListBinding
 import org.json.JSONObject
 
 const val ITEMS_PER_REQUEST = 100

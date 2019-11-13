@@ -1,10 +1,10 @@
-package net.tomasfiers.sharetozotero
+package net.tomasfiers.zoro
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
-import net.tomasfiers.sharetozotero.databinding.ActivityMainBinding
+import net.tomasfiers.zoro.databinding.ActivityMainBinding
 
 
 class MainActivity : AppCompatActivity() {

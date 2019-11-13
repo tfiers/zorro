@@ -1,4 +1,4 @@
-package net.tomasfiers.sharetozotero
+package net.tomasfiers.zoro
 
 import org.junit.Test
 

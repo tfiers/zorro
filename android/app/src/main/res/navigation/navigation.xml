@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/collectionListFragment"
-        android:name="net.tomasfiers.sharetozotero.CollectionListFragment"
+        android:name="net.tomasfiers.zoro.CollectionListFragment"
         android:label="fragment_collection_list"
         tools:layout="@layout/fragment_collection_list" >
         <action

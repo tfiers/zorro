@@ -1,4 +1,4 @@
-package net.tomasfiers.sharetozotero
+package net.tomasfiers.zoro
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity

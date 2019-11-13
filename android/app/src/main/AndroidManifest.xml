@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="net.tomasfiers.sharetozotero">
+    package="net.tomasfiers.zoro">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name=".ZoroApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
