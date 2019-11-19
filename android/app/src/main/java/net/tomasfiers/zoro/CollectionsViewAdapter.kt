@@ -15,7 +15,7 @@ class CollectionsViewAdapter(private val collections: MutableList<JSONObject>) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val v = LayoutInflater.from(parent.context)
-            .inflate(R.layout.fragment_collection, parent, false)
+            .inflate(R.layout.collection_item, parent, false)
         return MyViewHolder(v)
     }
 

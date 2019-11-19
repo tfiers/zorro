@@ -3,15 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".CollectionListFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/my_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scrollbars="vertical" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
