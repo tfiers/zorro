@@ -3,16 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
-    app:startDestination="@id/collectionListFragment">
+    >
+<!--app:startDestination="@id/collectionListFragment"-->
 
-    <fragment
-        android:id="@+id/collectionListFragment"
-        android:name="net.tomasfiers.zoro.CollectionListFragment"
-        android:label="fragment_collection_list"
-        tools:layout="@layout/fragment_collection_list" >
-        <action
-            android:id="@+id/action_collectionListFragment_self"
-            app:destination="@id/collectionListFragment"
-            app:enterAnim="@anim/slide_in_right" />
-    </fragment>
 </navigation>
