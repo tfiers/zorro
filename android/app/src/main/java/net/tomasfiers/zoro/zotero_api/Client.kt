@@ -2,18 +2,13 @@ package net.tomasfiers.zoro.zotero_api
 
 import retrofit2.Call
 import retrofit2.Retrofit
-import retrofit2.converter.scalars.ScalarsConverterFactory
+import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Query
 
-//private val jsonParserBuilder = Moshi.Builder()
-//    .add(KotlinJsonAdapterFactory())
-//    .build()
-
 private val httpClientBuilder = Retrofit.Builder()
-//    .addConverterFactory(MoshiConverterFactory.create(jsonParserBuilder))
-    .addConverterFactory(ScalarsConverterFactory.create())
+    .addConverterFactory(MoshiConverterFactory.create(jsonParserBuilder))
     .baseUrl("https://api.zotero.org/users/4670453/")
     .build()
 
@@ -27,7 +22,7 @@ interface ZoteroAPIClient {
         @Query("start") startIndex: Int = 100,
         @Query("limit") numItems: Int = 100
     ):
-            Call<String>
+            Call<List<CollectionJSON>>
 }
 
 // Use singleton because client creation is expensive.
