@@ -11,7 +11,7 @@ class CollectionViewModel : ViewModel() {
     val collections = MutableLiveData<String>("Loading collections..")
 
     init {
-        ZoteroAPI.client.getCollections().enqueue(
+        ZoteroAPI.client.getSomeCollections().enqueue(
             object : Callback<String> {
                 override fun onFailure(call: Call<String>, t: Throwable) {
                     collections.value = "Failure: ${t.message}"

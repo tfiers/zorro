@@ -5,6 +5,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.scalars.ScalarsConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Headers
+import retrofit2.http.Query
 
 //private val jsonParserBuilder = Moshi.Builder()
 //    .add(KotlinJsonAdapterFactory())
@@ -22,7 +23,10 @@ interface ZoteroAPIClient {
         "Zotero-API-Key: $ZOTERO_API_KEY"
     )
     @GET("collections")
-    fun getCollections():
+    fun getSomeCollections(
+        @Query("start") startIndex: Int = 100,
+        @Query("limit") numItems: Int = 100
+    ):
             Call<String>
 }
 

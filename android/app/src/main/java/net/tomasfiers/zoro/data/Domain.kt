@@ -2,7 +2,7 @@ package net.tomasfiers.zoro.data
 
 data class Collection (
     val id: String,
-    val version: Long,
-    val name: String,
-    val parent: Collection?
+    var version: Long,
+    var name: String,
+    var parent: Collection?
 )
