@@ -1,4 +1,4 @@
-package net.tomasfiers.zoro.data
+package net.tomasfiers.zoro.zotero_api
 
 import retrofit2.Call
 import retrofit2.Retrofit
