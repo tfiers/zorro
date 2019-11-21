@@ -17,6 +17,7 @@ class CollectionFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val binding = CollectionFragmentBinding.inflate(inflater, container, false)
+        binding.lifecycleOwner = this
         binding.viewModel = viewModel
         return binding.root
     }

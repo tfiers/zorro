@@ -2,7 +2,25 @@ package net.tomasfiers.zoro.ui
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import net.tomasfiers.zoro.data.ZoteroAPI
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class CollectionViewModel : ViewModel() {
-    val responseText = MutableLiveData<String>("Hello there")
+    val collections = MutableLiveData<String>("Loading collections..")
+
+    init {
+        ZoteroAPI.client.getCollections().enqueue(
+            object : Callback<String> {
+                override fun onFailure(call: Call<String>, t: Throwable) {
+                    collections.value = "Failure: ${t.message}"
+                }
+
+                override fun onResponse(call: Call<String>, response: Response<String>) {
+                    collections.value = response.body()
+                }
+            }
+        )
+    }
 }

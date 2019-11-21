@@ -15,7 +15,7 @@
 
         <TextView
             android:id="@+id/response_text"
-            android:text="@{viewModel.responseText}"
+            android:text="@{viewModel.collections}"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
