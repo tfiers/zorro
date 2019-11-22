@@ -6,10 +6,11 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import net.tomasfiers.zoro.data.ListItem
 import net.tomasfiers.zoro.zotero_api.zoteroAPIClient
 
 class CollectionViewModel : ViewModel() {
-    val collections = MutableLiveData<String>()
+    val collections = MutableLiveData<List<ListItem>>()
     val syncStatus = MutableLiveData<String?>()
 
     private var job = Job()
@@ -20,10 +21,10 @@ class CollectionViewModel : ViewModel() {
             syncStatus.value = "Loading collections.."
             try {
                 val jsonCollections = zoteroAPIClient.getSomeCollections().await()
-                collections.value = jsonCollections.map { it.asDomainModel() }.toString()
-                syncStatus.value = null
+                collections.value = jsonCollections.map { it.asDomainModel() }
+                syncStatus.value = " "
             } catch (e: Exception) {
-                collections.value = "Failure: ${e.message}"
+                syncStatus.value = "Failure: ${e.message}"
             }
         }
     }

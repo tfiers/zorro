@@ -1,8 +1,14 @@
 package net.tomasfiers.zoro.data
 
-data class Collection (
-    val id: String,
-    var version: Long,
-    var name: String,
+interface ListItem {
+    val id: String
+    var version: Long
+    var name: String
+}
+
+data class Collection(
+    override val id: String,
+    override var version: Long,
+    override var name: String,
     var parentId: String?
-)
+) : ListItem
