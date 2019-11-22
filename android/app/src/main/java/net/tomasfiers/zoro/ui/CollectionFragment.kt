@@ -18,7 +18,7 @@ class CollectionFragment : Fragment() {
     ): View {
         val binding = CollectionFragmentBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
-        binding.viewModel = viewModel
+        binding.vm = viewModel
         return binding.root
     }
 }
