@@ -6,7 +6,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import net.tomasfiers.zoro.zotero_api.ZoteroAPI
+import net.tomasfiers.zoro.zotero_api.zoteroAPIClient
 
 class CollectionViewModel : ViewModel() {
     val collections = MutableLiveData<String>("Loading collections..")
@@ -16,7 +16,7 @@ class CollectionViewModel : ViewModel() {
     init {
         coroutineScope.launch {
             collections.value = try {
-                ZoteroAPI.client.getSomeCollections().await().toString()
+                zoteroAPIClient.getSomeCollections().await().map { it.asDomainModel() }.toString()
             } catch (e: Exception) {
                 "Failure: ${e.message}"
             }

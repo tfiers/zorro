@@ -27,10 +27,7 @@ interface ZoteroAPIClient {
             Deferred<List<CollectionJSON>>
 }
 
-// Use singleton because client creation is expensive.
-// ("lazy" computes property only on first access).
-object ZoteroAPI {
-    val client: ZoteroAPIClient by lazy {
-        httpClientBuilder.create(ZoteroAPIClient::class.java)
-    }
+// "lazy" computes value only on first access (client creation is expensive).
+val zoteroAPIClient: ZoteroAPIClient by lazy {
+    httpClientBuilder.create(ZoteroAPIClient::class.java)
 }
