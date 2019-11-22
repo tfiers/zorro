@@ -14,7 +14,7 @@ data class CollectionJSON(
         val parentCollection: Any
     )
 
-    fun toDomainModel() = Collection(
+    fun asDomainModel() = Collection(
         id = data.key,
         version = data.version,
         name = data.name,

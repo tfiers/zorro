@@ -1,6 +1,7 @@
 package net.tomasfiers.zoro.zotero_api
 
-import retrofit2.Call
+import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
+import kotlinx.coroutines.Deferred
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
@@ -9,6 +10,7 @@ import retrofit2.http.Query
 
 private val httpClientBuilder = Retrofit.Builder()
     .addConverterFactory(MoshiConverterFactory.create(jsonParserBuilder))
+    .addCallAdapterFactory(CoroutineCallAdapterFactory())
     .baseUrl("https://api.zotero.org/users/4670453/")
     .build()
 
@@ -22,7 +24,7 @@ interface ZoteroAPIClient {
         @Query("start") startIndex: Int = 100,
         @Query("limit") numItems: Int = 100
     ):
-            Call<List<CollectionJSON>>
+            Deferred<List<CollectionJSON>>
 }
 
 // Use singleton because client creation is expensive.
