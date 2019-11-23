@@ -6,12 +6,12 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import net.tomasfiers.zoro.data.ListItem
+import net.tomasfiers.zoro.data.TreeItem
 import net.tomasfiers.zoro.zotero_api.MAX_ITEMS_PER_RESPONSE
 import net.tomasfiers.zoro.zotero_api.zoteroAPIClient
 
 class CollectionViewModel : ViewModel() {
-    val collections = MutableLiveData<List<ListItem>>(listOf())
+    val collections = MutableLiveData<List<TreeItem>>(listOf())
     val syncStatus = MutableLiveData<String?>()
 
     private var job = Job()

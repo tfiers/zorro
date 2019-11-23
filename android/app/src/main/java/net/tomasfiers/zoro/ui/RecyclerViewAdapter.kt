@@ -5,30 +5,30 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import net.tomasfiers.zoro.data.ListItem
-import net.tomasfiers.zoro.databinding.ListItemBinding
+import net.tomasfiers.zoro.data.TreeItem
+import net.tomasfiers.zoro.databinding.TreeItemBinding
 
-class ListItemDiffCallback : DiffUtil.ItemCallback<ListItem>() {
-    override fun areItemsTheSame(oldItem: ListItem, newItem: ListItem) = oldItem.id == newItem.id
-    override fun areContentsTheSame(oldItem: ListItem, newItem: ListItem) =
+class ListItemDiffCallback : DiffUtil.ItemCallback<TreeItem>() {
+    override fun areItemsTheSame(oldItem: TreeItem, newItem: TreeItem) = oldItem.id == newItem.id
+    override fun areContentsTheSame(oldItem: TreeItem, newItem: TreeItem) =
         oldItem.name == newItem.name
 }
 
 // One container in the RecyclerView list.
-class MyViewHolder(private val binding: ListItemBinding) : RecyclerView.ViewHolder(binding.root) {
-    fun bind(listItem: ListItem) {
-        binding.item = listItem
+class MyViewHolder(private val binding: TreeItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    fun bind(treeItem: TreeItem) {
+        binding.item = treeItem
         // (A recommended slight speed optimization:)
         binding.executePendingBindings()
     }
 }
 
-class RecyclerViewAdapter : ListAdapter<ListItem, MyViewHolder>(ListItemDiffCallback()) {
+class RecyclerViewAdapter : ListAdapter<TreeItem, MyViewHolder>(ListItemDiffCallback()) {
 
     // Called when the RecyclerView requests a new container to add to the list.
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        val binding = ListItemBinding.inflate(layoutInflater, parent, false)
+        val binding = TreeItemBinding.inflate(layoutInflater, parent, false)
         return MyViewHolder(binding)
     }
 
