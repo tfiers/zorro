@@ -19,8 +19,9 @@ class ListItemDiffCallback : DiffUtil.ItemCallback<TreeItem>() {
 // One container in the RecyclerView list.
 class TreeItemViewHolder private constructor(private val binding: TreeItemBinding) :
     RecyclerView.ViewHolder(binding.root) {
-    fun bind(treeItem: TreeItem) {
+    fun bind(treeItem: TreeItem, clickListener: TreeItemClickListener) {
         binding.item = treeItem
+        binding.clickListener = clickListener
         // (A recommended slight speed optimization:)
         binding.executePendingBindings()
     }
@@ -34,7 +35,14 @@ class TreeItemViewHolder private constructor(private val binding: TreeItemBindin
     }
 }
 
-class RecyclerViewAdapter : ListAdapter<TreeItem, TreeItemViewHolder>(ListItemDiffCallback()) {
+// This verbose wrapper class is necessary because `tree_item.xml > data > variable` only accepts
+// a class, not a function type.
+class TreeItemClickListener(val clickListener: (treeItem: TreeItem) -> Unit) {
+    fun onClick(treeItem: TreeItem) = clickListener(treeItem)
+}
+
+class RecyclerViewAdapter(private val clickListener: TreeItemClickListener) :
+    ListAdapter<TreeItem, TreeItemViewHolder>(ListItemDiffCallback()) {
 
     // Called when the RecyclerView requests a new container to add to the list.
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
@@ -42,6 +50,6 @@ class RecyclerViewAdapter : ListAdapter<TreeItem, TreeItemViewHolder>(ListItemDi
 
     // Called when the RecyclerView wants to fill a container with a concrete item.
     override fun onBindViewHolder(holder: TreeItemViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(getItem(position), clickListener)
     }
 }

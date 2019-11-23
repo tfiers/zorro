@@ -4,9 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="item"
             type="net.tomasfiers.zoro.data.TreeItem" />
+
+        <variable
+            name="clickListener"
+            type="net.tomasfiers.zoro.ui.TreeItemClickListener" />
+
     </data>
 
     <LinearLayout
@@ -23,7 +29,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:onClick="@{() -> clickListener.onClick(item)}">
 
             <!-- Or wrap content -->
             <ImageView
