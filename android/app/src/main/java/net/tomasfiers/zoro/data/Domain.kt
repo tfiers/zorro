@@ -1,11 +1,14 @@
 package net.tomasfiers.zoro.data
 
-open class TreeItem() {
-    val id: String? = null
-    var version: Long? = null
-    var name: String? = null
+interface TreeItem {
+    val id: String
+    var version: Long?
+    var name: String?
 }
 
 data class Collection(
+    override val id: String,
+    override var version: Long?,
+    override var name: String?,
     var parentId: String?
-) : TreeItem()
+) : TreeItem
