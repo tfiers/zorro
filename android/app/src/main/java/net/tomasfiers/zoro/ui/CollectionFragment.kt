@@ -29,7 +29,7 @@ class CollectionFragment : Fragment() {
         viewModel.topLevelCollections.observe(viewLifecycleOwner, Observer {
             adapter.submitList(it)
         })
-        // Performance improvement (becauase changes in list content do not change layout size):
+        // Performance improvement (because changes in list content do not change layout size):
         binding.recyclerView.setHasFixedSize(true)
 
         return binding.root

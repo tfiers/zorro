@@ -13,10 +13,12 @@ import net.tomasfiers.zoro.zotero_api.zoteroAPIClient
 
 class CollectionViewModel : ViewModel() {
     val syncStatus = MutableLiveData<String?>()
-    val collections = MutableLiveData<List<Collection>>(listOf())
-    // Note: executed on main thread, i.e. don't do heavy work here.
+    private val collections = MutableLiveData<List<Collection>>(listOf())
+    // Note: Transformations are executed on main thread, i.e. don't do heavy work here.
+    private val sortedCollections =
+        Transformations.map(collections) { it.sortedBy { coll -> coll.name } }
     val topLevelCollections =
-        Transformations.map(collections) { it.filter { coll -> coll.parentId == null } }
+        Transformations.map(sortedCollections) { it.filter { coll -> coll.parentId == null } }
 
     private var job = Job()
     private val coroutineScope = CoroutineScope(job + Dispatchers.Main)
@@ -24,6 +26,7 @@ class CollectionViewModel : ViewModel() {
     init {
         getAllCollections()
     }
+
 
     private fun getAllCollections() {
         coroutineScope.launch {
