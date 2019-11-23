@@ -23,7 +23,7 @@ class CollectionFragment : Fragment() {
 
         val adapter = RecyclerViewAdapter()
         binding.recyclerView.adapter = adapter
-        viewModel.collections.observe(viewLifecycleOwner, Observer {
+        viewModel.topLevelCollections.observe(viewLifecycleOwner, Observer {
             adapter.submitList(it)
         })
         // Performance improvement (becauase changes in list content do not change layout size):

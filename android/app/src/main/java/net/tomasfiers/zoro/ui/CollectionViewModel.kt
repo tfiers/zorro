@@ -1,18 +1,22 @@
 package net.tomasfiers.zoro.ui
 
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import net.tomasfiers.zoro.data.TreeItem
+import net.tomasfiers.zoro.data.Collection
 import net.tomasfiers.zoro.zotero_api.MAX_ITEMS_PER_RESPONSE
 import net.tomasfiers.zoro.zotero_api.zoteroAPIClient
 
 class CollectionViewModel : ViewModel() {
-    val collections = MutableLiveData<List<TreeItem>>(listOf())
     val syncStatus = MutableLiveData<String?>()
+    val collections = MutableLiveData<List<Collection>>(listOf())
+    // Note: executed on main thread, i.e. don't do heavy work here.
+    val topLevelCollections =
+        Transformations.map(collections) { it.filter { coll -> coll.parentId == null } }
 
     private var job = Job()
     private val coroutineScope = CoroutineScope(job + Dispatchers.Main)
@@ -29,7 +33,7 @@ class CollectionViewModel : ViewModel() {
                 var totalResults: Long
                 do {
                     val response = zoteroAPIClient.getSomeCollections(startIndex)
-                    totalResults = response.headers()["Total-Results"]!!.toLong()
+                    totalResults = response.headers()["Total-Results"]?.toLong() ?: 0
                     val jsonCollections = response.body()!!
                     // We need to use assignment to update collections (and not append to a
                     // MutableList), because only assignment (setValue) notifies observers.
