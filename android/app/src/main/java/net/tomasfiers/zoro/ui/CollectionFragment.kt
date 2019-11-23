@@ -21,7 +21,6 @@ class CollectionFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.vm = viewModel
 
-
         val adapter = RecyclerViewAdapter()
         binding.recyclerView.adapter = adapter
         viewModel.collections.observe(viewLifecycleOwner, Observer {

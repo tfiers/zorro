@@ -10,7 +10,7 @@ import net.tomasfiers.zoro.data.ListItem
 import net.tomasfiers.zoro.zotero_api.zoteroAPIClient
 
 class CollectionViewModel : ViewModel() {
-    val collections = MutableLiveData<List<ListItem>>()
+    val collections = MutableLiveData<List<ListItem>>(listOf())
     val syncStatus = MutableLiveData<String?>()
 
     private var job = Job()
@@ -20,8 +20,17 @@ class CollectionViewModel : ViewModel() {
         coroutineScope.launch {
             syncStatus.value = "Loading collections.."
             try {
-                val jsonCollections = zoteroAPIClient.getSomeCollections().await()
-                collections.value = jsonCollections.map { it.asDomainModel() }
+                val numPerRequest = 3
+                for (i in 0 until 15 step numPerRequest) {
+                    val jsonCollections = zoteroAPIClient.getSomeCollectionsAsync(
+                        amount = numPerRequest,
+                        startIndex = i
+                    ).await()
+                    // We need to use assignment and not append to a MutableList, because only
+                    // assignment (setValue) notifies observers.
+                    collections.value =
+                        collections.value?.plus(jsonCollections.map { it.asDomainModel() })
+                }
                 syncStatus.value = " "
             } catch (e: Exception) {
                 syncStatus.value = "Failure: ${e.message}"

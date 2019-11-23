@@ -20,9 +20,9 @@ interface ZoteroAPIClient {
         "Zotero-API-Key: $ZOTERO_API_KEY"
     )
     @GET("collections")
-    fun getSomeCollections(
-        @Query("start") startIndex: Int = 100,
-        @Query("limit") numItems: Int = 100
+    fun getSomeCollectionsAsync(
+        @Query("limit") amount: Int = 100,
+        @Query("start") startIndex: Int = 100
     ):
             Deferred<List<CollectionJSON>>
 }
