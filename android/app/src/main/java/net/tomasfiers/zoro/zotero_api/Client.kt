@@ -20,11 +20,11 @@ interface ZoteroAPIClient {
         "Zotero-API-Key: $ZOTERO_API_KEY"
     )
     @GET("collections")
-    fun getSomeCollectionsAsync(
+    suspend fun getSomeCollections(
         @Query("limit") amount: Int = 100,
         @Query("start") startIndex: Int = 100
     ):
-            Deferred<List<CollectionJSON>>
+            List<CollectionJSON>
 }
 
 // "lazy" computes value only on first access (client creation is expensive).

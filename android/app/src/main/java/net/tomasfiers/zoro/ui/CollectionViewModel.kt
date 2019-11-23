@@ -21,15 +21,12 @@ class CollectionViewModel : ViewModel() {
             syncStatus.value = "Loading collections.."
             try {
                 val numPerRequest = 3
-                for (i in 0 until 15 step numPerRequest) {
-                    val jsonCollections = zoteroAPIClient.getSomeCollectionsAsync(
-                        amount = numPerRequest,
-                        startIndex = i
-                    ).await()
-                    // We need to use assignment and not append to a MutableList, because only
+                for (startIndex in 0 until 15 step numPerRequest) {
+                    val jsonCollections = zoteroAPIClient.getSomeCollections(numPerRequest, startIndex)
+                    // We need to use assignment (and not append to a MutableList), because only
                     // assignment (setValue) notifies observers.
                     collections.value =
-                        collections.value?.plus(jsonCollections.map { it.asDomainModel() })
+                        collections.value!! + jsonCollections.map { it.asDomainModel() }
                 }
                 syncStatus.value = " "
             } catch (e: Exception) {
