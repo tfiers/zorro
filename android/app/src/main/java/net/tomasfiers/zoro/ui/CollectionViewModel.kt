@@ -7,6 +7,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import net.tomasfiers.zoro.data.ListItem
+import net.tomasfiers.zoro.zotero_api.MAX_ITEMS_PER_RESPONSE
 import net.tomasfiers.zoro.zotero_api.zoteroAPIClient
 
 class CollectionViewModel : ViewModel() {
@@ -17,17 +18,25 @@ class CollectionViewModel : ViewModel() {
     private val coroutineScope = CoroutineScope(job + Dispatchers.Main)
 
     init {
+        getAllCollections()
+    }
+
+    private fun getAllCollections() {
         coroutineScope.launch {
             syncStatus.value = "Loading collections.."
             try {
-                val numPerRequest = 3
-                for (startIndex in 0 until 15 step numPerRequest) {
-                    val jsonCollections = zoteroAPIClient.getSomeCollections(numPerRequest, startIndex)
-                    // We need to use assignment (and not append to a MutableList), because only
-                    // assignment (setValue) notifies observers.
+                var startIndex = 0
+                var totalResults: Long
+                do {
+                    val response = zoteroAPIClient.getSomeCollections(startIndex)
+                    totalResults = response.headers()["Total-Results"]!!.toLong()
+                    val jsonCollections = response.body()!!
+                    // We need to use assignment to update collections (and not append to a
+                    // MutableList), because only assignment (setValue) notifies observers.
                     collections.value =
                         collections.value!! + jsonCollections.map { it.asDomainModel() }
-                }
+                    startIndex += MAX_ITEMS_PER_RESPONSE
+                } while (startIndex < totalResults)
                 syncStatus.value = " "
             } catch (e: Exception) {
                 syncStatus.value = "Failure: ${e.message}"
