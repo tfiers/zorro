@@ -9,6 +9,15 @@
         android:id="@+id/collection"
         android:name="net.tomasfiers.zoro.ui.CollectionFragment"
         android:label="Collection"
-        tools:layout="@layout/collection_fragment"
-        />
+        tools:layout="@layout/collection_fragment">
+        <action
+            android:id="@+id/action_collection_self"
+            app:destination="@id/collection"
+            app:enterAnim="@anim/slide_in_right" />
+        <argument
+            android:name="collectionId"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
 </navigation>

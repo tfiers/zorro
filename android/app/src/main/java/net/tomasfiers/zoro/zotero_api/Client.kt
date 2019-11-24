@@ -1,6 +1,5 @@
 package net.tomasfiers.zoro.zotero_api
 
-import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
@@ -10,7 +9,6 @@ import retrofit2.http.Query
 
 private val httpClientBuilder = Retrofit.Builder()
     .addConverterFactory(MoshiConverterFactory.create(jsonParserBuilder))
-    .addCallAdapterFactory(CoroutineCallAdapterFactory())
     .baseUrl("https://api.zotero.org/users/4670453/")
     .build()
 

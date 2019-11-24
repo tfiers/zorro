@@ -35,8 +35,8 @@ class TreeItemViewHolder private constructor(private val binding: TreeItemBindin
     }
 }
 
-// This verbose wrapper class is necessary because `tree_item.xml > data > variable` only accepts
-// a class, not a function type.
+// This verbose wrapper class is necessary because `tree_item.xml > data > variable` only accepts a
+// class, not a function type. It also can't reference a function property 👎
 class TreeItemClickListener(val clickListener: (treeItem: TreeItem) -> Unit) {
     fun onClick(treeItem: TreeItem) = clickListener(treeItem)
 }

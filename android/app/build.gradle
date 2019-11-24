@@ -2,6 +2,7 @@ apply plugin: "com.android.application"
 apply plugin: "kotlin-android"
 apply plugin: "kotlin-android-extensions"
 apply plugin: "kotlin-kapt"
+apply plugin: "androidx.navigation.safeargs.kotlin"
 
 android {
     compileSdkVersion 29
@@ -46,6 +47,10 @@ dependencies {
     implementation "androidx.recyclerview:recyclerview:1.0.0"
     implementation "com.google.android.material:material:1.2.0-alpha02"
 
+    // Navigation
+    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+
     // Testing
     implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.1.0'
@@ -64,7 +69,7 @@ dependencies {
     // Logging
     implementation "com.jakewharton.timber:timber:4.7.1"
 
-    // To use "by viewModels()" for ViewModel factories.
+    // Provides "by viewModels()" for succinct ViewModel lookup.
     implementation "androidx.fragment:fragment-ktx:1.2.0-rc02"
 
     // JSON parsing
@@ -75,5 +80,4 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:2.6.2"
     implementation "com.squareup.retrofit2:converter-scalars:2.6.2"
     implementation "com.squareup.retrofit2:converter-moshi:2.6.2"
-    implementation "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2"
 }

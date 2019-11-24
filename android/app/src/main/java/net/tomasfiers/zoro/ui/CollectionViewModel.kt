@@ -3,6 +3,7 @@ package net.tomasfiers.zoro.ui
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -10,23 +11,33 @@ import kotlinx.coroutines.launch
 import net.tomasfiers.zoro.data.Collection
 import net.tomasfiers.zoro.zotero_api.MAX_ITEMS_PER_RESPONSE
 import net.tomasfiers.zoro.zotero_api.zoteroAPIClient
+import timber.log.Timber
 
-class CollectionViewModel : ViewModel() {
+class CollectionViewModelFactory(private val collectionId: String?) : ViewModelProvider.Factory {
+    @Suppress("UNCHECKED_CAST")
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T =
+        CollectionViewModel(collectionId) as T
+}
+
+class CollectionViewModel(private val collectionId: String?) : ViewModel() {
     val syncStatus = MutableLiveData<String?>()
-    private val collections = MutableLiveData<List<Collection>>(listOf())
+
+    private val allCollections = MutableLiveData<List<Collection>>(listOf())
     // Note: Transformations are executed on main thread, i.e. don't do heavy work here.
-    private val sortedCollections =
-        Transformations.map(collections) { it.sortedBy { coll -> coll.name } }
-    val topLevelCollections =
-        Transformations.map(sortedCollections) { it.filter { coll -> coll.parentId == null } }
+    val displayedCollections =
+        Transformations.map(allCollections) { collections ->
+            collections
+                .filter { it.parentId == collectionId }
+                .sortedBy { it.name }
+        }
 
     private var job = Job()
     private val coroutineScope = CoroutineScope(job + Dispatchers.Main)
 
     init {
+        Timber.i("CollectionId: $collectionId")
         getAllCollections()
     }
-
 
     private fun getAllCollections() {
         coroutineScope.launch {
@@ -40,8 +51,8 @@ class CollectionViewModel : ViewModel() {
                     val jsonCollections = response.body()!!
                     // We need to use assignment to update collections (and not append to a
                     // MutableList), because only assignment (setValue) notifies observers.
-                    collections.value =
-                        collections.value!! + jsonCollections.map { it.asDomainModel() }
+                    allCollections.value =
+                        allCollections.value!! + jsonCollections.map { it.asDomainModel() }
                     startIndex += MAX_ITEMS_PER_RESPONSE
                 } while (startIndex < totalResults)
                 syncStatus.value = " "
