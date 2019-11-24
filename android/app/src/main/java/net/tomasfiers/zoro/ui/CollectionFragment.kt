@@ -10,13 +10,14 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import net.tomasfiers.zoro.databinding.CollectionFragmentBinding
-import timber.log.Timber
+import net.tomasfiers.zoro.viewmodels.CollectionViewModel
+import net.tomasfiers.zoro.viewmodels.CollectionViewModelFactory
 
 class CollectionFragment : Fragment() {
 
-    private val args: CollectionFragmentArgs by navArgs()
+    private val navigationArgs: CollectionFragmentArgs by navArgs()
     private val viewModel: CollectionViewModel by viewModels {
-        CollectionViewModelFactory(args.collectionId)
+        CollectionViewModelFactory(navigationArgs.collectionId)
     }
 
     override fun onCreateView(
@@ -34,7 +35,6 @@ class CollectionFragment : Fragment() {
         })
         binding.recyclerView.adapter = adapter
         viewModel.displayedCollections.observe(viewLifecycleOwner, Observer {
-            Timber.i(it.toString())
             adapter.submitList(it)
         })
         // Performance improvement (because changes in list content do not change layout size):

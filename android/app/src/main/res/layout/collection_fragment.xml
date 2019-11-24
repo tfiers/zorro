@@ -8,7 +8,7 @@
 
         <variable
             name="vm"
-            type="net.tomasfiers.zoro.ui.CollectionViewModel" />
+            type="net.tomasfiers.zoro.viewmodels.CollectionViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -16,7 +16,7 @@
         android:layout_height="match_parent">
 
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
+            android:id="@+id/topbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?attr/colorPrimary"
@@ -35,7 +35,7 @@
             android:layout_height="0dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar"
+            app:layout_constraintTop_toBottomOf="@+id/topbar"
             tools:layout_editor_absoluteX="-156dp"
             tools:listitem="@layout/tree_item" />
     </androidx.constraintlayout.widget.ConstraintLayout>

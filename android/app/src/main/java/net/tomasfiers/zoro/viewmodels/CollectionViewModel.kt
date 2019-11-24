@@ -1,4 +1,4 @@
-package net.tomasfiers.zoro.ui
+package net.tomasfiers.zoro.viewmodels
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
@@ -11,7 +11,6 @@ import kotlinx.coroutines.launch
 import net.tomasfiers.zoro.data.Collection
 import net.tomasfiers.zoro.zotero_api.MAX_ITEMS_PER_RESPONSE
 import net.tomasfiers.zoro.zotero_api.zoteroAPIClient
-import timber.log.Timber
 
 class CollectionViewModelFactory(private val collectionId: String?) : ViewModelProvider.Factory {
     @Suppress("UNCHECKED_CAST")
@@ -35,7 +34,6 @@ class CollectionViewModel(private val collectionId: String?) : ViewModel() {
     private val coroutineScope = CoroutineScope(job + Dispatchers.Main)
 
     init {
-        Timber.i("CollectionId: $collectionId")
         getAllCollections()
     }
 
