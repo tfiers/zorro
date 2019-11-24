@@ -7,12 +7,15 @@ import net.tomasfiers.zoro.zotero_api.MAX_ITEMS_PER_RESPONSE
 import net.tomasfiers.zoro.zotero_api.zoteroAPIClient
 
 class Repository(private val coroutineScope: LifecycleCoroutineScope) {
+
     val syncStatus = MutableLiveData<String?>()
     val collections = MutableLiveData<List<Collection>>(listOf())
 
     init {
         getAllCollections()
     }
+
+    fun getCollection(collectionId: String?) = collections.value?.single { it.id == collectionId }
 
     private fun getAllCollections() {
         coroutineScope.launch {

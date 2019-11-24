@@ -26,7 +26,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:subtitle="@{vm.syncStatus}"
             app:subtitleTextColor="@color/primaryTextColor"
-            app:title="@string/app_name"
+            app:title="@{vm.collectionName}"
             app:titleTextColor="@color/primaryTextColor" />
 
         <androidx.recyclerview.widget.RecyclerView

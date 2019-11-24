@@ -16,7 +16,7 @@ class CollectionViewModelFactory(
 
 class CollectionViewModel(
     private val collectionId: String?,
-    repository: Repository
+    private val repository: Repository
 ) : ViewModel() {
 
     val syncStatus = repository.syncStatus
@@ -27,4 +27,8 @@ class CollectionViewModel(
                 .filter { it.parentId == collectionId }
                 .sortedBy { it.name }
         }
+    val collectionName = when (collectionId) {
+        null -> "My Library"
+        else -> repository.getCollection(collectionId)?.name
+    }
 }
