@@ -3,9 +3,13 @@ package net.tomasfiers.zoro
 import android.os.Bundle
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
+import net.tomasfiers.zoro.data.Repository
 
 
 class MainActivity : AppCompatActivity() {
+
+    val repository = Repository(lifecycleScope)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
