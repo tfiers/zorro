@@ -43,11 +43,10 @@ class CollectionFragment : Fragment() {
         })
         // Performance improvement (because changes in list content do not change layout size):
         binding.recyclerView.setHasFixedSize(true)
-        binding.pullToRefresh.setOnRefreshListener {
-            viewModel.onPulledToRefresh()
-            binding.pullToRefresh.isRefreshing = false
-            // We'll use our own indicator.
-        }
+        binding.pullToRefresh.setOnRefreshListener { viewModel.onPulledToRefresh() }
+        viewModel.isSynching.observe(viewLifecycleOwner, Observer {
+            binding.pullToRefresh.isRefreshing = it
+        })
         return binding.root
     }
 }

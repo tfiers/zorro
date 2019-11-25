@@ -24,8 +24,6 @@
             android:minHeight="?attr/actionBarSize"
             android:theme="?attr/actionBarTheme"
             app:layout_constraintTop_toTopOf="parent"
-            app:subtitle='@{vm.isSynching ? "Loading collections.." : " "}'
-            app:subtitleTextColor="@color/primaryTextColor"
             app:title="@{vm.collectionName}"
             app:titleTextColor="@color/primaryTextColor" />
 
