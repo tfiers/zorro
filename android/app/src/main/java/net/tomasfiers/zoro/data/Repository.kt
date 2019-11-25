@@ -30,7 +30,7 @@ class Repository() {
                 startIndex += MAX_ITEMS_PER_RESPONSE
             } while (startIndex < totalResults)
         } catch (e: Exception) {
-            synchingError.value = "Synching error: ${e.message}"
+            synchingError.value = "Synching error (${e.message})"
         }
         isSynching.value = false
     }
