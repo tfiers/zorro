@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import net.tomasfiers.zoro.zotero_api.MAX_ITEMS_PER_RESPONSE
 import net.tomasfiers.zoro.zotero_api.zoteroAPIClient
 
-class Repository() {
+class Repository {
 
     val isSynching = MutableLiveData<Boolean>(false)
     val synchingError = MutableLiveData<String?>()
@@ -35,3 +35,6 @@ class Repository() {
         isSynching.value = false
     }
 }
+
+// Singleton by convention.
+val repository by lazy { Repository() }

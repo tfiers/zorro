@@ -9,7 +9,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import net.tomasfiers.zoro.MainActivity
 import net.tomasfiers.zoro.databinding.CollectionFragmentBinding
 import net.tomasfiers.zoro.viewmodels.CollectionViewModel
 import net.tomasfiers.zoro.viewmodels.CollectionViewModelFactory
@@ -18,10 +17,7 @@ class CollectionFragment : Fragment() {
 
     private val navigationArgs: CollectionFragmentArgs by navArgs()
     private val viewModel: CollectionViewModel by viewModels {
-        CollectionViewModelFactory(
-            navigationArgs.collectionId,
-            (activity as MainActivity).repository
-        )
+        CollectionViewModelFactory(navigationArgs.collectionId)
     }
 
     override fun onCreateView(

@@ -8,13 +8,11 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
-import net.tomasfiers.zoro.data.Repository
+import net.tomasfiers.zoro.data.repository
 import net.tomasfiers.zoro.databinding.MainActivityBinding
 
 
 class MainActivity : AppCompatActivity() {
-
-    val repository = Repository()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -5,24 +5,22 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import net.tomasfiers.zoro.data.Repository
+import net.tomasfiers.zoro.data.repository
 import java.text.Collator
 
 class CollectionViewModelFactory(
-    private val collectionId: String?,
-    private val repository: Repository
+    private val collectionId: String?
 ) : ViewModelProvider.Factory {
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T =
-        CollectionViewModel(collectionId, repository) as T
+        CollectionViewModel(collectionId) as T
 }
 
 // Makes sure "_PhD" comes before "Academia". `getInstance` depends on current default locale.
 private fun compareStrings(x: String, y: String) = Collator.getInstance().compare(x, y)
 
 class CollectionViewModel(
-    private val collectionId: String?,
-    private val repository: Repository
+    private val collectionId: String?
 ) : ViewModel() {
 
     val isSynching = repository.isSynching
