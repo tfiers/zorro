@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import net.tomasfiers.zoro.ZoroApplication
 import net.tomasfiers.zoro.databinding.CollectionFragmentBinding
 import net.tomasfiers.zoro.viewmodels.CollectionViewModel
 import net.tomasfiers.zoro.viewmodels.CollectionViewModelFactory
@@ -17,7 +18,10 @@ class CollectionFragment : Fragment() {
 
     private val navigationArgs: CollectionFragmentArgs by navArgs()
     private val viewModel: CollectionViewModel by viewModels {
-        CollectionViewModelFactory(navigationArgs.collectionId)
+        CollectionViewModelFactory(
+            navigationArgs.collectionId,
+            (activity?.application as ZoroApplication).repository
+        )
     }
 
     override fun onCreateView(
@@ -33,14 +37,14 @@ class CollectionFragment : Fragment() {
             )
         })
         binding.recyclerView.adapter = adapter
-        viewModel.collections.observe(viewLifecycleOwner, Observer {
+        viewModel.sortedCollections.observe(viewLifecycleOwner, Observer {
             adapter.submitList(it)
             binding.recyclerView.smoothScrollToPosition(0)
         })
         // Performance improvement (because changes in list content do not change layout size):
         binding.recyclerView.setHasFixedSize(true)
-        binding.pullToRefresh.setOnRefreshListener { viewModel.onPulledToRefresh() }
-        viewModel.isSynching.observe(viewLifecycleOwner, Observer {
+        binding.pullToRefresh.setOnRefreshListener { viewModel.syncCollections() }
+        viewModel.isSyncing.observe(viewLifecycleOwner, Observer {
             binding.pullToRefresh.isRefreshing = it
         })
         return binding.root

@@ -46,17 +46,28 @@ dependencies {
     kapt "com.android.databinding:compiler:$android_plugin_version"
 
     // UI
+    implementation "com.google.android.material:material:1.2.0-alpha02"
     implementation "androidx.constraintlayout:constraintlayout:1.1.3"
     implementation "androidx.recyclerview:recyclerview:1.0.0"
-    implementation "com.google.android.material:material:1.2.0-alpha02"
 
     // Navigation
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
 
-    // Testing
+    // Lifecycle-aware components
     implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.1.0'
+
+    // Provides "by viewModels()" for succinct ViewModel lookup.
+    implementation "androidx.fragment:fragment-ktx:1.2.0-rc02"
+
+    // Room database
+    implementation "androidx.room:room-runtime:2.2.2"
+    implementation "androidx.room:room-ktx:2.2.2"
+    kapt "androidx.room:room-compiler:2.2.2"
+    androidTestImplementation "androidx.room:room-testing:2.2.2"
+
+    // Testing
     testImplementation "junit:junit:4.12"
     androidTestImplementation "androidx.test.ext:junit:1.1.1"
     androidTestImplementation "androidx.test.espresso:espresso-core:3.2.0"
@@ -65,15 +76,8 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.0"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.0"
 
-    // Nav
-    implementation "androidx.navigation:navigation-fragment-ktx:2.1.0"
-    implementation "androidx.navigation:navigation-ui-ktx:2.1.0"
-
     // Logging
     implementation "com.jakewharton.timber:timber:4.7.1"
-
-    // Provides "by viewModels()" for succinct ViewModel lookup.
-    implementation "androidx.fragment:fragment-ktx:1.2.0-rc02"
 
     // JSON parsing
     implementation "com.squareup.moshi:moshi:1.9.2"
