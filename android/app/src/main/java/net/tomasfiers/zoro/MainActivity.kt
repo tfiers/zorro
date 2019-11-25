@@ -2,6 +2,7 @@ package net.tomasfiers.zoro
 
 import android.os.Bundle
 import android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -23,15 +24,22 @@ class MainActivity : AppCompatActivity() {
         // Keep screen on for development ease.
         window.addFlags(FLAG_KEEP_SCREEN_ON)
         val snackbar = Snackbar.make(binding.coordinatorLayout, "", Snackbar.LENGTH_INDEFINITE)
-        snackbar.setAction("Dismiss") { /* Clicking on action auto-dismisses. */ }
+
         repository.synchingError.observe(this, Observer { error ->
             when (error) {
                 null -> snackbar.dismiss()
-                else -> snackbar.setText(error).show()
+                else -> {
+                    snackbar.setAction("Show") { showDialog(error) }
+                    snackbar.setText(error).show()
+                }
             }
         })
         lifecycleScope.launch {
             repository.getAllCollections()
         }
+    }
+
+    private fun showDialog(message: String) {
+        AlertDialog.Builder(this).setMessage(message).create().show()
     }
 }
