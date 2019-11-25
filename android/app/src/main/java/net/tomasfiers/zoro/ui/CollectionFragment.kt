@@ -31,7 +31,6 @@ class CollectionFragment : Fragment() {
         val binding = CollectionFragmentBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
         binding.vm = viewModel
-
         val adapter = RecyclerViewAdapter(TreeItemClickListener { treeItem ->
             findNavController().navigate(
                 CollectionFragmentDirections.actionCollectionSelf(treeItem.id)
@@ -44,7 +43,11 @@ class CollectionFragment : Fragment() {
         })
         // Performance improvement (because changes in list content do not change layout size):
         binding.recyclerView.setHasFixedSize(true)
-
+        binding.pullToRefresh.setOnRefreshListener {
+            viewModel.onPulledToRefresh()
+            binding.pullToRefresh.isRefreshing = false
+            // We'll use our own indicator.
+        }
         return binding.root
     }
 }
