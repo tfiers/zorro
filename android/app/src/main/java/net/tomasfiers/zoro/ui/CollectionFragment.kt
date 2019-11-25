@@ -40,6 +40,7 @@ class CollectionFragment : Fragment() {
         binding.recyclerView.adapter = adapter
         viewModel.collections.observe(viewLifecycleOwner, Observer {
             adapter.submitList(it)
+            binding.recyclerView.smoothScrollToPosition(0)
         })
         // Performance improvement (because changes in list content do not change layout size):
         binding.recyclerView.setHasFixedSize(true)
