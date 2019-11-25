@@ -7,12 +7,14 @@ import net.tomasfiers.zoro.zotero_api.zoteroAPIClient
 class Repository() {
 
     val isSynching = MutableLiveData<Boolean>(false)
+    val synchingError = MutableLiveData<String?>()
     val collections = MutableLiveData<List<Collection>>()
 
     fun getCollection(collectionId: String?) = collections.value?.single { it.id == collectionId }
 
     suspend fun getAllCollections() {
         isSynching.value = true
+        synchingError.value = null
         collections.value = listOf()
         try {
             var startIndex = 0
@@ -28,8 +30,7 @@ class Repository() {
                 startIndex += MAX_ITEMS_PER_RESPONSE
             } while (startIndex < totalResults)
         } catch (e: Exception) {
-            //isSynching.value = "Failure: ${e.message}"
-            throw e
+            synchingError.value = "Synching error: ${e.message}"
         }
         isSynching.value = false
     }
