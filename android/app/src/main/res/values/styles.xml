@@ -8,4 +8,8 @@
         <item name="colorOnPrimary">@color/primaryTextColor</item>
     </style>
 
+    <style name="TextAppearance.SyncStatus" parent="TextAppearance.MaterialComponents.Subtitle1">
+        <item name="android:textSize">12sp</item>
+    </style>
+
 </resources>

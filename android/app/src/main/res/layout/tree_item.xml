@@ -33,7 +33,6 @@
             android:background="?android:attr/selectableItemBackground"
             android:onClick="@{() -> clickListener.onClick(item)}">
 
-            <!-- Or wrap content -->
             <ImageView
                 android:id="@+id/imageView"
                 android:layout_width="28dp"
@@ -47,6 +46,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/collection" />
+            <!-- Or layout_width/height="wrap_content" -->
 
             <TextView
                 android:id="@+id/collection_name"
