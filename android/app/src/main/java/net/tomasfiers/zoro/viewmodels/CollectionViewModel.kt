@@ -84,7 +84,7 @@ class CollectionViewModel(
         val lastSyncTime = application.repository.lastSyncTime
         syncStatus.value = when (lastSyncTime) {
             null -> ""
-            else -> "Last synced " + getRelativeDateTimeString(
+            else -> "Last sync: " + getRelativeDateTimeString(
                 application.applicationContext,
                 lastSyncTime.toEpochMilli(),
                 MINUTE_IN_MILLIS,
