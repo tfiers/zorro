@@ -32,10 +32,10 @@ class Repository(private val database: ZoroDatabase) {
                 }
                 startIndex += MAX_ITEMS_PER_RESPONSE
             } while (startIndex < totalResults)
+            lastSyncTime = Instant.now()
         } catch (e: Exception) {
             syncError.value = "Synching error (${e.message})"
         }
-        lastSyncTime = Instant.now()
         isSyncing.value = false
     }
 }
