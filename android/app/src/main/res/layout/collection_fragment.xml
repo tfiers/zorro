@@ -24,7 +24,7 @@
             android:minHeight="?attr/actionBarSize"
             android:theme="?attr/actionBarTheme"
             app:layout_constraintTop_toTopOf="parent"
-            app:subtitle='@{vm.isSyncing ? "Syncing with Zotero API.." : "Last sync: " + vm.lastSyncText}'
+            app:subtitle="@{vm.syncStatus}"
             app:subtitleTextAppearance="@style/TextAppearance.SyncStatus"
             app:subtitleTextColor="@color/mutedTextColor"
             app:title="@{vm.collectionName}"

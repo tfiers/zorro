@@ -12,11 +12,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import net.tomasfiers.zoro.ZoroApplication
-import org.threeten.bp.Duration
-import org.threeten.bp.Instant
 import java.text.Collator
 import java.util.Timer
-import kotlin.Comparator
 import kotlin.concurrent.timerTask
 
 class CollectionViewModelFactory(
@@ -38,7 +35,6 @@ class CollectionViewModel(
 ) : AndroidViewModel(application) {
 
     val collectionName = MutableLiveData<String>()
-    val isSyncing = application.repository.isSyncing
     // Note: Transformations are executed on main thread, so don't do heavy work here.
     val sortedCollections = Transformations.map(
         application.repository.getChildrenCollections(parentCollectionId = collectionId)
@@ -49,9 +45,10 @@ class CollectionViewModel(
                 compareStrings(collection1.name!!, collection2.name!!)
             })
     }
-    val lastSyncText = MutableLiveData<String>()
-    private val isSyncingObserver = Observer<Boolean> { startUpdatingLastSyncText() }
-    private var lastSyncTextUpdateTimer = Timer()
+    val syncStatus = MutableLiveData<String>()
+    val isSyncing = application.repository.isSyncing
+    private val isSyncingObserver = Observer<Boolean> { updateSyncStatus() }
+    private var syncStatuspdateTimer = Timer()
 
     init {
         syncCollections()
@@ -70,42 +67,38 @@ class CollectionViewModel(
             }
         }
 
-    private fun startUpdatingLastSyncText() {
+    private fun updateSyncStatus() {
         if (isSyncing.value == true) {
-            lastSyncTextUpdateTimer.cancel()
+            syncStatus.value = "Syncing with Zotero API.."
+            syncStatuspdateTimer.cancel()
         } else {
-            lastSyncTextUpdateTimer = Timer()
-            lastSyncTextUpdateTimer.schedule(
-                timerTask { viewModelScope.launch { updateLastSyncText() } },
+            syncStatuspdateTimer = Timer()
+            syncStatuspdateTimer.schedule(
+                timerTask { viewModelScope.launch { updateSyncStatusLastSync() } },
                 0,
                 MINUTE_IN_MILLIS
             )
         }
     }
 
-    private fun updateLastSyncText() {
+    private fun updateSyncStatusLastSync() {
         val lastSyncTime = application.repository.lastSyncTime
-        lastSyncText.value = when (lastSyncTime) {
+        syncStatus.value = when (lastSyncTime) {
             null -> ""
-            else -> {
-                if (Duration.between(lastSyncTime, Instant.now()).toMinutes() < 1) {
-                    "just now"
-                } else {
-                    getRelativeDateTimeString(
-                        application.applicationContext,
-                        lastSyncTime.toEpochMilli(),
-                        MINUTE_IN_MILLIS,
-                        WEEK_IN_MILLIS,
-                        0
-                    ).toString()
-                }
-            }
+            else -> "Last sync: " + getRelativeDateTimeString(
+                application.applicationContext,
+                lastSyncTime.toEpochMilli(),
+                MINUTE_IN_MILLIS,
+                WEEK_IN_MILLIS,
+                0
+            ).toString()
+                .replace("0 minutes ago", "just now")
         }
     }
 
     override fun onCleared() {
         super.onCleared()
         isSyncing.removeObserver(isSyncingObserver)
-        lastSyncTextUpdateTimer.cancel()
+        syncStatuspdateTimer.cancel()
     }
 }
