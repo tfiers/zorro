@@ -1,14 +1,21 @@
 package net.tomasfiers.zoro.viewmodels
 
-import android.text.format.DateUtils.*
-import androidx.lifecycle.*
+import android.text.format.DateUtils.MINUTE_IN_MILLIS
+import android.text.format.DateUtils.WEEK_IN_MILLIS
+import android.text.format.DateUtils.getRelativeDateTimeString
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import androidx.lifecycle.Transformations
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import net.tomasfiers.zoro.ZoroApplication
 import org.threeten.bp.Duration
 import org.threeten.bp.Instant
 import java.text.Collator
-import java.util.*
+import java.util.Timer
 import kotlin.Comparator
 import kotlin.concurrent.timerTask
 
