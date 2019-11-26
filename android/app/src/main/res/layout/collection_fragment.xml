@@ -24,6 +24,8 @@
             android:minHeight="?attr/actionBarSize"
             android:theme="?attr/actionBarTheme"
             app:layout_constraintTop_toTopOf="parent"
+            app:subtitle="Last sync: just now"
+            app:subtitleTextColor="@color/mutedTextColor"
             app:title="@{vm.collectionName}"
             app:titleTextColor="@color/primaryTextColor" />
 

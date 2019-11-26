@@ -58,7 +58,7 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.1.0'
 
-    // Provides "by viewModels()" for succinct ViewModel lookup.
+    // Provides the delegated property "by viewModels()" for succinct ViewModel lookup.
     implementation "androidx.fragment:fragment-ktx:1.2.0-rc02"
 
     // Room database
