@@ -51,7 +51,6 @@ class CollectionViewModel(
     private var syncStatuspdateTimer = Timer()
 
     init {
-        syncCollections()
         setCollectionName()
         isSyncing.observeForever(isSyncingObserver)
     }

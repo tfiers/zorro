@@ -5,7 +5,9 @@ import android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.launch
 import net.tomasfiers.zoro.databinding.MainActivityBinding
 
 class MainActivity : AppCompatActivity() {
@@ -16,8 +18,10 @@ class MainActivity : AppCompatActivity() {
             DataBindingUtil.setContentView(this, R.layout.main_activity)
         // Keep screen on for development ease.
         window.addFlags(FLAG_KEEP_SCREEN_ON)
+
         var snackbar: Snackbar? = null
-        (application as ZoroApplication).repository.syncError.observe(this, Observer { error ->
+        val repository = (application as ZoroApplication).repository
+        repository.syncError.observe(this, Observer { error ->
             when (error) {
                 null -> snackbar?.dismiss()
                 else -> {
@@ -31,5 +35,6 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         })
+        lifecycleScope.launch { repository.syncCollections() }
     }
 }
