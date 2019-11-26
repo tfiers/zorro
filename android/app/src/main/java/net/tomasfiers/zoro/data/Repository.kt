@@ -3,12 +3,14 @@ package net.tomasfiers.zoro.data
 import androidx.lifecycle.MutableLiveData
 import net.tomasfiers.zoro.zotero_api.MAX_ITEMS_PER_RESPONSE
 import net.tomasfiers.zoro.zotero_api.zoteroAPIClient
+import org.threeten.bp.Instant
 
 
 class Repository(private val database: ZoroDatabase) {
 
     val isSyncing = MutableLiveData<Boolean>(false)
-    val syncError = MutableLiveData<String?>()
+    val syncError = MutableLiveData<String?>(null)
+    var lastSyncTime: Instant? = null
 
     fun getChildrenCollections(parentCollectionId: String?) =
         database.collectionDAO.getChildren(parentCollectionId)
@@ -33,6 +35,7 @@ class Repository(private val database: ZoroDatabase) {
         } catch (e: Exception) {
             syncError.value = "Synching error (${e.message})"
         }
+        lastSyncTime = Instant.now()
         isSyncing.value = false
     }
 }

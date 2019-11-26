@@ -37,9 +37,8 @@ android {
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation "androidx.appcompat:appcompat:1.1.0"
     implementation "androidx.core:core-ktx:1.1.0"
-    implementation "com.android.volley:volley:1.1.1"
+    implementation "androidx.appcompat:appcompat:1.1.0"
     implementation "androidx.legacy:legacy-support-v4:1.0.0"
 
     // From: https://stackoverflow.com/a/37044756/2611913
@@ -87,6 +86,9 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:2.6.2"
     implementation "com.squareup.retrofit2:converter-scalars:2.6.2"
     implementation "com.squareup.retrofit2:converter-moshi:2.6.2"
+
+    // Backport of new java.time.* classes (Instant e.g.)
+    implementation 'com.jakewharton.threetenabp:threetenabp:1.2.1'
 }
 
 kapt {

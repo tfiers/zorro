@@ -24,12 +24,13 @@
             android:minHeight="?attr/actionBarSize"
             android:theme="?attr/actionBarTheme"
             app:layout_constraintTop_toTopOf="parent"
-            app:subtitle="Last sync: just now"
-            app:subtitleTextColor="@color/mutedTextColor"
+            app:subtitle='@{vm.isSyncing ? "Syncing with Zotero API.." : "Last sync: " + vm.lastSyncText}'
             app:subtitleTextAppearance="@style/TextAppearance.SyncStatus"
+            app:subtitleTextColor="@color/mutedTextColor"
             app:title="@{vm.collectionName}"
-            tools:title="My Library"
-            app:titleTextColor="@color/primaryTextColor" />
+            app:titleTextColor="@color/primaryTextColor"
+            tools:subtitle="Last sync: just now"
+            tools:title="My Library" />
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/pull_to_refresh"

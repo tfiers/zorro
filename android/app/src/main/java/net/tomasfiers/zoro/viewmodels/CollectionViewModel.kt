@@ -1,17 +1,24 @@
 package net.tomasfiers.zoro.viewmodels
 
+import android.text.format.DateUtils.*
 import androidx.lifecycle.*
+import androidx.lifecycle.Observer
 import kotlinx.coroutines.launch
-import net.tomasfiers.zoro.data.Repository
+import net.tomasfiers.zoro.ZoroApplication
+import org.threeten.bp.Duration
+import org.threeten.bp.Instant
 import java.text.Collator
+import java.util.*
+import kotlin.Comparator
+import kotlin.concurrent.timerTask
 
 class CollectionViewModelFactory(
     private val collectionId: String?,
-    private val repository: Repository
+    private val application: ZoroApplication
 ) : ViewModelProvider.Factory {
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T =
-        CollectionViewModel(collectionId, repository) as T
+        CollectionViewModel(collectionId, application) as T
 }
 
 // Makes sure "_PhD" comes before "Academia". `getInstance` depends on current default locale.
@@ -20,14 +27,14 @@ private fun compareStrings(x: String, y: String) =
 
 class CollectionViewModel(
     private val collectionId: String?,
-    private val repository: Repository
-) : ViewModel() {
+    private val application: ZoroApplication
+) : AndroidViewModel(application) {
 
     val collectionName = MutableLiveData<String>()
-    val isSyncing = repository.isSyncing
+    val isSyncing = application.repository.isSyncing
     // Note: Transformations are executed on main thread, so don't do heavy work here.
     val sortedCollections = Transformations.map(
-        repository.getChildrenCollections(parentCollectionId = collectionId)
+        application.repository.getChildrenCollections(parentCollectionId = collectionId)
     ) {
         it
             .filter { collection -> collection.name != null }
@@ -35,20 +42,63 @@ class CollectionViewModel(
                 compareStrings(collection1.name!!, collection2.name!!)
             })
     }
+    val lastSyncText = MutableLiveData<String>()
+    private val isSyncingObserver = Observer<Boolean> { startUpdatingLastSyncText() }
+    private var lastSyncTextUpdateTimer = Timer()
 
     init {
         syncCollections()
         setCollectionName()
+        isSyncing.observeForever(isSyncingObserver)
     }
 
     fun syncCollections() =
-        viewModelScope.launch { repository.syncCollections() }
+        viewModelScope.launch { application.repository.syncCollections() }
 
     private fun setCollectionName() =
         viewModelScope.launch {
             collectionName.value = when (collectionId) {
                 null -> "My Library"
-                else -> repository.getCollection(collectionId).name
+                else -> application.repository.getCollection(collectionId).name
             }
         }
+
+    private fun startUpdatingLastSyncText() {
+        if (isSyncing.value == true) {
+            lastSyncTextUpdateTimer.cancel()
+        } else {
+            lastSyncTextUpdateTimer = Timer()
+            lastSyncTextUpdateTimer.schedule(
+                timerTask { viewModelScope.launch { updateLastSyncText() } },
+                0,
+                MINUTE_IN_MILLIS
+            )
+        }
+    }
+
+    private fun updateLastSyncText() {
+        val lastSyncTime = application.repository.lastSyncTime
+        lastSyncText.value = when (lastSyncTime) {
+            null -> ""
+            else -> {
+                if (Duration.between(lastSyncTime, Instant.now()).toMinutes() < 1) {
+                    "just now"
+                } else {
+                    getRelativeDateTimeString(
+                        application.applicationContext,
+                        lastSyncTime.toEpochMilli(),
+                        MINUTE_IN_MILLIS,
+                        WEEK_IN_MILLIS,
+                        0
+                    ).toString()
+                }
+            }
+        }
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        isSyncing.removeObserver(isSyncingObserver)
+        lastSyncTextUpdateTimer.cancel()
+    }
 }
