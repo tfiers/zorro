@@ -68,19 +68,19 @@ class CollectionViewModel(
 
     private fun updateSyncStatus() {
         if (isSyncing.value == true) {
-            syncStatus.value = "Syncing with Zotero API.."
             syncStatuspdateTimer.cancel()
+            syncStatus.value = "Syncing with Zotero API.."
         } else {
             syncStatuspdateTimer = Timer()
             syncStatuspdateTimer.schedule(
-                timerTask { viewModelScope.launch { updateSyncStatusLastSync() } },
+                timerTask { viewModelScope.launch { setLastSyncTime() } },
                 0,
                 MINUTE_IN_MILLIS
             )
         }
     }
 
-    private fun updateSyncStatusLastSync() {
+    private fun setLastSyncTime() {
         val lastSyncTime = application.repository.lastSyncTime
         syncStatus.value = when (lastSyncTime) {
             null -> ""
