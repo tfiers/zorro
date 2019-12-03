@@ -1,7 +1,5 @@
 package net.tomasfiers.zoro.zotero_api
 
-import com.squareup.moshi.Moshi
-import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import net.tomasfiers.zoro.data.Collection
 
 data class CollectionJSON(
@@ -24,7 +22,3 @@ data class CollectionJSON(
         }
     )
 }
-
-val jsonParserBuilder = Moshi.Builder()
-    .add(KotlinJsonAdapterFactory()) // This should come after custom adapters.
-    .build()!!
