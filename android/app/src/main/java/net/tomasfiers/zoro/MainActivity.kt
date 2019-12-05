@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
                     snackbar = Snackbar
                         .make(binding.coordinatorLayout, "", Snackbar.LENGTH_INDEFINITE)
                         .setAction("Dismiss") { /* Clicking on action auto-dismisses. */ }
-                        .setText(error)
+                        .setText("Synching error (${error})")
                     snackbar!!.show()
                 }
             }

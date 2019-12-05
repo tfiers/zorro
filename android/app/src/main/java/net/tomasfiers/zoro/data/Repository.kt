@@ -4,9 +4,12 @@ import androidx.lifecycle.MutableLiveData
 import net.tomasfiers.zoro.zotero_api.MAX_ITEMS_PER_RESPONSE
 import net.tomasfiers.zoro.zotero_api.zoteroAPIClient
 import org.threeten.bp.Instant
+import org.threeten.bp.Instant.now
 
-
-class Repository(private val database: ZoroDatabase) {
+class Repository(
+    private val database: ZoroDatabase,
+    private val keyValStore: KeyValStore
+) {
 
     val isSyncing = MutableLiveData<Boolean>(false)
     val syncError = MutableLiveData<String?>(null)
@@ -22,19 +25,23 @@ class Repository(private val database: ZoroDatabase) {
         isSyncing.value = true
         syncError.value = null
         try {
-            var startIndex = 0
-            var totalResults: Long
-            do {
-                val response = zoteroAPIClient.getSomeCollections(startIndex)
-                totalResults = response.headers()["Total-Results"]?.toLong() ?: 0
-                response.body()!!.map {
+            val response = zoteroAPIClient.getCollectionVersions(
+                sinceLibraryVersion = keyValStore.localLibraryVersion
+            )
+            val remoteLibraryVersion = response.headers()["Last-Modified-Version"]?.toInt() ?: 0
+            val collectionIds = response.body()?.keys ?: emptyList<String>()
+            collectionIds.chunked(MAX_ITEMS_PER_RESPONSE).forEach { idListChunk ->
+                val jsonCollections = zoteroAPIClient.getCollections(idListChunk.joinToString(","))
+                jsonCollections.forEach {
                     database.collectionDAO.insert(it.asDomainModel())
                 }
-                startIndex += MAX_ITEMS_PER_RESPONSE
-            } while (startIndex < totalResults)
-            lastSyncTime = Instant.now()
+            }
+            // Note: we do not mark sync as succesful (and local library version as updated) until
+            // all requests and database inserts have completed.
+            keyValStore.localLibraryVersion = remoteLibraryVersion
+            lastSyncTime = now()
         } catch (e: Exception) {
-            syncError.value = "Synching error (${e.message})"
+            syncError.value = e.message
         }
         isSyncing.value = false
     }
