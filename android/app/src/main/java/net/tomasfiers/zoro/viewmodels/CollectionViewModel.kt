@@ -91,7 +91,7 @@ class CollectionViewModel(
                 WEEK_IN_MILLIS,
                 0
             ).toString()
-                .replace("0 minutes ago", "just now")
+                .replace(Regex("^0 minutes ago"), "just now")
         }
     }
 
