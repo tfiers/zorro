@@ -4,47 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.CollectionFragment">
 
-    <data>
-
-        <variable
-            name="vm"
-            type="net.tomasfiers.zoro.viewmodels.CollectionViewModel" />
-    </data>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/pull_to_refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/title_bar"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?attr/colorPrimary"
-            android:elevation="4dp"
-            android:minHeight="?attr/actionBarSize"
-            android:theme="?attr/actionBarTheme"
-            app:layout_constraintTop_toTopOf="parent"
-            app:subtitle="@{vm.syncStatus}"
-            app:subtitleTextAppearance="@style/TextAppearance.SyncStatus"
-            app:subtitleTextColor="@color/mutedTextColor"
-            app:title="@{vm.collectionName}"
-            app:titleTextColor="@color/primaryTextColor"
-            tools:subtitle="Last sync: just now"
-            tools:title="My Library" />
-
-        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/pull_to_refresh"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/title_bar">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/tree_item" />
-        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:layout_height="match_parent"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/tree_item" />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </layout>

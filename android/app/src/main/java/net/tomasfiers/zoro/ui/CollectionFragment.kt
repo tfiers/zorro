@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import net.tomasfiers.zoro.MainActivity
 import net.tomasfiers.zoro.ZoroApplication
 import net.tomasfiers.zoro.databinding.CollectionFragmentBinding
 import net.tomasfiers.zoro.viewmodels.CollectionViewModel
@@ -30,7 +31,6 @@ class CollectionFragment : Fragment() {
     ): View {
         val binding = CollectionFragmentBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
-        binding.vm = viewModel
         val adapter = RecyclerViewAdapter(TreeItemClickListener { treeItem ->
             findNavController().navigate(
                 CollectionFragmentDirections.actionCollectionSelf(treeItem.id)
@@ -44,8 +44,11 @@ class CollectionFragment : Fragment() {
         // Performance improvement (because changes in list content do not change layout size):
         binding.recyclerView.setHasFixedSize(true)
         binding.pullToRefresh.setOnRefreshListener { viewModel.syncCollections() }
-        viewModel.isSyncing.observe(viewLifecycleOwner, Observer {
-            binding.pullToRefresh.isRefreshing = it
+        viewModel.isSyncing.observe(viewLifecycleOwner, Observer { isSyncing ->
+            binding.pullToRefresh.isRefreshing = isSyncing
+        })
+        viewModel.collectionName.observe(viewLifecycleOwner, Observer { collectionName ->
+            (activity as MainActivity).binding.titleBar.title = collectionName
         })
         return binding.root
     }

@@ -2,24 +2,30 @@ package net.tomasfiers.zoro.ui
 
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import net.tomasfiers.zoro.R
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import net.tomasfiers.zoro.ZoroApplication
+import net.tomasfiers.zoro.databinding.DrawerMenuFragmentBinding
+import net.tomasfiers.zoro.viewmodels.DrawerMenuViewModel
+import net.tomasfiers.zoro.viewmodels.DrawerMenuViewModelFactory
 
-/**
- * A simple [Fragment] subclass.
- */
 class DrawerMenuFragment : Fragment() {
+
+    private val viewModel: DrawerMenuViewModel by viewModels {
+        DrawerMenuViewModelFactory(activity?.application as ZoroApplication)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.drawer_menu_fragment, container, false)
+        val binding = DrawerMenuFragmentBinding.inflate(inflater, container, false)
+        // The following is necessary so that LiveData changes get propagated to the UI.
+        binding.lifecycleOwner = this
+        binding.vm = viewModel
+        return binding.root
     }
-
-
 }

@@ -1,18 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.DrawerMenuFragment">
 
-    <FrameLayout
+    <data>
+
+        <variable
+            name="vm"
+            type="net.tomasfiers.zoro.viewmodels.DrawerMenuViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/primaryColor">
 
-        <!-- TODO: Update blank fragment layout -->
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="hello_blank_fragment" />
+            android:id="@+id/sync_status_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="@{vm.syncStatus}"
+            android:textAppearance="@style/TextAppearance.SyncStatus"
+            android:textColor="@color/primaryTextColor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Last sync: just now" />
 
-    </FrameLayout>
+        <Button
+            android:id="@+id/clear_local_data_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:backgroundTint="@color/primaryDarkColor"
+            android:text="Clear local data"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sync_status_textview" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

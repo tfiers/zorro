@@ -16,27 +16,51 @@
             android:layout_height="match_parent"
             android:fitsSystemWindows="true">
 
-            <fragment
-                android:id="@+id/nav_host_fragment"
-                android:name="androidx.navigation.fragment.NavHostFragment"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:defaultNavHost="true"
-                app:navGraph="@navigation/navigation" />
+                android:orientation="vertical">
 
-            <com.google.android.material.navigation.NavigationView
-                android:id="@+id/nav_view"
-                android:layout_width="wrap_content"
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/title_bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/colorPrimary"
+                    android:elevation="4dp"
+                    android:minHeight="?attr/actionBarSize"
+                    android:theme="?attr/actionBarTheme"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:titleTextColor="@color/primaryTextColor"
+                    tools:title="My Library" />
+
+                <fragment
+                    android:id="@+id/nav_host_fragment"
+                    android:name="androidx.navigation.fragment.NavHostFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:defaultNavHost="true"
+                    app:navGraph="@navigation/navigation" />
+
+            </LinearLayout>
+
+            <FrameLayout
+                android:layout_width="320dp"
                 android:layout_height="match_parent"
-                android:layout_gravity="start">
+                android:layout_gravity="start"
+                android:clickable="true"
+                android:fitsSystemWindows="true"
+                android:focusable="true"
+                android:importantForAccessibility="no">
+                <!-- Why clickable/focusable and accesiblity? https://stackoverflow.com/a/19423579/2611913 -->
 
                 <fragment
                     android:id="@+id/drawer_menu_fragment"
                     android:name="net.tomasfiers.zoro.ui.DrawerMenuFragment"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"
+                    tools:layout="@layout/drawer_menu_fragment" />
 
-            </com.google.android.material.navigation.NavigationView>
+            </FrameLayout>
 
         </androidx.drawerlayout.widget.DrawerLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
