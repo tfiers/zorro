@@ -1,0 +1,563 @@
+{
+    "artwork": [
+        {
+            "creatorType": "artist",
+            "localized": "Artist"
+        },
+        {
+            "creatorType": "contributor",
+            "localized": "Contributor"
+        }
+    ],
+    "audioRecording": [
+        {
+            "creatorType": "performer",
+            "localized": "Performer"
+        },
+        {
+            "creatorType": "composer",
+            "localized": "Composer"
+        },
+        {
+            "creatorType": "contributor",
+            "localized": "Contributor"
+        },
+        {
+            "creatorType": "wordsBy",
+            "localized": "Words By"
+        }
+    ],
+    "bill": [
+        {
+            "creatorType": "sponsor",
+            "localized": "Sponsor"
+        },
+        {
+            "creatorType": "contributor",
+            "localized": "Contributor"
+        },
+        {
+            "creatorType": "cosponsor",
+            "localized": "Cosponsor"
+        }
+    ],
+    "blogPost": [
+        {
+            "creatorType": "author",
+            "localized": "Author"
+        },
+        {
+            "creatorType": "commenter",
+            "localized": "Commenter"
+        },
+        {
+            "creatorType": "contributor",
+            "localized": "Contributor"
+        }
+    ],
+    "book": [
+        {
+            "creatorType": "author",
+            "localized": "Author"
+        },
+        {
+            "creatorType": "contributor",
+            "localized": "Contributor"
+        },
+        {
+            "creatorType": "editor",
+            "localized": "Editor"
+        },
+        {
+            "creatorType": "seriesEditor",
+            "localized": "Series Editor"
+        },
+        {
+            "creatorType": "translator",
+            "localized": "Translator"
+        }
+    ],
+    "bookSection": [
+        {
+            "creatorType": "author",
+            "localized": "Author"
+        },
+        {
+            "creatorType": "bookAuthor",
+            "localized": "Book Author"
+        },
+        {
+            "creatorType": "contributor",
+            "localized": "Contributor"
+        },
+        {
+            "creatorType": "editor",
+            "localized": "Editor"
+        },
+        {
+            "creatorType": "seriesEditor",
+            "localized": "Series Editor"
+        },
+        {
+            "creatorType": "translator",
+            "localized": "Translator"
+        }
+    ],
+    "case": [
+        {
+            "creatorType": "author",
+            "localized": "Author"
+        },
+        {
+            "creatorType": "contributor",
+            "localized": "Contributor"
+        },
+        {
+            "creatorType": "counsel",
+            "localized": "Counsel"
+        }
+    ],
+    "computerProgram": [
+        {
+            "creatorType": "programmer",
+            "localized": "Programmer"
+        },
+        {
+            "creatorType": "contributor",
+            "localized": "Contributor"
+        }
+    ],
+    "conferencePaper": [
+        {
+            "creatorType": "author",
+            "localized": "Author"
+        },
+        {
+            "creatorType": "contributor",
+            "localized": "Contributor"
+        },
+        {
+            "creatorType": "editor",
+            "localized": "Editor"
+        },
+        {
+            "creatorType": "seriesEditor",
+            "localized": "Series Editor"
+        },
+        {
+            "creatorType": "translator",
+            "localized": "Translator"
+        }
+    ],
+    "dictionaryEntry": [
+        {
+            "creatorType": "author",
+            "localized": "Author"
+        },
+        {
+            "creatorType": "contributor",
+            "localized": "Contributor"
+        },
+        {
+            "creatorType": "editor",
+            "localized": "Editor"
+        },
+        {
+            "creatorType": "seriesEditor",
+            "localized": "Series Editor"
+        },
+        {
+            "creatorType": "translator",
+            "localized": "Translator"
+        }
+    ],
+    "document": [
+        {
+            "creatorType": "author",
+            "localized": "Author"
+        },
+        {
+            "creatorType": "contributor",
+            "localized": "Contributor"
+        },
+        {
+            "creatorType": "editor",
+            "localized": "Editor"
+        },
+        {
+            "creatorType": "reviewedAuthor",
+            "localized": "Reviewed Author"
+        },
+        {
+            "creatorType": "translator",
+            "localized": "Translator"
+        }
+    ],
+    "email": [
+        {
+            "creatorType": "author",
+            "localized": "Author"
+        },
+        {
+            "creatorType": "contributor",
+            "localized": "Contributor"
+        },
+        {
+            "creatorType": "recipient",
+            "localized": "Recipient"
+        }
+    ],
+    "encyclopediaArticle": [
+        {
+            "creatorType": "author",
+            "localized": "Author"
+        },
+        {
+            "creatorType": "contributor",
+            "localized": "Contributor"
+        },
+        {
+            "creatorType": "editor",
+            "localized": "Editor"
+        },
+        {
+            "creatorType": "seriesEditor",
+            "localized": "Series Editor"
+        },
+        {
+            "creatorType": "translator",
+            "localized": "Translator"
+        }
+    ],
+    "film": [
+        {
+            "creatorType": "director",
+            "localized": "Director"
+        },
+        {
+            "creatorType": "contributor",
+            "localized": "Contributor"
+        },
+        {
+            "creatorType": "producer",
+            "localized": "Producer"
+        },
+        {
+            "creatorType": "scriptwriter",
+            "localized": "Scriptwriter"
+        }
+    ],
+    "forumPost": [
+        {
+            "creatorType": "author",
+            "localized": "Author"
+        },
+        {
+            "creatorType": "contributor",
+            "localized": "Contributor"
+        }
+    ],
+    "hearing": [
+        {
+            "creatorType": "contributor",
+            "localized": "Contributor"
+        }
+    ],
+    "instantMessage": [
+        {
+            "creatorType": "author",
+            "localized": "Author"
+        },
+        {
+            "creatorType": "contributor",
+            "localized": "Contributor"
+        },
+        {
+            "creatorType": "recipient",
+            "localized": "Recipient"
+        }
+    ],
+    "interview": [
+        {
+            "creatorType": "interviewee",
+            "localized": "Interview With"
+        },
+        {
+            "creatorType": "contributor",
+            "localized": "Contributor"
+        },
+        {
+            "creatorType": "interviewer",
+            "localized": "Interviewer"
+        },
+        {
+            "creatorType": "translator",
+            "localized": "Translator"
+        }
+    ],
+    "journalArticle": [
+        {
+            "creatorType": "author",
+            "localized": "Author"
+        },
+        {
+            "creatorType": "contributor",
+            "localized": "Contributor"
+        },
+        {
+            "creatorType": "editor",
+            "localized": "Editor"
+        },
+        {
+            "creatorType": "reviewedAuthor",
+            "localized": "Reviewed Author"
+        },
+        {
+            "creatorType": "translator",
+            "localized": "Translator"
+        }
+    ],
+    "letter": [
+        {
+            "creatorType": "author",
+            "localized": "Author"
+        },
+        {
+            "creatorType": "contributor",
+            "localized": "Contributor"
+        },
+        {
+            "creatorType": "recipient",
+            "localized": "Recipient"
+        }
+    ],
+    "magazineArticle": [
+        {
+            "creatorType": "author",
+            "localized": "Author"
+        },
+        {
+            "creatorType": "contributor",
+            "localized": "Contributor"
+        },
+        {
+            "creatorType": "reviewedAuthor",
+            "localized": "Reviewed Author"
+        },
+        {
+            "creatorType": "translator",
+            "localized": "Translator"
+        }
+    ],
+    "manuscript": [
+        {
+            "creatorType": "author",
+            "localized": "Author"
+        },
+        {
+            "creatorType": "contributor",
+            "localized": "Contributor"
+        },
+        {
+            "creatorType": "translator",
+            "localized": "Translator"
+        }
+    ],
+    "map": [
+        {
+            "creatorType": "cartographer",
+            "localized": "Cartographer"
+        },
+        {
+            "creatorType": "contributor",
+            "localized": "Contributor"
+        },
+        {
+            "creatorType": "seriesEditor",
+            "localized": "Series Editor"
+        }
+    ],
+    "newspaperArticle": [
+        {
+            "creatorType": "author",
+            "localized": "Author"
+        },
+        {
+            "creatorType": "contributor",
+            "localized": "Contributor"
+        },
+        {
+            "creatorType": "reviewedAuthor",
+            "localized": "Reviewed Author"
+        },
+        {
+            "creatorType": "translator",
+            "localized": "Translator"
+        }
+    ],
+    "note": [],
+    "patent": [
+        {
+            "creatorType": "inventor",
+            "localized": "Inventor"
+        },
+        {
+            "creatorType": "attorneyAgent",
+            "localized": "Attorney/Agent"
+        },
+        {
+            "creatorType": "contributor",
+            "localized": "Contributor"
+        }
+    ],
+    "podcast": [
+        {
+            "creatorType": "podcaster",
+            "localized": "Podcaster"
+        },
+        {
+            "creatorType": "contributor",
+            "localized": "Contributor"
+        },
+        {
+            "creatorType": "guest",
+            "localized": "Guest"
+        }
+    ],
+    "presentation": [
+        {
+            "creatorType": "presenter",
+            "localized": "Presenter"
+        },
+        {
+            "creatorType": "contributor",
+            "localized": "Contributor"
+        }
+    ],
+    "radioBroadcast": [
+        {
+            "creatorType": "director",
+            "localized": "Director"
+        },
+        {
+            "creatorType": "castMember",
+            "localized": "Cast Member"
+        },
+        {
+            "creatorType": "contributor",
+            "localized": "Contributor"
+        },
+        {
+            "creatorType": "guest",
+            "localized": "Guest"
+        },
+        {
+            "creatorType": "producer",
+            "localized": "Producer"
+        },
+        {
+            "creatorType": "scriptwriter",
+            "localized": "Scriptwriter"
+        }
+    ],
+    "report": [
+        {
+            "creatorType": "author",
+            "localized": "Author"
+        },
+        {
+            "creatorType": "contributor",
+            "localized": "Contributor"
+        },
+        {
+            "creatorType": "seriesEditor",
+            "localized": "Series Editor"
+        },
+        {
+            "creatorType": "translator",
+            "localized": "Translator"
+        }
+    ],
+    "statute": [
+        {
+            "creatorType": "author",
+            "localized": "Author"
+        },
+        {
+            "creatorType": "contributor",
+            "localized": "Contributor"
+        }
+    ],
+    "tvBroadcast": [
+        {
+            "creatorType": "director",
+            "localized": "Director"
+        },
+        {
+            "creatorType": "castMember",
+            "localized": "Cast Member"
+        },
+        {
+            "creatorType": "contributor",
+            "localized": "Contributor"
+        },
+        {
+            "creatorType": "guest",
+            "localized": "Guest"
+        },
+        {
+            "creatorType": "producer",
+            "localized": "Producer"
+        },
+        {
+            "creatorType": "scriptwriter",
+            "localized": "Scriptwriter"
+        }
+    ],
+    "thesis": [
+        {
+            "creatorType": "author",
+            "localized": "Author"
+        },
+        {
+            "creatorType": "contributor",
+            "localized": "Contributor"
+        }
+    ],
+    "videoRecording": [
+        {
+            "creatorType": "director",
+            "localized": "Director"
+        },
+        {
+            "creatorType": "castMember",
+            "localized": "Cast Member"
+        },
+        {
+            "creatorType": "contributor",
+            "localized": "Contributor"
+        },
+        {
+            "creatorType": "producer",
+            "localized": "Producer"
+        },
+        {
+            "creatorType": "scriptwriter",
+            "localized": "Scriptwriter"
+        }
+    ],
+    "webpage": [
+        {
+            "creatorType": "author",
+            "localized": "Author"
+        },
+        {
+            "creatorType": "contributor",
+            "localized": "Contributor"
+        },
+        {
+            "creatorType": "translator",
+            "localized": "Translator"
+        }
+    ]
+}
