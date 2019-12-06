@@ -40,6 +40,6 @@ creator_fields = get("https://api.zotero.org/creatorFields").json()
 write_json(creator_fields, creator_fields_file)
 
 with open(timestamp_file, 'w') as f:
-    f.write(str(datetime.now()))
+    f.write(f"{datetime.now():%Y-%m-%d %H:%M:%S}")
 
 print('\nDone')

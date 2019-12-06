@@ -33,9 +33,8 @@ class CollectionViewModel(
         dataRepo.getChildrenCollections(parentCollectionId = collectionId)
     ) {
         it
-            .filter { collection -> collection.name != null }
             .sortedWith(Comparator { collection1, collection2 ->
-                compareStrings(collection1.name!!, collection2.name!!)
+                compareStrings(collection1.name, collection2.name)
             })
     }
     val isSyncing = dataRepo.isSyncing
