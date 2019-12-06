@@ -20,7 +20,7 @@ class CollectionFragment : Fragment() {
     private val viewModel: CollectionViewModel by viewModels {
         CollectionViewModelFactory(
             navigationArgs.collectionId,
-            activity?.application as ZoroApplication
+            (activity?.application as ZoroApplication).dataRepo
         )
     }
 

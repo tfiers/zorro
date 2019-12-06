@@ -69,4 +69,8 @@ class DrawerMenuViewModel(private val application: ZoroApplication) :
         isSyncing.removeObserver(isSyncingObserver)
         syncStatuspdateTimer.cancel()
     }
+
+    fun clearLocalData() = viewModelScope.launch {
+        application.dataRepo.clearLocalData()
+    }
 }

@@ -20,4 +20,7 @@ interface CollectionDAO {
     // Also, a gotcha: in SQL you cannot use `= null`, only `is null`.
     @Query("select * from Collection where (parentId = :parentId) or (:parentId is null and parentId is null)")
     fun getChildren(parentId: String?): LiveData<List<Collection>>
+
+    @Query("delete from Collection")
+    suspend fun clearCollections()
 }

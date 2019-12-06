@@ -6,16 +6,16 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import net.tomasfiers.zoro.ZoroApplication
+import net.tomasfiers.zoro.data.DataRepository
 import java.text.Collator
 
 class CollectionViewModelFactory(
     private val collectionId: String?,
-    private val application: ZoroApplication
+    private val dataRepo: DataRepository
 ) : ViewModelProvider.Factory {
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T =
-        CollectionViewModel(collectionId, application) as T
+        CollectionViewModel(collectionId, dataRepo) as T
 }
 
 // Makes sure "_PhD" comes before "Academia". `getInstance` depends on current default locale.
@@ -24,13 +24,13 @@ private fun compareStrings(x: String, y: String) =
 
 class CollectionViewModel(
     private val collectionId: String?,
-    private val application: ZoroApplication
+    private val dataRepo: DataRepository
 ) : ViewModel() {
 
     val collectionName = MutableLiveData<String>()
     // Note: Transformations are executed on main thread, so don't do heavy work here.
     val sortedCollections = Transformations.map(
-        application.dataRepo.getChildrenCollections(parentCollectionId = collectionId)
+        dataRepo.getChildrenCollections(parentCollectionId = collectionId)
     ) {
         it
             .filter { collection -> collection.name != null }
@@ -38,20 +38,20 @@ class CollectionViewModel(
                 compareStrings(collection1.name!!, collection2.name!!)
             })
     }
-    val isSyncing = application.dataRepo.isSyncing
+    val isSyncing = dataRepo.isSyncing
 
     init {
         setCollectionName()
     }
 
     fun syncCollections() =
-        viewModelScope.launch { application.dataRepo.syncCollections() }
+        viewModelScope.launch { dataRepo.syncCollections() }
 
     private fun setCollectionName() =
         viewModelScope.launch {
             collectionName.value = when (collectionId) {
                 null -> "My Library"
-                else -> application.dataRepo.getCollection(collectionId).name
+                else -> dataRepo.getCollection(collectionId).name
             }
         }
 }

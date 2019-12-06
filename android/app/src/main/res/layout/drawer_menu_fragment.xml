@@ -35,6 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:backgroundTint="@color/primaryDarkColor"
+            android:onClick="@{() -> vm.clearLocalData()}"
             android:text="Clear local data"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

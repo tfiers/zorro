@@ -18,8 +18,12 @@ class DataRepository(
     fun getChildrenCollections(parentCollectionId: String?) =
         database.collectionDAO.getChildren(parentCollectionId)
 
-    suspend fun getCollection(collectionId: String) =
-        database.collectionDAO.get(collectionId)
+    suspend fun getCollection(collectionId: String) = database.collectionDAO.get(collectionId)
+
+    suspend fun clearLocalData() {
+        keyValStore.localLibraryVersion = INITIAL_LOCAL_LIBRARY_VERSION
+        database.collectionDAO.clearCollections()
+    }
 
     suspend fun syncCollections() {
         isSyncing.value = true
