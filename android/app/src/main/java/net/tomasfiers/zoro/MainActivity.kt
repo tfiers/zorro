@@ -1,7 +1,9 @@
 package net.tomasfiers.zoro
 
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -13,11 +15,25 @@ import net.tomasfiers.zoro.databinding.MainActivityBinding
 class MainActivity : AppCompatActivity() {
 
     lateinit var binding: MainActivityBinding
+    lateinit var actionBarDrawerToggle: ActionBarDrawerToggle
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = DataBindingUtil.setContentView(this, R.layout.main_activity)
+
+        // Set toolbar to act as activity's action bar
+        setSupportActionBar(binding.toolbar)
+
+        // Connect toolbar to drawerLayout
+        actionBarDrawerToggle = ActionBarDrawerToggle(
+            this,
+            binding.drawerLayout,
+            binding.toolbar,
+            R.string.close_drawer,
+            R.string.open_drawer
+        )
+        binding.drawerLayout.addDrawerListener(actionBarDrawerToggle)
+        actionBarDrawerToggle.syncState()
 
         // Keep screen on for development ease.
         window.addFlags(FLAG_KEEP_SCREEN_ON)
@@ -39,5 +55,10 @@ class MainActivity : AppCompatActivity() {
             }
         })
         lifecycleScope.launch { repository.syncCollections() }
+    }
+
+    override fun onPostCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
+        super.onPostCreate(savedInstanceState, persistentState)
+        actionBarDrawerToggle.syncState()
     }
 }

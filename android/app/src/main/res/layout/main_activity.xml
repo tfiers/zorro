@@ -22,13 +22,13 @@
                 android:orientation="vertical">
 
                 <androidx.appcompat.widget.Toolbar
-                    android:id="@+id/title_bar"
+                    android:id="@+id/toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="?attr/colorPrimary"
                     android:elevation="4dp"
                     android:minHeight="?attr/actionBarSize"
-                    android:theme="?attr/actionBarTheme"
+                    android:theme="@style/ThemeOverlay.MaterialComponents.Toolbar.Primary"
                     app:layout_constraintTop_toTopOf="parent"
                     app:titleTextColor="@color/primaryTextColor"
                     tools:title="My Library" />
@@ -44,6 +44,7 @@
             </LinearLayout>
 
             <FrameLayout
+                android:id="@+id/drawer_menu"
                 android:layout_width="320dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="start"
@@ -51,7 +52,7 @@
                 android:fitsSystemWindows="true"
                 android:focusable="true"
                 android:importantForAccessibility="no">
-                <!-- Why clickable/focusable and accesiblity? https://stackoverflow.com/a/19423579/2611913 -->
+                <!-- Why clickable/focusable and accesiblity? -> https://stackoverflow.com/a/19423579/2611913 -->
 
                 <fragment
                     android:id="@+id/drawer_menu_fragment"

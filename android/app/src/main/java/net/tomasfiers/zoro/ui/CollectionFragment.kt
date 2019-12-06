@@ -9,7 +9,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import net.tomasfiers.zoro.MainActivity
 import net.tomasfiers.zoro.ZoroApplication
 import net.tomasfiers.zoro.databinding.CollectionFragmentBinding
 import net.tomasfiers.zoro.viewmodels.CollectionViewModel
@@ -47,9 +46,9 @@ class CollectionFragment : Fragment() {
         viewModel.isSyncing.observe(viewLifecycleOwner, Observer { isSyncing ->
             binding.pullToRefresh.isRefreshing = isSyncing
         })
-        viewModel.collectionName.observe(viewLifecycleOwner, Observer { collectionName ->
-            (activity as MainActivity).binding.titleBar.title = collectionName
-        })
+        //viewModel.collectionName.observe(viewLifecycleOwner, Observer { collectionName ->
+        //    (activity as MainActivity).binding.toolbar.title = collectionName
+        //})
         return binding.root
     }
 }
