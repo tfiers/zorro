@@ -60,7 +60,7 @@ dependencies {
     // Provides the delegated property "by viewModels()" for succinct ViewModel lookup.
     implementation "androidx.fragment:fragment-ktx:1.2.0-rc02"
 
-    // Room database
+    // Room database (including kotlin extensions and coroutines)
     implementation "androidx.room:room-runtime:2.2.2"
     implementation "androidx.room:room-ktx:2.2.2"
     kapt "androidx.room:room-compiler:2.2.2"
