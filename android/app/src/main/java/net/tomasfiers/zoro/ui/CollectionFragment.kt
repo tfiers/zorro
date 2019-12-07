@@ -42,7 +42,7 @@ class CollectionFragment : Fragment() {
         })
         // Performance improvement (because changes in list content do not change layout size):
         binding.recyclerView.setHasFixedSize(true)
-        binding.pullToRefresh.setOnRefreshListener { viewModel.syncCollections() }
+        binding.pullToRefresh.setOnRefreshListener { viewModel.syncLibrary() }
         viewModel.isSyncing.observe(viewLifecycleOwner, Observer { isSyncing ->
             binding.pullToRefresh.isRefreshing = isSyncing
         })

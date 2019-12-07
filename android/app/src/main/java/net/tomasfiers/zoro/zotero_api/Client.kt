@@ -29,8 +29,11 @@ interface ZoteroAPIClient {
     suspend fun getCollections(
         @Query("collectionKey") collectionIds: String,
         @Query("limit") amount: Int = MAX_ITEMS_PER_RESPONSE
-    ): List<CollectionJSON>
+    ): Response<List<CollectionJSON>>
 }
+
+val <T> Response<T>.remoteLibraryVersion: Int?
+    get() = this.headers()["Last-Modified-Version"]?.toInt()
 
 // This limit does not apply when "?format=versions".
 const val MAX_ITEMS_PER_RESPONSE = 100
