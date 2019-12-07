@@ -2,9 +2,13 @@
 
 Status: initial development.
 
+
 ## Contributing
-Contributions are welcome.
-To start hacking on the code, you first need a basic understanding of it:
+
+Contributions are welcome. Follow the recommendations in [this classic blogpost](https://www.igvita.com/2011/12/19/dont-push-your-pull-requests/) to make sure your pull request gets merged, quickly.
+
+Does the code seem too daunting to start hacking on it? No Android development experience? See the next section.
+
 
 ## Understanding the code
 
@@ -22,9 +26,10 @@ It also uses [Timber](https://github.com/JakeWharton/timber) for logging;
 [Moshi](https://github.com/square/moshi) as JSON parser;
 and ConstraintLayout, RecyclerView, and [Material Design](https://material.io/) for its UI. 
 
-If you don't have experience with these (or with Android development in general), **I heartily recommend the
-[Android Kotlin Fundamentals Course](https://codelabs.developers.google.com/android-kotlin-fundamentals/),
-which teaches all of these.**
+💡 If you don't have experience with these tools (or with Android development in general),
+**I heartily recommend the
+["Android Kotlin Fundamentals" course](https://codelabs.developers.google.com/android-kotlin-fundamentals/),
+which teaches all of them.**
 
 Additionally, the following dependencies are used (these are not taught in the mentioned course):
 - [OkHttp](https://square.github.io/okhttp/) (on which Retrofit is built), to insert headers
