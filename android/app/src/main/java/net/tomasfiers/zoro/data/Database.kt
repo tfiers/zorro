@@ -4,8 +4,13 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverter
+import androidx.room.TypeConverters
+import org.threeten.bp.OffsetDateTime
+import org.threeten.bp.format.DateTimeFormatter
 
 @Database(entities = [Collection::class], version = 1, exportSchema = false)
+@TypeConverters(DBTypeConverters::class)
 abstract class ZoroDatabase : RoomDatabase() {
 
     abstract val collectionDAO: CollectionDAO
@@ -33,4 +38,28 @@ abstract class ZoroDatabase : RoomDatabase() {
             }
         }
     }
+}
+
+class DBTypeConverters {
+
+    private val dateTimeFormatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME
+
+    @TypeConverter
+    fun toOffsetDateTime(value: String): OffsetDateTime =
+        dateTimeFormatter.parse(value, OffsetDateTime::from)
+
+    @TypeConverter
+    fun fromOffsetDateTime(dateTime: OffsetDateTime): String = dateTime.format(dateTimeFormatter)
+
+    @TypeConverter
+    fun toItemType(name: String): ItemType = ItemType.valueOf(name)
+
+    @TypeConverter
+    fun fromItemType(type: ItemType): String = type.name
+
+    @TypeConverter
+    fun toCreatorType(name: String): CreatorType = CreatorType.valueOf(name)
+
+    @TypeConverter
+    fun fromCreatorType(type: CreatorType): String = type.name
 }
