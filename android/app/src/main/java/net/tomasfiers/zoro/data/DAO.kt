@@ -12,7 +12,7 @@ interface CollectionDAO {
     @Insert(onConflict = REPLACE)
     suspend fun insert(collection: Collection)
 
-    @Query("select * from Collection where id = :id")
+    @Query("select * from Collection where collectionId = :id")
     suspend fun get(id: String): Collection
 
     // LiveData queries are automatically executed off the main thread by Room - so we don't mark

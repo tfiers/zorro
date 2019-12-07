@@ -13,7 +13,7 @@ data class CollectionJSON(
     )
 
     fun asDomainModel() = Collection(
-        id = data.key,
+        collectionId = data.key,
         version = data.version,
         name = data.name,
         parentId = when (data.parentCollection) {
