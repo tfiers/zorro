@@ -1,7 +1,6 @@
 package net.tomasfiers.zoro.util
 
 import com.squareup.moshi.Moshi
-import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
@@ -23,12 +22,12 @@ fun <T> createJSONAPIClient(
         }
         .build()
     val jsonParser = Moshi.Builder()
-        .add(KotlinJsonAdapterFactory()) // This should come after custom adapters.
         .build()!!
+    val jsonConverterFactory = MoshiConverterFactory.create(jsonParser)
     return Retrofit.Builder()
         .client(httpClient)
         .baseUrl(baseUrl)
-        .addConverterFactory(MoshiConverterFactory.create(jsonParser))
+        .addConverterFactory(jsonConverterFactory)
         .build()
         .create(APIInterface)
 }

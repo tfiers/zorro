@@ -1,10 +1,13 @@
 package net.tomasfiers.zoro.zotero_api
 
+import com.squareup.moshi.JsonClass
 import net.tomasfiers.zoro.data.Collection
 
+@JsonClass(generateAdapter = true)
 data class CollectionJSON(
     val data: Data
 ) {
+    @JsonClass(generateAdapter = true)
     data class Data(
         val key: String,
         val version: Long,
