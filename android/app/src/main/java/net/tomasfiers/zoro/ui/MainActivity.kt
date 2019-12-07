@@ -1,4 +1,4 @@
-package net.tomasfiers.zoro
+package net.tomasfiers.zoro.ui
 
 import android.os.Bundle
 import android.os.PersistableBundle
@@ -10,6 +10,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
+import net.tomasfiers.zoro.R
+import net.tomasfiers.zoro.ZoroApplication
 import net.tomasfiers.zoro.databinding.MainActivityBinding
 
 class MainActivity : AppCompatActivity() {
