@@ -6,12 +6,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import net.tomasfiers.zoro.data.DataRepository
+import net.tomasfiers.zoro.data.Repository
 import java.text.Collator
 
 class CollectionViewModelFactory(
     private val collectionId: String?,
-    private val dataRepo: DataRepository
+    private val dataRepo: Repository
 ) : ViewModelProvider.Factory {
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T =
@@ -24,7 +24,7 @@ private fun compareStrings(x: String, y: String) =
 
 class CollectionViewModel(
     private val collectionId: String?,
-    private val dataRepo: DataRepository
+    private val dataRepo: Repository
 ) : ViewModel() {
 
     val collectionName = MutableLiveData<String>()

@@ -9,4 +9,4 @@ creator_fields_file = data_dir / "creator_fields.json"
 timestamp_file = data_dir / "download_timestamp.txt"
 
 android_src_dir = Path("../android/app/src/main/java/net/tomasfiers/zoro")
-android_domain_file = android_src_dir / "data" / "domain" / "Item.kt"
+android_domain_file = android_src_dir / "data" / "EntitiesMixin.kt"

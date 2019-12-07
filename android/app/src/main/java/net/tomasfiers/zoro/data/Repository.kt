@@ -6,7 +6,7 @@ import net.tomasfiers.zoro.zotero_api.zoteroAPIClient
 import org.threeten.bp.Instant
 import org.threeten.bp.Instant.now
 
-class DataRepository(
+class Repository(
     private val database: ZoroDatabase,
     private val keyValStore: KeyValStore
 ) {

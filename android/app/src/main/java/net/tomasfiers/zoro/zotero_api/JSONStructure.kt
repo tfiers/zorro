@@ -1,6 +1,6 @@
 package net.tomasfiers.zoro.zotero_api
 
-import net.tomasfiers.zoro.data.domain.Collection
+import net.tomasfiers.zoro.data.Collection
 
 data class CollectionJSON(
     val data: Data
