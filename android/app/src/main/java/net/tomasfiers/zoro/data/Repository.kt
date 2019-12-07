@@ -46,8 +46,8 @@ class DataRepository(
                 break@retrySyncLoop
             }
         }
-        // Note: we do not mark sync as succesful (and local library version as updated)
-        // until all requests and database inserts have completed.
+        // Note: we do not mark sync as succesful (and local library version as updated) until all
+        // requests and database inserts have completed.
         keyValStore.localLibraryVersion = remoteLibraryVersion ?: 0
         lastSyncTime = now()
         isSyncing.value = false

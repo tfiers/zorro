@@ -6,8 +6,8 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
 // Wrapper to encapsulate OkHttp / Retrofit / Moshi syntax.
-// Call as `createAPIClient(..., MyInterface::class.java)`
-fun <T> createJSONAPIClient(
+// Call as `createJsonHttpClient(..., MyInterface::class.java)`
+fun <T> createJsonHttpClient(
     baseUrl: String,
     requestHeaders: Map<String, String>,
     APIInterface: Class<T>
