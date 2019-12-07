@@ -32,7 +32,7 @@ class CollectionFragment : Fragment() {
         binding.lifecycleOwner = this
         val adapter = RecyclerViewAdapter(TreeItemClickListener { treeItem ->
             findNavController().navigate(
-                CollectionFragmentDirections.actionCollectionSelf(treeItem.id)
+                CollectionFragmentDirections.actionCollectionSelf(treeItem.key)
             )
         })
         binding.recyclerView.adapter = adapter

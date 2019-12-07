@@ -10,7 +10,7 @@ import net.tomasfiers.zoro.databinding.TreeItemBinding
 
 class ListItemDiffCallback : DiffUtil.ItemCallback<TreeItem>() {
     override fun areItemsTheSame(oldItem: TreeItem, newItem: TreeItem) =
-        oldItem.id == newItem.id
+        oldItem.key == newItem.key
 
     override fun areContentsTheSame(oldItem: TreeItem, newItem: TreeItem) =
         oldItem.name == newItem.name

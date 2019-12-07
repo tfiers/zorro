@@ -1,10 +1,19 @@
 from requests import get
-from paths import *
 from json import dump
 from datetime import datetime
+from pathlib import Path
+
+data_dir = Path("data")
 
 if not data_dir.exists():
     data_dir.mkdir()
+
+item_types_file = data_dir / "item_types.json"
+fields_file = data_dir / "fields.json"
+item_type_fields_file = data_dir / "item_type_fields.json"
+creator_types_file = data_dir / "creator_types.json"
+creator_fields_file = data_dir / "creator_fields.json"
+timestamp_file = data_dir / "download_timestamp.txt"
 
 def write_json(object, path):
     with open(path, 'w') as f:

@@ -50,16 +50,4 @@ class DBTypeConverters {
 
     @TypeConverter
     fun fromOffsetDateTime(dateTime: OffsetDateTime): String = dateTime.format(dateTimeFormatter)
-
-    @TypeConverter
-    fun toItemType(name: String): ItemType = ItemType.valueOf(name)
-
-    @TypeConverter
-    fun fromItemType(type: ItemType): String = type.name
-
-    @TypeConverter
-    fun toCreatorType(name: String): CreatorType = CreatorType.valueOf(name)
-
-    @TypeConverter
-    fun fromCreatorType(type: CreatorType): String = type.name
 }
