@@ -51,5 +51,6 @@ data class ItemTypeFieldAssociation(
 )
 data class ItemTypeCreatorTypeAssociation(
     val itemTypeName: String,
-    val creatorTypeName: String
+    val creatorTypeName: String,
+    val primary: Boolean
 )

@@ -30,26 +30,41 @@ suspend fun DataRepo.insertSchema(schemaJson: SchemaJson) {
     schemaJson.itemTypes.forEach { itemTypeJson ->
         val itemTypeName = itemTypeJson.itemType
         database.schemaDAO.insertItemType(
-            ItemType(itemTypeName, friendlyNames.itemTypes.getValue(itemTypeName))
+            ItemType(
+                itemTypeName,
+                friendlyNames.itemTypes.getValue(itemTypeName)
+            )
         )
         itemTypeJson.fields.forEach { fieldJson ->
             val fieldName = fieldJson.field
             database.schemaDAO.insertField(
-                Field(fieldName, friendlyNames.fields.getValue(fieldName))
+                Field(
+                    fieldName,
+                    friendlyNames.fields.getValue(fieldName),
+                    fieldJson.baseField
+                )
             )
             database.schemaDAO.insertItemTypeFieldAssociation(
-                ItemTypeFieldAssociation(itemTypeName, fieldName)
+                ItemTypeFieldAssociation(
+                    itemTypeName,
+                    fieldName
+                )
             )
         }
         itemTypeJson.creatorTypes.forEach { creatorTypeJson ->
             val creatorTypeName = creatorTypeJson.creatorType
             database.schemaDAO.insertCreatorType(
                 CreatorType(
-                    creatorTypeName, friendlyNames.creatorTypes.getValue(creatorTypeName)
+                    creatorTypeName,
+                    friendlyNames.creatorTypes.getValue(creatorTypeName)
                 )
             )
             database.schemaDAO.insertItemTypeCreatorTypeAssociation(
-                ItemTypeCreatorTypeAssociation(itemTypeName, creatorTypeName)
+                ItemTypeCreatorTypeAssociation(
+                    itemTypeName,
+                    creatorTypeName,
+                    creatorTypeJson.primary ?: false
+                )
             )
         }
     }
