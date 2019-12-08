@@ -9,6 +9,15 @@ import androidx.room.Query
 import net.tomasfiers.zoro.data.domain.Collection
 
 @Dao
+interface SchemaDAO {
+    @Insert
+    suspend fun insertItemType(itemType: ItemType)
+
+    @Insert
+    suspend fun insertField(field: Field)
+}
+
+@Dao
 interface CollectionDAO {
     @Insert(onConflict = REPLACE)
     suspend fun insert(collection: Collection)

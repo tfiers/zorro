@@ -3,6 +3,7 @@ package net.tomasfiers.zoro.zotero_api
 import net.tomasfiers.zoro.util.createJsonHttpClient
 import retrofit2.Response
 import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.Query
 
 // "lazy" computes value only on first access (client creation is expensive).
@@ -22,7 +23,9 @@ private const val USER_PREFIX = "users/4670453/"
 interface ZoteroAPIClient {
 
     @GET("schema")
-    suspend fun getSchema(): Response<SchemaJson>
+    suspend fun getSchema(
+        @Header("If-None-Match") checkIfSchemaUpdated: String?
+    ): Response<SchemaJson>
 
     @GET("${USER_PREFIX}collections?format=versions")
     suspend fun getCollectionVersions(

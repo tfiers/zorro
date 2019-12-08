@@ -49,7 +49,8 @@ data class Field(
     @PrimaryKey(autoGenerate = true)
     val fieldId: Int = 0,
     val name: String,
-    var friendlyName: String
+    var friendlyName: String,
+    var baseField: String? = null
 )
 
 @Entity

@@ -14,6 +14,7 @@ import org.threeten.bp.format.DateTimeFormatter
 @TypeConverters(DBTypeConverters::class)
 abstract class ZoroDatabase : RoomDatabase() {
 
+    abstract val schemaDAO: SchemaDAO
     abstract val collectionDAO: CollectionDAO
 
     // Singleton
@@ -42,7 +43,6 @@ abstract class ZoroDatabase : RoomDatabase() {
 }
 
 class DBTypeConverters {
-
     private val dateTimeFormatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME
 
     @TypeConverter
