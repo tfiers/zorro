@@ -9,7 +9,7 @@ import androidx.room.TypeConverters
 import org.threeten.bp.OffsetDateTime
 import org.threeten.bp.format.DateTimeFormatter
 
-@Database(entities = [Collection::class], version = 2, exportSchema = false)
+@Database(entities = [Collection::class], version = 3, exportSchema = false)
 @TypeConverters(DBTypeConverters::class)
 abstract class ZoroDatabase : RoomDatabase() {
 
