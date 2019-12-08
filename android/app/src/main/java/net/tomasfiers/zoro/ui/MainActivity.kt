@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         })
-        lifecycleScope.launch { syncLibrary(dataRepo) }
+        lifecycleScope.launch { dataRepo.syncLibrary() }
     }
 
     override fun onPostCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {

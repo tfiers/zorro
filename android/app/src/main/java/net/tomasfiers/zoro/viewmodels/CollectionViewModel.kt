@@ -9,6 +9,7 @@ import kotlinx.coroutines.launch
 import net.tomasfiers.zoro.data.DataRepo
 import net.tomasfiers.zoro.data.getChildrenCollections
 import net.tomasfiers.zoro.data.getCollection
+import net.tomasfiers.zoro.sync.syncLibrary
 import java.text.Collator
 
 class CollectionViewModelFactory(
@@ -32,7 +33,7 @@ class CollectionViewModel(
     val collectionName = MutableLiveData<String>()
     // Note: Transformations are executed on main thread, so don't do heavy work here.
     val sortedCollections = Transformations.map(
-        getChildrenCollections(parentCollectionKey = collectionKey, dataRepo = dataRepo)
+        dataRepo.getChildrenCollections(parentCollectionKey = collectionKey)
     ) {
         it
             .sortedWith(Comparator { collection1, collection2 ->
@@ -46,13 +47,13 @@ class CollectionViewModel(
     }
 
     fun syncLibrary() =
-        viewModelScope.launch { net.tomasfiers.zoro.sync.syncLibrary(dataRepo) }
+        viewModelScope.launch { dataRepo.syncLibrary() }
 
     private fun setCollectionName() =
         viewModelScope.launch {
             collectionName.value = when (collectionKey) {
                 null -> "My Library"
-                else -> getCollection(collectionKey, dataRepo).name
+                else -> dataRepo.getCollection(collectionKey).name
             }
         }
 }

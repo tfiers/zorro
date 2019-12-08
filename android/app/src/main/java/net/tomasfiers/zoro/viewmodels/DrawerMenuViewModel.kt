@@ -72,6 +72,6 @@ class DrawerMenuViewModel(private val application: ZoroApplication) :
     }
 
     fun clearLocalData() = viewModelScope.launch {
-        clearLocalData(application.dataRepo)
+        application.dataRepo.clearLocalData()
     }
 }
