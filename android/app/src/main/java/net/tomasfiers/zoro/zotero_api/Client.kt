@@ -8,7 +8,7 @@ import retrofit2.http.Query
 // "lazy" computes value only on first access (client creation is expensive).
 val zoteroAPIClient by lazy {
     createJsonHttpClient(
-        baseUrl = "https://api.zotero.org/users/4670453/",
+        baseUrl = "https://api.zotero.org/",
         requestHeaders = mapOf(
             "Zotero-API-Version" to "3",
             "Zotero-API-Key" to ZOTERO_API_KEY
@@ -17,27 +17,32 @@ val zoteroAPIClient by lazy {
     )
 }
 
+private const val USER_PREFIX = "users/4670453/"
+
 interface ZoteroAPIClient {
 
-    @GET("collections?format=versions")
+    @GET("schema")
+    suspend fun getSchema(): Response<SchemaJson>
+
+    @GET("${USER_PREFIX}collections?format=versions")
     suspend fun getCollectionVersions(
         @Query("since") sinceLibraryVersion: Int = 0
     ): Response<Map<String, Int>>
 
-    @GET("items?format=versions")
+    @GET("${USER_PREFIX}items?format=versions")
     suspend fun getItemVersions(
         @Query("since") sinceLibraryVersion: Int = 0
     ): Response<Map<String, Int>>
 
     // `collectionIds` should be a comma separated list.
-    @GET("collections")
+    @GET("${USER_PREFIX}collections")
     suspend fun getCollections(
         @Query("collectionKey") collectionIds: String,
         @Query("limit") amount: Int = MAX_ITEMS_PER_RESPONSE
     ): Response<List<CollectionJson>>
 
     // `itemIds` should be a comma separated list.
-    @GET("items")
+    @GET("${USER_PREFIX}items")
     suspend fun getItems(
         @Query("itemKey") itemIds: String,
         @Query("limit") amount: Int = MAX_ITEMS_PER_RESPONSE
