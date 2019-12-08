@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import net.tomasfiers.zoro.data.domain.TreeItem
+import net.tomasfiers.zoro.data.entities.TreeItem
 import net.tomasfiers.zoro.databinding.TreeItemBinding
 
 class ListItemDiffCallback : DiffUtil.ItemCallback<TreeItem>() {

@@ -1,4 +1,4 @@
-package net.tomasfiers.zoro.data.domain
+package net.tomasfiers.zoro.data.entities
 
 import androidx.room.Entity
 import androidx.room.ForeignKey

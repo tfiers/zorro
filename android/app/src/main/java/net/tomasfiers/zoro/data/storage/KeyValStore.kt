@@ -1,4 +1,4 @@
-package net.tomasfiers.zoro.data
+package net.tomasfiers.zoro.data.storage
 
 import android.app.Application
 import android.content.Context
@@ -22,7 +22,10 @@ class KeyValStore(application: Application) {
 
 
     private enum class Key(val valueType: ValueType, val defaultValue: Any?) {
-        LOCAL_LIBRARY_VERSION(ValueType.INT, INITIAL_LOCAL_LIBRARY_VERSION),
+        LOCAL_LIBRARY_VERSION(
+            ValueType.INT,
+            INITIAL_LOCAL_LIBRARY_VERSION
+        ),
         LOCAL_SCHEMA_ETAG(ValueType.STRING, null)
     }
 

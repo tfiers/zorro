@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import net.tomasfiers.zoro.ZoroApplication
+import net.tomasfiers.zoro.data.clearLocalData
 import java.util.Timer
 import kotlin.concurrent.timerTask
 
@@ -71,6 +72,6 @@ class DrawerMenuViewModel(private val application: ZoroApplication) :
     }
 
     fun clearLocalData() = viewModelScope.launch {
-        application.dataRepo.clearLocalData()
+        clearLocalData(application.dataRepo)
     }
 }

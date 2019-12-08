@@ -1,5 +1,5 @@
 // Data acces objects
-package net.tomasfiers.zoro.data
+package net.tomasfiers.zoro.data.storage
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
@@ -7,12 +7,12 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy.IGNORE
 import androidx.room.OnConflictStrategy.REPLACE
 import androidx.room.Query
-import net.tomasfiers.zoro.data.domain.Collection
-import net.tomasfiers.zoro.data.domain.CreatorType
-import net.tomasfiers.zoro.data.domain.Field
-import net.tomasfiers.zoro.data.domain.ItemType
-import net.tomasfiers.zoro.data.domain.ItemTypeCreatorTypeAssociation
-import net.tomasfiers.zoro.data.domain.ItemTypeFieldAssociation
+import net.tomasfiers.zoro.data.entities.Collection
+import net.tomasfiers.zoro.data.entities.CreatorType
+import net.tomasfiers.zoro.data.entities.Field
+import net.tomasfiers.zoro.data.entities.ItemType
+import net.tomasfiers.zoro.data.entities.ItemTypeCreatorTypeAssociation
+import net.tomasfiers.zoro.data.entities.ItemTypeFieldAssociation
 
 @Dao
 interface SchemaDAO {

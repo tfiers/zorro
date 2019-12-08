@@ -13,6 +13,7 @@ import kotlinx.coroutines.launch
 import net.tomasfiers.zoro.R
 import net.tomasfiers.zoro.ZoroApplication
 import net.tomasfiers.zoro.databinding.MainActivityBinding
+import net.tomasfiers.zoro.sync.syncLibrary
 
 class MainActivity : AppCompatActivity() {
 
@@ -41,8 +42,8 @@ class MainActivity : AppCompatActivity() {
         window.addFlags(FLAG_KEEP_SCREEN_ON)
 
         var snackbar: Snackbar? = null
-        val repository = (application as ZoroApplication).dataRepo
-        repository.syncError.observe(this, Observer { error ->
+        val dataRepo = (application as ZoroApplication).dataRepo
+        dataRepo.syncError.observe(this, Observer { error ->
             when (error) {
                 null -> snackbar?.dismiss()
                 else -> {
@@ -56,7 +57,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         })
-        lifecycleScope.launch { repository.syncLibrary() }
+        lifecycleScope.launch { syncLibrary(dataRepo) }
     }
 
     override fun onPostCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {

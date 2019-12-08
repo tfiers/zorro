@@ -1,4 +1,4 @@
-package net.tomasfiers.zoro.data
+package net.tomasfiers.zoro.data.storage
 
 import android.content.Context
 import androidx.room.Database
@@ -6,8 +6,8 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverter
 import androidx.room.TypeConverters
-import net.tomasfiers.zoro.data.domain.*
-import net.tomasfiers.zoro.data.domain.Collection
+import net.tomasfiers.zoro.data.entities.*
+import net.tomasfiers.zoro.data.entities.Collection
 import org.threeten.bp.OffsetDateTime
 import org.threeten.bp.format.DateTimeFormatter
 

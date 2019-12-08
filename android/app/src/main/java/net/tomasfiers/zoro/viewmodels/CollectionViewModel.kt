@@ -6,12 +6,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import net.tomasfiers.zoro.data.DataRepository
+import net.tomasfiers.zoro.data.DataRepo
+import net.tomasfiers.zoro.data.getChildrenCollections
+import net.tomasfiers.zoro.data.getCollection
 import java.text.Collator
 
 class CollectionViewModelFactory(
     private val collectionKey: String?,
-    private val dataRepo: DataRepository
+    private val dataRepo: DataRepo
 ) : ViewModelProvider.Factory {
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T =
@@ -24,13 +26,13 @@ private fun compareStrings(x: String, y: String) =
 
 class CollectionViewModel(
     private val collectionKey: String?,
-    private val dataRepo: DataRepository
+    private val dataRepo: DataRepo
 ) : ViewModel() {
 
     val collectionName = MutableLiveData<String>()
     // Note: Transformations are executed on main thread, so don't do heavy work here.
     val sortedCollections = Transformations.map(
-        dataRepo.getChildrenCollections(parentCollectionKey = collectionKey)
+        getChildrenCollections(parentCollectionKey = collectionKey, dataRepo = dataRepo)
     ) {
         it
             .sortedWith(Comparator { collection1, collection2 ->
@@ -44,13 +46,13 @@ class CollectionViewModel(
     }
 
     fun syncLibrary() =
-        viewModelScope.launch { dataRepo.syncLibrary() }
+        viewModelScope.launch { net.tomasfiers.zoro.sync.syncLibrary(dataRepo) }
 
     private fun setCollectionName() =
         viewModelScope.launch {
             collectionName.value = when (collectionKey) {
                 null -> "My Library"
-                else -> dataRepo.getCollection(collectionKey).name
+                else -> getCollection(collectionKey, dataRepo).name
             }
         }
 }
