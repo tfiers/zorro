@@ -26,7 +26,7 @@ class DataRepository(
     suspend fun getCollection(collectionKey: String) = database.collectionDAO.get(collectionKey)
 
     suspend fun clearLocalData() {
-        keyValStore.localLibraryVersion = INITIAL_LOCAL_LIBRARY_VERSION
+        keyValStore.set(Key.LOCAL_LIBRARY_VERSION, INITIAL_LOCAL_LIBRARY_VERSION)
         database.collectionDAO.clearCollections()
     }
 
@@ -48,26 +48,26 @@ class DataRepository(
         }
         // Note: we do not mark sync as succesful (and local library version as updated) until all
         // requests and database inserts have completed.
-        keyValStore.localLibraryVersion = remoteLibraryVersion ?: 0
+        keyValStore.set(Key.LOCAL_LIBRARY_VERSION, remoteLibraryVersion ?: 0)
         lastSyncTime = now()
         isSyncing.value = false
     }
 
     private suspend fun syncSchema() {
         val schemaResponse =
-            zoteroAPIClient.getSchema(checkIfSchemaUpdated = keyValStore.localSchemaETag)
+            zoteroAPIClient.getSchema(checkIfSchemaUpdated = keyValStore.get(Key.LOCAL_SCHEMA_ETAG))
         if (schemaResponse.code() == 304) {
             // Schema not modified since last check.
             return
         } else {
-            keyValStore.localSchemaETag = schemaResponse.headers()["ETag"]
+            keyValStore.set(Key.LOCAL_SCHEMA_ETAG, schemaResponse.headers()["ETag"])
             val schemaJson = schemaResponse.body()!!
         }
     }
 
     private suspend fun syncCollections() {
         val collectionVersionsResponse = zoteroAPIClient.getCollectionVersions(
-            sinceLibraryVersion = keyValStore.localLibraryVersion
+            sinceLibraryVersion = keyValStore.get(Key.LOCAL_LIBRARY_VERSION)
         )
         remoteLibraryVersion = collectionVersionsResponse.remoteLibraryVersion
         val collectionIds = collectionVersionsResponse.body()?.keys ?: emptyList<String>()
