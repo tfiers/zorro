@@ -21,7 +21,7 @@ interface TreeItem {
 @Entity
 data class Collection(
     @PrimaryKey(autoGenerate = true)
-    val collectionId: Int,
+    val collectionId: Int = 0,
     override val key: String,
     override var name: String,
     var version: Int,
@@ -31,7 +31,7 @@ data class Collection(
 @Entity
 data class Item(
     @PrimaryKey(autoGenerate = true)
-    val itemId: Int,
+    val itemId: Int = 0,
     override var key: String,
     override var name: String,
     var type: ItemType,
@@ -56,7 +56,7 @@ data class Item(
 @Entity
 data class ItemType(
     @PrimaryKey(autoGenerate = true)
-    val itemTypeId: Int,
+    val itemTypeId: Int = 0,
     val name: String,
     var friendlyName: String,
 
@@ -78,7 +78,7 @@ data class ItemType(
 @Entity
 data class Field(
     @PrimaryKey(autoGenerate = true)
-    val fieldId: Int,
+    val fieldId: Int = 0,
     val name: String,
     var friendlyName: String
 )
@@ -86,14 +86,14 @@ data class Field(
 @Entity
 data class ItemDataValue(
     @PrimaryKey(autoGenerate = true)
-    val dataValueId: Int,
+    val dataValueId: Int = 0,
     var value: String
 )
 
 @Entity
 data class Creator(
     @PrimaryKey(autoGenerate = true)
-    val creatorId: Int,
+    val creatorId: Int = 0,
     var firstName: String?,
     var lastName: String?
 )
@@ -101,7 +101,7 @@ data class Creator(
 @Entity
 data class CreatorType(
     @PrimaryKey(autoGenerate = true)
-    val creatorTypeId: Int,
+    val creatorTypeId: Int = 0,
     val name: String,
     var friendlyName: String
 )

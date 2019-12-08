@@ -10,13 +10,13 @@ data class CollectionJSON(
     @JsonClass(generateAdapter = true)
     data class Data(
         val key: String,
-        val version: Long,
+        val version: Int,
         val name: String,
         val parentCollection: Any
     )
 
     fun asDomainModel() = Collection(
-        collectionId = data.key,
+        key = data.key,
         version = data.version,
         name = data.name,
         parentId = when (data.parentCollection) {
