@@ -4,7 +4,7 @@ import com.squareup.moshi.JsonClass
 import net.tomasfiers.zoro.data.Collection
 
 @JsonClass(generateAdapter = true)
-data class CollectionJSON(
+data class CollectionJson(
     val data: Data
 ) {
     @JsonClass(generateAdapter = true)

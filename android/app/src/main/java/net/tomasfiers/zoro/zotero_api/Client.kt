@@ -34,14 +34,14 @@ interface ZoteroAPIClient {
     suspend fun getCollections(
         @Query("collectionKey") collectionIds: String,
         @Query("limit") amount: Int = MAX_ITEMS_PER_RESPONSE
-    ): Response<List<CollectionJSON>>
+    ): Response<List<CollectionJson>>
 
     // `itemIds` should be a comma separated list.
     @GET("items")
     suspend fun getItems(
         @Query("itemKey") itemIds: String,
         @Query("limit") amount: Int = MAX_ITEMS_PER_RESPONSE
-    ): Response<List<CollectionJSON>>
+    ): Response<List<CollectionJson>>
 }
 
 val <T> Response<T>.remoteLibraryVersion: Int?
