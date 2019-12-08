@@ -25,7 +25,7 @@ data class Collection(
     override val key: String,
     override var name: String,
     var version: Int,
-    var parentId: String?
+    var parentKey: String?
 ) : TreeItem
 
 @Entity

@@ -20,10 +20,10 @@ class DataRepository(
 
     private var remoteLibraryVersion: Int? = null
 
-    fun getChildrenCollections(parentCollectionId: String?) =
-        database.collectionDAO.getChildren(parentCollectionId)
+    fun getChildrenCollections(parentCollectionKey: String?) =
+        database.collectionDAO.getChildren(parentCollectionKey)
 
-    suspend fun getCollection(collectionId: String) = database.collectionDAO.get(collectionId)
+    suspend fun getCollection(collectionKey: String) = database.collectionDAO.get(collectionKey)
 
     suspend fun clearLocalData() {
         keyValStore.localLibraryVersion = INITIAL_LOCAL_LIBRARY_VERSION

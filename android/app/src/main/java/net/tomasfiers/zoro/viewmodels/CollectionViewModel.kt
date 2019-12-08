@@ -10,12 +10,12 @@ import net.tomasfiers.zoro.data.DataRepository
 import java.text.Collator
 
 class CollectionViewModelFactory(
-    private val collectionId: String?,
+    private val collectionKey: String?,
     private val dataRepo: DataRepository
 ) : ViewModelProvider.Factory {
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T =
-        CollectionViewModel(collectionId, dataRepo) as T
+        CollectionViewModel(collectionKey, dataRepo) as T
 }
 
 // Makes sure "_PhD" comes before "Academia". `getInstance` depends on current default locale.
@@ -23,14 +23,14 @@ private fun compareStrings(x: String, y: String) =
     Collator.getInstance().compare(x, y)
 
 class CollectionViewModel(
-    private val collectionId: String?,
+    private val collectionKey: String?,
     private val dataRepo: DataRepository
 ) : ViewModel() {
 
     val collectionName = MutableLiveData<String>()
     // Note: Transformations are executed on main thread, so don't do heavy work here.
     val sortedCollections = Transformations.map(
-        dataRepo.getChildrenCollections(parentCollectionId = collectionId)
+        dataRepo.getChildrenCollections(parentCollectionKey = collectionKey)
     ) {
         it
             .sortedWith(Comparator { collection1, collection2 ->
@@ -48,9 +48,9 @@ class CollectionViewModel(
 
     private fun setCollectionName() =
         viewModelScope.launch {
-            collectionName.value = when (collectionId) {
+            collectionName.value = when (collectionKey) {
                 null -> "My Library"
-                else -> dataRepo.getCollection(collectionId).name
+                else -> dataRepo.getCollection(collectionKey).name
             }
         }
 }

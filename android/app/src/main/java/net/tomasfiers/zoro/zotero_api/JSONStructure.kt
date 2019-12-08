@@ -19,7 +19,7 @@ data class CollectionJSON(
         key = data.key,
         version = data.version,
         name = data.name,
-        parentId = when (data.parentCollection) {
+        parentKey = when (data.parentCollection) {
             false -> null
             else -> data.parentCollection as String
         }
