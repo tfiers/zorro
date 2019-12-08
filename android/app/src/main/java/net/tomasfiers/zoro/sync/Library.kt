@@ -9,12 +9,13 @@ class RemoteLibraryUpdatedSignal : Exception()
 suspend fun DataRepo.syncLibrary() {
     isSyncing.value = true
     syncError.value = null
+    var remoteLibraryVersion: Int? = null
     // We handle updates to the remote library *while* we are synching, by checking the remote
     // library version after each request, and restarting the synching procedure if necessary.
     retrySyncLoop@ while (true) {
         try {
             syncSchema()
-            syncCollections()
+            remoteLibraryVersion = syncCollections()
             break@retrySyncLoop
         } catch (e: RemoteLibraryUpdatedSignal) {
             continue@retrySyncLoop

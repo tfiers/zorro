@@ -13,5 +13,4 @@ class DataRepo(
     val isSyncing = MutableLiveData<Boolean>(false)
     val syncError = MutableLiveData<String?>(null)
     var lastSyncTime: Instant? = null
-    var remoteLibraryVersion: Int? = null
 }
