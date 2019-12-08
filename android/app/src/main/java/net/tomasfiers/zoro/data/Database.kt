@@ -6,11 +6,29 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverter
 import androidx.room.TypeConverters
+import net.tomasfiers.zoro.data.domain.*
 import net.tomasfiers.zoro.data.domain.Collection
 import org.threeten.bp.OffsetDateTime
 import org.threeten.bp.format.DateTimeFormatter
 
-@Database(entities = [Collection::class], version = 3, exportSchema = false)
+@Database(
+    entities = [
+        Collection::class,
+        Item::class,
+        ItemType::class,
+        Field::class,
+        CreatorType::class,
+        ItemDataValue::class,
+        Creator::class,
+        ItemCollectionAssociation::class,
+        ItemItemDataValueAssociation::class,
+        ItemCreatorAssociation::class,
+        ItemTypeFieldAssociation::class,
+        ItemTypeCreatorTypeAssociation::class
+    ],
+    version = 5,
+    exportSchema = false
+)
 @TypeConverters(DBTypeConverters::class)
 abstract class ZoroDatabase : RoomDatabase() {
 

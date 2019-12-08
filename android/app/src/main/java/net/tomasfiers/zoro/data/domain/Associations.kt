@@ -1,84 +1,55 @@
 package net.tomasfiers.zoro.data.domain
 
-import androidx.room.Embedded
 import androidx.room.Entity
-import androidx.room.Junction
-import androidx.room.Relation
+import androidx.room.ForeignKey
+import androidx.room.ForeignKey.CASCADE
 
-@Entity(primaryKeys = ["collectionId", "itemId"])
+@Entity(primaryKeys = ["collectionKey", "itemKey"])
 data class ItemCollectionAssociation(
-    val collectionId: Int,
-    val itemId: Int
+    val collectionKey: String,
+    val itemKey: String
 )
 
-@Entity(primaryKeys = ["itemId", "fieldId", "itemDataValueId"])
-data class ItemDataAssociation(
-    val itemId: Int,
-    val fieldId: Int,
+@Entity(primaryKeys = ["itemKey", "fieldName", "itemDataValueId"])
+data class ItemItemDataValueAssociation(
+    val itemKey: String,
+    val fieldName: String,
     val itemDataValueId: Int
 )
 
-@Entity(primaryKeys = ["itemId", "creatorId"])
+@Entity(primaryKeys = ["itemKey", "creatorId"])
 data class ItemCreatorAssociation(
-    val itemId: Int,
+    val itemKey: String,
     val creatorId: Int
 )
 
-@Entity(primaryKeys = ["itemTypeId", "fieldId"])
+
+// Delete association objects when corresponding ItemType is deleted.
+// (Btw we cannot factor out this ForeignKey -- it's some kind of annotation, not a simple value).
+@Entity(
+    primaryKeys = ["itemTypeName", "fieldName"],
+    foreignKeys = [ForeignKey(
+        entity = ItemType::class,
+        parentColumns = ["itemTypeName"],
+        childColumns = ["itemTypeName"],
+        onDelete = CASCADE
+    )]
+)
 data class ItemTypeFieldAssociation(
-    val itemTypeId: Int,
-    val fieldId: Int
+    val itemTypeName: String,
+    val fieldName: String
 )
 
-@Entity(primaryKeys = ["itemTypeId", "creatorTypeId"])
+@Entity(
+    primaryKeys = ["itemTypeName", "creatorTypeName"],
+    foreignKeys = [ForeignKey(
+        entity = ItemType::class,
+        parentColumns = ["itemTypeName"],
+        childColumns = ["itemTypeName"],
+        onDelete = CASCADE
+    )]
+)
 data class ItemTypeCreatorTypeAssociation(
-    val itemTypeId: Int,
-    val creatorTypeId: Int
-)
-
-
-data class CollectionWithItems(
-    @Embedded val collection: Collection,
-    @Relation(
-        parentColumn = "collectionId",
-        entityColumn = "itemId",
-        associateBy = Junction(ItemCollectionAssociation::class)
-    )
-    val items: List<Item>
-)
-
-data class ItemWithReferences(
-    @Embedded val item: Item,
-
-    @Relation(
-        parentColumn = "itemId",
-        entityColumn = "collectionId",
-        associateBy = Junction(ItemCollectionAssociation::class)
-    )
-    val collections: List<Collection>,
-
-    @Relation(
-        parentColumn = "itemId",
-        entityColumn = "creatorId",
-        associateBy = Junction(ItemCreatorAssociation::class)
-    )
-    val creators: List<Creator>
-)
-
-data class ItemTypeWithReferences(
-    @Embedded val itemType: ItemType,
-
-    @Relation(
-        parentColumn = "itemTypeId",
-        entityColumn = "fieldId",
-        associateBy = Junction(ItemTypeFieldAssociation::class)
-    )
-    var fields: List<Field>,
-
-    @Relation(
-        parentColumn = "itemTypeId",
-        entityColumn = "creatorTypeId",
-        associateBy = Junction(ItemTypeCreatorTypeAssociation::class)
-    )
-    var creatorTypes: List<CreatorType>
+    val itemTypeName: String,
+    val creatorTypeName: String
 )

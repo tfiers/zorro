@@ -1,5 +1,6 @@
 package net.tomasfiers.zoro.data.domain
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import org.threeten.bp.OffsetDateTime
@@ -13,12 +14,11 @@ interface TreeItem {
     var name: String
 }
 
-// We need separately named "id" columns to be able to make many-to-many associations between
-// Collection and Item (see Associations.kt).
+// We need separately named "key" columns to be able to make many-to-many associations between
+// Collection and Item (see Associations.kt). Idem for "name" columns below.
 @Entity
 data class Collection(
-    @PrimaryKey(autoGenerate = true)
-    val collectionId: Int = 0,
+    @PrimaryKey @ColumnInfo(name = "collectionKey")
     override val key: String,
     override var name: String,
     var version: Int,
@@ -27,32 +27,36 @@ data class Collection(
 
 @Entity
 data class Item(
-    @PrimaryKey(autoGenerate = true)
-    val itemId: Int = 0,
+    @PrimaryKey @ColumnInfo(name = "itemKey")
     override var key: String,
     override var name: String,
-    var type: ItemType,
     var dateAdded: OffsetDateTime,
     var dateModified: OffsetDateTime
 ) : TreeItem
 
 @Entity
 data class ItemType(
-    @PrimaryKey(autoGenerate = true)
-    val itemTypeId: Int = 0,
+    @PrimaryKey @ColumnInfo(name = "itemTypeName")
     val name: String,
     var friendlyName: String
 )
 
 @Entity
 data class Field(
-    @PrimaryKey(autoGenerate = true)
-    val fieldId: Int = 0,
+    @PrimaryKey @ColumnInfo(name = "fieldName")
     val name: String,
     var friendlyName: String,
     var baseField: String? = null
 )
 
+@Entity
+data class CreatorType(
+    @PrimaryKey @ColumnInfo(name = "creatorTypeName")
+    val name: String,
+    var friendlyName: String
+)
+
+// Note: a default value of 0 means "autogenerate when not given on Insert".
 @Entity
 data class ItemDataValue(
     @PrimaryKey(autoGenerate = true)
@@ -66,12 +70,4 @@ data class Creator(
     val creatorId: Int = 0,
     var firstName: String?,
     var lastName: String?
-)
-
-@Entity
-data class CreatorType(
-    @PrimaryKey(autoGenerate = true)
-    val creatorTypeId: Int = 0,
-    val name: String,
-    var friendlyName: String
 )

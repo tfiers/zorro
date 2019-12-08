@@ -15,6 +15,11 @@ android {
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary true
+        kapt {
+            arguments {
+                arg("room.schemaLocation", "$projectDir/schemas".toString())
+            }
+        }
     }
     dataBinding {
         enabled = true
@@ -90,6 +95,9 @@ dependencies {
 
     // Backport of new java.time.* classes (Instant e.g.)
     implementation 'com.jakewharton.threetenabp:threetenabp:1.2.1'
+
+    // Web UI to browse live sqlite db & sharedprefs. URL is given in logs under key "D/DebugDB".
+    debugImplementation 'com.amitshekhar.android:debug-db:1.0.6'
 }
 
 kapt {
