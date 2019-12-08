@@ -7,7 +7,7 @@
 
         <variable
             name="item"
-            type="net.tomasfiers.zoro.data.TreeItem" />
+            type="net.tomasfiers.zoro.data.domain.TreeItem" />
 
         <variable
             name="clickListener"

@@ -1,7 +1,7 @@
 package net.tomasfiers.zoro.zotero_api
 
 import com.squareup.moshi.JsonClass
-import net.tomasfiers.zoro.data.Collection
+import net.tomasfiers.zoro.data.domain.Collection
 
 
 @JsonClass(generateAdapter = true)

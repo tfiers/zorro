@@ -6,6 +6,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy.REPLACE
 import androidx.room.Query
+import net.tomasfiers.zoro.data.domain.Collection
 
 @Dao
 interface CollectionDAO {
