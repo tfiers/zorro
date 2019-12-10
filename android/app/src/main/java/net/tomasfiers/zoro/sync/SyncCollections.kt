@@ -7,11 +7,13 @@ import net.tomasfiers.zoro.zotero_api.MAX_ITEMS_PER_RESPONSE
 import net.tomasfiers.zoro.zotero_api.remoteLibraryVersion
 
 suspend fun DataRepo.syncCollections(): Int? {
+    syncStatus.value = "Updating collections…"
     val collectionVersionsResponse = zoteroAPIClient.getCollectionVersions(
         sinceLibraryVersion = getValue(Key.LOCAL_LIBRARY_VERSION)
     )
     val remoteLibVersionAtStartSync = collectionVersionsResponse.remoteLibraryVersion
     val collectionIds = collectionVersionsResponse.body()?.keys ?: emptyList<String>()
+    syncStatus.value = "Downloading ${collectionIds.size} collections…"
     collectionIds
         .chunked(MAX_ITEMS_PER_RESPONSE)
         .forEach { someCollectionIds ->

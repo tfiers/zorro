@@ -13,6 +13,7 @@ import net.tomasfiers.zoro.zotero_api.SchemaJson
 
 
 suspend fun DataRepo.syncSchema() {
+    syncStatus.value = "Updating schema…"
     val schemaResponse = zoteroAPIClient.getSchema(
         checkIfSchemaUpdated = getValue(Key.LOCAL_SCHEMA_ETAG)
     )

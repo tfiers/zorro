@@ -22,6 +22,7 @@ class DataRepo(
     val isSyncing = MutableLiveData<Boolean>(false)
     val syncStatus = MutableLiveData<String>()
     val syncError = MutableLiveData<String?>(null)
+    val downloadProgress = MutableLiveData<Float>()
 
     // "Private" properties (only to be accessed by extension functions).
     var lastSyncTime: Instant? = null
