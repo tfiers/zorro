@@ -12,15 +12,17 @@ suspend fun DataRepo.syncCollections(): Int? {
     )
     val remoteLibVersionAtStartSync = collectionVersionsResponse.remoteLibraryVersion
     val collectionIds = collectionVersionsResponse.body()?.keys ?: emptyList<String>()
-    collectionIds.chunked(MAX_ITEMS_PER_RESPONSE).forEach { someCollectionIds ->
-        val jsonCollectionsResponse =
-            zoteroAPIClient.getCollections(someCollectionIds.joinToString(","))
-        if (jsonCollectionsResponse.remoteLibraryVersion != remoteLibVersionAtStartSync) {
-            throw RemoteLibraryUpdatedSignal()
+    collectionIds
+        .chunked(MAX_ITEMS_PER_RESPONSE)
+        .forEach { someCollectionIds ->
+            val jsonCollectionsResponse =
+                zoteroAPIClient.getCollections(someCollectionIds.joinToString(","))
+            if (jsonCollectionsResponse.remoteLibraryVersion != remoteLibVersionAtStartSync) {
+                throw RemoteLibraryUpdatedSignal()
+            }
+            jsonCollectionsResponse.body()?.forEach {
+                database.collection.insert(it.asDomainModel())
+            }
         }
-        jsonCollectionsResponse.body()?.forEach {
-            database.collection.insert(it.asDomainModel())
-        }
-    }
     return remoteLibVersionAtStartSync
 }

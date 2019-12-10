@@ -20,7 +20,7 @@ suspend fun DataRepo.syncLibrary() {
             syncSchema()
             val remoteLibVersionAtStartSync = syncCollections()
             syncItems(remoteLibVersionAtStartSync)
-            // Update local libraray version only after all requests and database inserts have
+            // Update local library version only after all requests and database inserts have
             // completed.
             setValue(
                 Key.LOCAL_LIBRARY_VERSION,
