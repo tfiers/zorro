@@ -5,6 +5,7 @@ import net.tomasfiers.zoro.data.Key
 import net.tomasfiers.zoro.data.getValue
 import net.tomasfiers.zoro.zotero_api.MAX_ITEMS_PER_RESPONSE
 import net.tomasfiers.zoro.zotero_api.remoteLibraryVersion
+import timber.log.Timber
 
 suspend fun DataRepo.syncItems(remoteLibVersionAtStartSync: Int?) {
     syncStatus.value = "Updating items…"
@@ -22,8 +23,8 @@ suspend fun DataRepo.syncItems(remoteLibVersionAtStartSync: Int?) {
                 throw RemoteLibraryUpdatedSignal()
             }
             response.body()?.forEach { itemJson ->
-                syncStatus.value = "Inserting item ${currentItemNr++} of ${itemIds.size}"
                 database.item.insert(itemJson.asDomainModel())
+                downloadProgress.value = (currentItemNr++).toFloat() / itemIds.size
             }
         }
 }

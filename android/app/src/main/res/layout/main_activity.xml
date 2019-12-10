@@ -4,6 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.MainActivity">
 
+    <data>
+
+        <variable
+            name="vm"
+            type="net.tomasfiers.zoro.viewmodels.MainActivityViewModel" />
+    </data>
+
     <!-- To display snackbars. -->
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/coordinator_layout"
@@ -30,6 +37,9 @@
                     android:minHeight="?attr/actionBarSize"
                     android:theme="@style/ThemeOverlay.MaterialComponents.Toolbar.Primary"
                     app:layout_constraintTop_toTopOf="parent"
+                    app:subtitle="@{vm.syncStatus}"
+                    app:subtitleTextAppearance="@style/TextAppearance.SyncStatus"
+                    app:subtitleTextColor="@color/mutedText"
                     app:titleTextColor="@color/primaryTextColor"
                     tools:title="My Library" />
 
@@ -38,7 +48,8 @@
                     style="@style/Widget.MaterialProgressBar.ProgressBar.Horizontal.NoPadding"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:progress="30"
+                    android:max="@{vm.maxProgress}"
+                    android:progress="@{vm.downloadProgress}"
                     app:mpb_progressBackgroundTint="@color/progressBarBackground"
                     app:mpb_progressStyle="horizontal"
                     app:mpb_progressTint="@color/progressBar"

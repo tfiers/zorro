@@ -3,6 +3,7 @@ package net.tomasfiers.zoro.ui
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
+import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -16,16 +17,23 @@ import net.tomasfiers.zoro.ZoroApplication
 import net.tomasfiers.zoro.data.DataRepo
 import net.tomasfiers.zoro.databinding.MainActivityBinding
 import net.tomasfiers.zoro.sync.syncLibrary
+import net.tomasfiers.zoro.viewmodels.MainActivityViewModel
+import net.tomasfiers.zoro.viewmodels.MainActivityViewModelFactory
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var binding: MainActivityBinding
-    lateinit var dataRepo: DataRepo
-    lateinit var actionBarDrawerToggle: ActionBarDrawerToggle
+    private lateinit var binding: MainActivityBinding
+    private lateinit var dataRepo: DataRepo
+    private lateinit var actionBarDrawerToggle: ActionBarDrawerToggle
+    private val viewModel: MainActivityViewModel by viewModels {
+        MainActivityViewModelFactory((application as ZoroApplication).dataRepo)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.main_activity)
+        binding.lifecycleOwner = this
+        binding.vm = viewModel
         dataRepo = (application as ZoroApplication).dataRepo
         setupToolbar()
         observeSyncErrors()
