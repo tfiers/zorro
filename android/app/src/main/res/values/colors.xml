@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Color used in theme > cannot rename -->
-    <color name="primaryColor">#a70a0a</color>
-    <color name="primaryLightColor">#e04a34</color>
-    <color name="primaryDarkColor">#710000</color>
-    <color name="primaryTextColor">#ffffff</color>
+    <color name="primary">#a70a0a</color>
+    <color name="primaryLight">#e04a34</color>
+    <color name="primaryDark">#710000</color>
+    <color name="primaryText">#ffffff</color>
 
-    <!-- Custom colors -->
     <color name="mutedText">#dddddd</color>
     <color name="progressBar">#26a69a</color>
     <color name="progressBarBackground">#ECECEC</color>

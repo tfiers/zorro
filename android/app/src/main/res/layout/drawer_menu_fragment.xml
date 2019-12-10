@@ -14,7 +14,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/primaryColor">
+        android:background="@color/primary">
 
         <TextView
             android:id="@+id/sync_status_textview"
@@ -23,7 +23,7 @@
             android:layout_marginTop="32dp"
             android:text="@{vm.syncStatus}"
             android:textAppearance="@style/TextAppearance.SyncStatus"
-            android:textColor="@color/primaryTextColor"
+            android:textColor="@color/primaryText"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -34,7 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:backgroundTint="@color/primaryDarkColor"
+            android:backgroundTint="@color/primaryDark"
             android:onClick="@{() -> vm.clearLocalData()}"
             android:text="Clear local data"
             app:layout_constraintEnd_toEndOf="parent"

@@ -40,7 +40,7 @@
                     app:subtitle="@{vm.syncStatus}"
                     app:subtitleTextAppearance="@style/TextAppearance.SyncStatus"
                     app:subtitleTextColor="@color/mutedText"
-                    app:titleTextColor="@color/primaryTextColor"
+                    app:titleTextColor="@color/primaryText"
                     tools:title="My Library" />
 
                 <me.zhanghai.android.materialprogressbar.MaterialProgressBar
