@@ -19,7 +19,7 @@ and uses most
 (view binding, ViewModels and data binding, observable LiveData, a local database with Room,
 task scheduling with WorkManager, data abstraction through a Repository, navigation
 with NavController and SafeArgs, and [Kotlin](https://kotlinlang.org/) niceness such as
-coroutines and delegated properties).
+coroutines, extension functions, and delegated properties).
 
 It also uses [Timber](https://github.com/JakeWharton/timber) for logging;
 [Retrofit](https://square.github.io/retrofit/) as HTTP client;
