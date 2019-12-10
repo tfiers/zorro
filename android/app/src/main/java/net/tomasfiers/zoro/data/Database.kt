@@ -27,7 +27,7 @@ import org.threeten.bp.format.DateTimeFormatter
         ItemTypeFieldAssociation::class,
         ItemTypeCreatorTypeAssociation::class
     ],
-    version = 7,
+    version = 8,
     exportSchema = false
 )
 @TypeConverters(DBTypeConverters::class)
