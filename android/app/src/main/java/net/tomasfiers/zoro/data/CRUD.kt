@@ -3,11 +3,13 @@
 package net.tomasfiers.zoro.data
 
 import net.tomasfiers.zoro.data.storage.INITIAL_LOCAL_LIBRARY_VERSION
+import net.tomasfiers.zoro.data.storage.Key
+import net.tomasfiers.zoro.data.storage.setValue
 import net.tomasfiers.zoro.sync.clearSchema
 
 suspend fun DataRepo.clearLocalData() {
-    keyValStore.localLibraryVersion = INITIAL_LOCAL_LIBRARY_VERSION
-    keyValStore.localSchemaETag = null
+    setValue(Key.LOCAL_LIBRARY_VERSION, INITIAL_LOCAL_LIBRARY_VERSION)
+    setValue(Key.LOCAL_SCHEMA_ETAG, null)
     clearSchema()
     database.collectionDAO.clearCollections()
 }

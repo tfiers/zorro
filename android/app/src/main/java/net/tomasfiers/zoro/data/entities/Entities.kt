@@ -5,6 +5,18 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import org.threeten.bp.OffsetDateTime
 
+
+/**
+ * Used for storing app settings and other arbitrary one-row data.
+ */
+@Entity
+data class KeyValPair(
+    @PrimaryKey
+    val key: String,
+    val value: String?
+)
+
+
 // Keys will probably not overlap between Collections and Items. A Zotero key has 8 alphanumeric
 // characters. 8^36 unique keys = 2821 billion = 10^12 = 1/10 of cells in human body.
 // Similarly, Int's are OK for ID's: https://stackoverflow.com/a/55995219/2611913.

@@ -1,4 +1,7 @@
-// Data acces objects
+/**
+ * Android Room "data acces objects".
+ */
+
 package net.tomasfiers.zoro.data.storage
 
 import androidx.lifecycle.LiveData
@@ -13,6 +16,16 @@ import net.tomasfiers.zoro.data.entities.Field
 import net.tomasfiers.zoro.data.entities.ItemType
 import net.tomasfiers.zoro.data.entities.ItemTypeCreatorTypeAssociation
 import net.tomasfiers.zoro.data.entities.ItemTypeFieldAssociation
+import net.tomasfiers.zoro.data.entities.KeyValPair
+
+@Dao
+interface KeyValDao {
+    @Insert(onConflict = REPLACE)
+    suspend fun insert(data: KeyValPair)
+
+    @Query("select * from KeyValPair where `key`= :key ")
+    suspend fun get(key: String): KeyValPair?
+}
 
 @Dao
 interface SchemaDAO {

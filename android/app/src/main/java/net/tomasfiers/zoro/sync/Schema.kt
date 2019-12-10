@@ -6,12 +6,15 @@ import net.tomasfiers.zoro.data.entities.Field
 import net.tomasfiers.zoro.data.entities.ItemType
 import net.tomasfiers.zoro.data.entities.ItemTypeCreatorTypeAssociation
 import net.tomasfiers.zoro.data.entities.ItemTypeFieldAssociation
+import net.tomasfiers.zoro.data.storage.Key
+import net.tomasfiers.zoro.data.storage.getValue
+import net.tomasfiers.zoro.data.storage.setValue
 import net.tomasfiers.zoro.zotero_api.SchemaJson
 
 
 suspend fun DataRepo.syncSchema() {
     val schemaResponse = zoteroAPIClient.getSchema(
-        checkIfSchemaUpdated = keyValStore.localSchemaETag
+        checkIfSchemaUpdated = getValue(Key.LOCAL_SCHEMA_ETAG)
     )
     if (schemaResponse.code() == 304) {
         // Schema not modified since last check.
@@ -20,7 +23,7 @@ suspend fun DataRepo.syncSchema() {
         clearSchema()
         insertSchema(schemaResponse.body()!!)
         // Only update local schema tag when all db inserts have completed succesfully.
-        keyValStore.localSchemaETag = schemaResponse.headers()["ETag"]
+        setValue(Key.LOCAL_SCHEMA_ETAG, schemaResponse.headers()["ETag"])
     }
 }
 

@@ -3,7 +3,6 @@ package net.tomasfiers.zoro
 import android.app.Application
 import com.jakewharton.threetenabp.AndroidThreeTen
 import net.tomasfiers.zoro.data.DataRepo
-import net.tomasfiers.zoro.data.storage.KeyValStore
 import net.tomasfiers.zoro.data.storage.ZoroDatabase
 import net.tomasfiers.zoro.zotero_api.zoteroAPIClient
 import timber.log.Timber
@@ -20,7 +19,6 @@ class ZoroApplication : Application() {
             Timber.i("Development mode ")
         }
         val database = ZoroDatabase.getDatabase(applicationContext)
-        val keyValStore = KeyValStore(this)
-        dataRepo = DataRepo(database, zoteroAPIClient, keyValStore)
+        dataRepo = DataRepo(database, zoteroAPIClient)
     }
 }

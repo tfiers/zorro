@@ -13,6 +13,7 @@ import org.threeten.bp.format.DateTimeFormatter
 
 @Database(
     entities = [
+        KeyValPair::class,
         Collection::class,
         Item::class,
         ItemType::class,
@@ -26,12 +27,13 @@ import org.threeten.bp.format.DateTimeFormatter
         ItemTypeFieldAssociation::class,
         ItemTypeCreatorTypeAssociation::class
     ],
-    version = 6,
+    version = 7,
     exportSchema = false
 )
 @TypeConverters(DBTypeConverters::class)
 abstract class ZoroDatabase : RoomDatabase() {
 
+    abstract val keyValDao: KeyValDao
     abstract val schemaDAO: SchemaDAO
     abstract val collectionDAO: CollectionDAO
 
@@ -60,6 +62,7 @@ abstract class ZoroDatabase : RoomDatabase() {
     }
 }
 
+@Suppress("unused")
 class DBTypeConverters {
     private val dateTimeFormatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME
 

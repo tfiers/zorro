@@ -2,6 +2,9 @@ package net.tomasfiers.zoro.sync
 
 import net.tomasfiers.zoro.BuildConfig
 import net.tomasfiers.zoro.data.DataRepo
+import net.tomasfiers.zoro.data.storage.INITIAL_LOCAL_LIBRARY_VERSION
+import net.tomasfiers.zoro.data.storage.Key
+import net.tomasfiers.zoro.data.storage.setValue
 import org.threeten.bp.Instant.now
 
 class RemoteLibraryUpdatedSignal : Exception()
@@ -18,7 +21,10 @@ suspend fun DataRepo.syncLibrary() {
             val remoteLibraryVersion = syncCollections()
             // Update local libraray version only after all requests and database inserts have
             // completed.
-            keyValStore.localLibraryVersion = remoteLibraryVersion ?: 0
+            setValue(
+                Key.LOCAL_LIBRARY_VERSION,
+                remoteLibraryVersion ?: INITIAL_LOCAL_LIBRARY_VERSION
+            )
             lastSyncTime = now()
             break@retrySyncLoop
         } catch (e: RemoteLibraryUpdatedSignal) {

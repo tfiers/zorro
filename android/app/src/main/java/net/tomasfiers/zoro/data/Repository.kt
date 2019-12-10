@@ -2,7 +2,6 @@ package net.tomasfiers.zoro.data
 
 import androidx.lifecycle.MutableLiveData
 import net.tomasfiers.zoro.ZoroApplication
-import net.tomasfiers.zoro.data.storage.KeyValStore
 import net.tomasfiers.zoro.data.storage.ZoroDatabase
 import net.tomasfiers.zoro.zotero_api.ZoteroAPIClient
 import org.threeten.bp.Instant
@@ -17,8 +16,7 @@ import org.threeten.bp.Instant
  */
 class DataRepo(
     val database: ZoroDatabase,
-    val zoteroAPIClient: ZoteroAPIClient,
-    val keyValStore: KeyValStore
+    val zoteroAPIClient: ZoteroAPIClient
 ) {
     val isSyncing = MutableLiveData<Boolean>(false)
     val syncError = MutableLiveData<String?>(null)
