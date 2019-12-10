@@ -18,12 +18,13 @@ suspend fun DataRepo.syncLibrary() {
     retrySyncLoop@ while (true) {
         try {
             syncSchema()
-            val remoteLibraryVersion = syncCollections()
+            val remoteLibVersionAtStartSync = syncCollections()
+            syncItems(remoteLibVersionAtStartSync)
             // Update local libraray version only after all requests and database inserts have
             // completed.
             setValue(
                 Key.LOCAL_LIBRARY_VERSION,
-                remoteLibraryVersion ?: INITIAL_LOCAL_LIBRARY_VERSION
+                remoteLibVersionAtStartSync ?: INITIAL_LOCAL_LIBRARY_VERSION
             )
             lastSyncTime = now()
             break@retrySyncLoop

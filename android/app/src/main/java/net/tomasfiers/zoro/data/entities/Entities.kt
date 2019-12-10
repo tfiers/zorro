@@ -33,7 +33,6 @@ data class Collection(
     @PrimaryKey @ColumnInfo(name = "collectionKey")
     override val key: String,
     override var name: String,
-    var version: Int,
     var parentKey: String?
 ) : TreeItem
 
@@ -41,10 +40,11 @@ data class Collection(
 data class Item(
     @PrimaryKey @ColumnInfo(name = "itemKey")
     override var key: String,
-    override var name: String,
     var dateAdded: OffsetDateTime,
     var dateModified: OffsetDateTime
-) : TreeItem
+) : TreeItem {
+    override var name: String = "todo"
+}
 
 @Entity
 data class ItemType(

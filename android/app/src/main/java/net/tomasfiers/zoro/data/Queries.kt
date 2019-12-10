@@ -11,22 +11,19 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy.IGNORE
 import androidx.room.OnConflictStrategy.REPLACE
 import androidx.room.Query
+import net.tomasfiers.zoro.data.entities.*
 import net.tomasfiers.zoro.data.entities.Collection
-import net.tomasfiers.zoro.data.entities.CreatorType
-import net.tomasfiers.zoro.data.entities.Field
-import net.tomasfiers.zoro.data.entities.ItemType
-import net.tomasfiers.zoro.data.entities.ItemTypeCreatorTypeAssociation
-import net.tomasfiers.zoro.data.entities.ItemTypeFieldAssociation
-import net.tomasfiers.zoro.data.entities.KeyValPair
 
 @Dao
 interface KeyValPairDao {
+
     @Insert(onConflict = REPLACE)
     suspend fun insert(data: KeyValPair)
 
     @Query("select * from KeyValPair where `key`= :key ")
     suspend fun get(key: String): KeyValPair?
 }
+
 
 @Dao
 interface SchemaDao {
@@ -56,6 +53,7 @@ interface SchemaDao {
     suspend fun insertItemTypeCreatorTypeAssociation(obj: ItemTypeCreatorTypeAssociation)
 }
 
+
 @Dao
 interface CollectionDao {
 
@@ -70,7 +68,15 @@ interface CollectionDao {
     // Also, a gotcha: in SQL you cannot use `= null`, only `is null`.
     @Query("select * from Collection where (parentKey = :parentKey) or (:parentKey is null and parentKey is null)")
     fun getChildren(parentKey: String?): LiveData<List<Collection>>
+}
 
-    @Query("delete from Collection")
-    suspend fun clearAll()
+
+@Dao
+interface ItemDao {
+
+    @Insert(onConflict = REPLACE)
+    suspend fun insert(item: Item)
+
+    @Query("select * from Item where itemKey = :key")
+    suspend fun get(key: String): Item
 }

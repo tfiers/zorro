@@ -9,7 +9,6 @@ import androidx.room.TypeConverters
 import net.tomasfiers.zoro.data.entities.*
 import net.tomasfiers.zoro.data.entities.Collection
 import org.threeten.bp.OffsetDateTime
-import org.threeten.bp.format.DateTimeFormatter
 
 @Database(
     entities = [
@@ -27,7 +26,7 @@ import org.threeten.bp.format.DateTimeFormatter
         ItemTypeFieldAssociation::class,
         ItemTypeCreatorTypeAssociation::class
     ],
-    version = 8,
+    version = 9,
     exportSchema = false
 )
 @TypeConverters(DBTypeConverters::class)
@@ -36,6 +35,7 @@ abstract class ZoroDatabase : RoomDatabase() {
     abstract val keyValPair: KeyValPairDao
     abstract val schema: SchemaDao
     abstract val collection: CollectionDao
+    abstract val item: ItemDao
 
     // Singleton
     companion object {
@@ -64,12 +64,9 @@ abstract class ZoroDatabase : RoomDatabase() {
 
 @Suppress("unused")
 class DBTypeConverters {
-    private val dateTimeFormatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME
+    @TypeConverter
+    fun toOffsetDateTime(value: String): OffsetDateTime = OffsetDateTime.parse(value)
 
     @TypeConverter
-    fun toOffsetDateTime(value: String): OffsetDateTime =
-        dateTimeFormatter.parse(value, OffsetDateTime::from)
-
-    @TypeConverter
-    fun fromOffsetDateTime(dateTime: OffsetDateTime): String = dateTime.format(dateTimeFormatter)
+    fun fromOffsetDateTime(dateTime: OffsetDateTime): String = dateTime.toString()
 }

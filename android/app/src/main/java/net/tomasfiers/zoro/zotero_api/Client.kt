@@ -35,7 +35,7 @@ interface ZoteroAPIClient {
     @GET("${USER_PREFIX}/items?format=versions")
     suspend fun getItemVersions(
         @Query("since") sinceLibraryVersion: Int = 0
-    ): Response<Map<String, Int>>
+    ): Map<String, Int>
 
     // `collectionIds` should be a comma separated list.
     @GET("${USER_PREFIX}/collections")
@@ -49,7 +49,7 @@ interface ZoteroAPIClient {
     suspend fun getItems(
         @Query("itemKey") itemIds: String,
         @Query("limit") amount: Int = MAX_ITEMS_PER_RESPONSE
-    ): Response<List<CollectionJson>>
+    ): Response<List<ItemJson>>
 }
 
 val <T> Response<T>.remoteLibraryVersion: Int?

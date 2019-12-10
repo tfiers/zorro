@@ -2,6 +2,8 @@ package net.tomasfiers.zoro.zotero_api
 
 import com.squareup.moshi.JsonClass
 import net.tomasfiers.zoro.data.entities.Collection
+import net.tomasfiers.zoro.data.entities.Item
+import org.threeten.bp.OffsetDateTime
 
 
 @JsonClass(generateAdapter = true)
@@ -56,18 +58,26 @@ data class CollectionJson(
     @JsonClass(generateAdapter = true)
     data class Data(
         val key: String,
-        val version: Int,
         val name: String,
         val parentCollection: Any
     )
 
     fun asDomainModel() = Collection(
         key = data.key,
-        version = data.version,
         name = data.name,
         parentKey = when (data.parentCollection) {
             false -> null
             else -> data.parentCollection as String
         }
+    )
+}
+
+@JsonClass(generateAdapter = true)
+data class ItemJson(val data: Map<String, Any>) {
+
+    fun asDomainModel() = Item(
+        key = data["key"] as String,
+        dateAdded = OffsetDateTime.parse(data["dateAdded"] as String),
+        dateModified = OffsetDateTime.parse(data["dateModified"] as String)
     )
 }
