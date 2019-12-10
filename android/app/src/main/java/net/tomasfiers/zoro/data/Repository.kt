@@ -18,6 +18,7 @@ class DataRepo(
     val zoteroAPIClient: ZoteroAPIClient
 ) {
     val isSyncing = MutableLiveData<Boolean>(false)
+    val syncStatus = MutableLiveData<String>()
     val syncError = MutableLiveData<String?>(null)
     var lastSyncTime: Instant? = null
 }

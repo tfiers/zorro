@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
+import net.tomasfiers.zoro.BuildConfig
 import net.tomasfiers.zoro.R
 import net.tomasfiers.zoro.ZoroApplication
 import net.tomasfiers.zoro.databinding.MainActivityBinding
@@ -38,8 +39,10 @@ class MainActivity : AppCompatActivity() {
         binding.drawerLayout.addDrawerListener(actionBarDrawerToggle)
         actionBarDrawerToggle.syncState()
 
-        // Keep screen on for development ease.
-        window.addFlags(FLAG_KEEP_SCREEN_ON)
+        if (BuildConfig.DEBUG) {
+            // Keep screen on for development ease.
+            window.addFlags(FLAG_KEEP_SCREEN_ON)
+        }
 
         var snackbar: Snackbar? = null
         val dataRepo = (application as ZoroApplication).dataRepo
