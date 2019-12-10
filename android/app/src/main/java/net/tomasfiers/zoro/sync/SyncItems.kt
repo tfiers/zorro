@@ -2,6 +2,8 @@ package net.tomasfiers.zoro.sync
 
 import net.tomasfiers.zoro.data.DataRepo
 import net.tomasfiers.zoro.data.Key
+import net.tomasfiers.zoro.data.entities.ItemDataValue
+import net.tomasfiers.zoro.data.entities.ItemItemDataValueAssociation
 import net.tomasfiers.zoro.data.getValue
 import net.tomasfiers.zoro.zotero_api.MAX_ITEMS_PER_RESPONSE
 import net.tomasfiers.zoro.zotero_api.remoteLibraryVersion
@@ -18,6 +20,7 @@ suspend fun DataRepo.syncItems(remoteLibVersionAtStartSync: Int?) {
         showProgressBar.value = true
         downloadProgress.value = 0f
         var currentItemNr = 1
+        val fieldNames = database.schema.getFields().map { it.name }
         itemIds
             .chunked(MAX_ITEMS_PER_RESPONSE)
             .forEach { someItemIds ->
@@ -27,6 +30,14 @@ suspend fun DataRepo.syncItems(remoteLibVersionAtStartSync: Int?) {
                 }
                 response.body()?.forEach { itemJson ->
                     database.item.insert(itemJson.asDomainModel())
+                    val knownFields = itemJson.data.filter { it.key in fieldNames }
+                    for ((fieldName, value) in knownFields) {
+                        val itemDataValueId =
+                            database.item.insertDataValue(ItemDataValue(value.toString())).toInt()
+                        database.item.insertDataValueAssociation(
+                            ItemItemDataValueAssociation(itemJson.key, fieldName, itemDataValueId)
+                        )
+                    }
                     downloadProgress.value = (currentItemNr++).toFloat() / numItemsToDownload
                 }
             }

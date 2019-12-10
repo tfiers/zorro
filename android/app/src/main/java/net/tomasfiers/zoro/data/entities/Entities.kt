@@ -71,15 +71,15 @@ data class CreatorType(
 // Note: a default value of 0 means "autogenerate when not given on Insert".
 @Entity
 data class ItemDataValue(
+    var value: String,
     @PrimaryKey(autoGenerate = true)
-    val dataValueId: Int = 0,
-    var value: String
+    val dataValueId: Int = 0
 )
 
 @Entity
 data class Creator(
-    @PrimaryKey(autoGenerate = true)
-    val creatorId: Int = 0,
     var firstName: String?,
-    var lastName: String?
+    var lastName: String?,
+    @PrimaryKey(autoGenerate = true)
+    val creatorId: Int = 0
 )

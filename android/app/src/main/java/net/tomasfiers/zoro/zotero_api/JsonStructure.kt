@@ -75,8 +75,11 @@ data class CollectionJson(
 @JsonClass(generateAdapter = true)
 data class ItemJson(val data: Map<String, Any>) {
 
+    val key: String
+        get() = data["key"] as String
+
     fun asDomainModel() = Item(
-        key = data["key"] as String,
+        key = key,
         dateAdded = OffsetDateTime.parse(data["dateAdded"] as String),
         dateModified = OffsetDateTime.parse(data["dateModified"] as String)
     )

@@ -51,6 +51,9 @@ interface SchemaDao {
 
     @Insert(onConflict = IGNORE)
     suspend fun insertItemTypeCreatorTypeAssociation(obj: ItemTypeCreatorTypeAssociation)
+
+    @Query("select * from Field")
+    suspend fun getFields(): List<Field>
 }
 
 
@@ -76,6 +79,12 @@ interface ItemDao {
 
     @Insert(onConflict = REPLACE)
     suspend fun insert(item: Item)
+
+    @Insert
+    suspend fun insertDataValue(data: ItemDataValue): Long
+
+    @Insert
+    suspend fun insertDataValueAssociation(assoc: ItemItemDataValueAssociation)
 
     @Query("select * from Item where itemKey = :key")
     suspend fun get(key: String): Item
