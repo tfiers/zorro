@@ -15,7 +15,7 @@ import net.tomasfiers.zoro.viewmodels.DrawerMenuViewModelFactory
 class DrawerMenuFragment : Fragment() {
 
     private val viewModel: DrawerMenuViewModel by viewModels {
-        DrawerMenuViewModelFactory(activity?.application as ZoroApplication)
+        DrawerMenuViewModelFactory((activity?.application as ZoroApplication).dataRepo)
     }
 
     override fun onCreateView(

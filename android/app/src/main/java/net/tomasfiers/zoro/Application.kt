@@ -2,6 +2,7 @@ package net.tomasfiers.zoro
 
 import android.app.Application
 import com.jakewharton.threetenabp.AndroidThreeTen
+import kotlinx.coroutines.coroutineScope
 import net.tomasfiers.zoro.data.DataRepo
 import net.tomasfiers.zoro.data.ZoroDatabase
 import net.tomasfiers.zoro.zotero_api.zoteroAPIClient
@@ -19,6 +20,6 @@ class ZoroApplication : Application() {
             Timber.i("Development mode ")
         }
         val database = ZoroDatabase.getDatabase(applicationContext)
-        dataRepo = DataRepo(database, zoteroAPIClient)
+        dataRepo = DataRepo(database, zoteroAPIClient, this)
     }
 }

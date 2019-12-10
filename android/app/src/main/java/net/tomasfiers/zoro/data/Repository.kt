@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import net.tomasfiers.zoro.ZoroApplication
 import net.tomasfiers.zoro.zotero_api.ZoteroAPIClient
 import org.threeten.bp.Instant
+import java.util.Timer
 
 /**
  * Global state for the app. A singleton (by usage, not enforced), initialised in [ZoroApplication].
@@ -15,10 +16,14 @@ import org.threeten.bp.Instant
  */
 class DataRepo(
     val database: ZoroDatabase,
-    val zoteroAPIClient: ZoteroAPIClient
+    val zoteroAPIClient: ZoteroAPIClient,
+    val application: ZoroApplication
 ) {
     val isSyncing = MutableLiveData<Boolean>(false)
     val syncStatus = MutableLiveData<String>()
     val syncError = MutableLiveData<String?>(null)
+
+    // "Private" properties (only to be accessed by extension functions).
     var lastSyncTime: Instant? = null
+    var lastSyncTextUpdateTimer = Timer()
 }
