@@ -8,11 +8,10 @@ import java.util.Timer
 import kotlin.concurrent.timerTask
 
 
-
 fun DataRepo.startUpdatingLastSyncText() {
     lastSyncTextUpdateTimer = Timer()
     lastSyncTextUpdateTimer.schedule(
-        timerTask { setLastSyncText() },
+        timerTask { updateLastSyncText() },
         0,
         MINUTE_IN_MILLIS
     )
@@ -20,7 +19,7 @@ fun DataRepo.startUpdatingLastSyncText() {
 
 fun DataRepo.stopUpdatingLastSyncText() = lastSyncTextUpdateTimer.cancel()
 
-fun DataRepo.setLastSyncText() {
+fun DataRepo.updateLastSyncText() {
     val lastSyncTime = lastSyncTime
     if (lastSyncTime != null) {
         val newSyncStatus = "Last sync: " + getRelativeDateTimeString(

@@ -12,7 +12,7 @@ import java.util.Timer
  * Extension functions for this class in the `sync/` package keep the local database in sync with
  * the data on zotero.org. Extension functions in `CRUD.kt` are thin wrappers to access and modify
  * local data.
- * These functions (and the LiveData in this class) are used by ViewModels.
+ * These extension functions (and the LiveData in this class) are used by ViewModels.
  */
 class DataRepo(
     val database: ZoroDatabase,
