@@ -1,12 +1,12 @@
 package net.tomasfiers.zoro.sync
 
 import net.tomasfiers.zoro.data.DataRepo
+import net.tomasfiers.zoro.data.Key
 import net.tomasfiers.zoro.data.entities.CreatorType
 import net.tomasfiers.zoro.data.entities.Field
 import net.tomasfiers.zoro.data.entities.ItemType
 import net.tomasfiers.zoro.data.entities.ItemTypeCreatorTypeAssociation
 import net.tomasfiers.zoro.data.entities.ItemTypeFieldAssociation
-import net.tomasfiers.zoro.data.Key
 import net.tomasfiers.zoro.data.getValue
 import net.tomasfiers.zoro.data.setValue
 import net.tomasfiers.zoro.zotero_api.SchemaJson

@@ -15,7 +15,7 @@ class MainActivityViewModelFactory(
         MainActivityViewModel(dataRepo) as T
 }
 
-class MainActivityViewModel(private val dataRepo: DataRepo) : ViewModel() {
+class MainActivityViewModel(dataRepo: DataRepo) : ViewModel() {
     val syncStatus = dataRepo.syncStatus
     val progressBarVisibility = Transformations.map(dataRepo.showProgressBar) {
         when (it) {

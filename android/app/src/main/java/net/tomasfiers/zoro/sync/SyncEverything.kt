@@ -10,10 +10,10 @@ import org.threeten.bp.Instant.now
 class RemoteLibraryUpdatedSignal : Exception()
 
 suspend fun DataRepo.syncLibrary() {
-    stopUpdatingLastSyncText()
     isSyncing.value = true
-    syncStatus.value = "Syncing with zotero.org…"
     syncError.value = null
+    stopUpdatingLastSyncText()
+    lastSyncText.value = "Syncing with zotero.org…"
     // There may be updates to the remote library *while* we are synching. We handle these by
     // checking the remote library version after each request, and restarting the synching procedure
     // if necessary.
@@ -42,5 +42,6 @@ suspend fun DataRepo.syncLibrary() {
             }
         }
     }
+    syncStatus.value = null
     isSyncing.value = false
 }

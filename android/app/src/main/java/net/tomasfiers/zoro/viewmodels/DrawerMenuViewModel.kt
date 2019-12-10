@@ -17,7 +17,7 @@ class DrawerMenuViewModelFactory(
 
 class DrawerMenuViewModel(private val dataRepo: DataRepo) : ViewModel() {
 
-    val syncStatus = dataRepo.syncStatus
+    val lastSyncText = dataRepo.lastSyncText
 
     fun clearLocalData() = viewModelScope.launch {
         dataRepo.clearLocalData()

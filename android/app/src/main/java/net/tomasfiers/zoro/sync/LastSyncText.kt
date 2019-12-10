@@ -34,7 +34,7 @@ fun DataRepo.updateLastSyncText() {
         ).toString()
             .replace(Regex("^0 minutes ago"), "just now")
         // We are not on the main thread (but rather a background thread created by the timer), so
-        // we cannot directly use `syncStatus.value = x`.
-        syncStatus.postValue(newSyncStatus)
+        // we cannot directly use `lastSyncText.value = x`.
+        lastSyncText.postValue(newSyncStatus)
     }
 }

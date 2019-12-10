@@ -20,8 +20,9 @@ class DataRepo(
     val application: ZoroApplication
 ) {
     val isSyncing = MutableLiveData<Boolean>(false)
-    val syncStatus = MutableLiveData<String>()
+    val syncStatus = MutableLiveData<String?>(null)
     val syncError = MutableLiveData<String?>(null)
+    val lastSyncText = MutableLiveData<String>()
     val showProgressBar = MutableLiveData<Boolean>(false)
     val downloadProgress = MutableLiveData<Float>(0f)
 
