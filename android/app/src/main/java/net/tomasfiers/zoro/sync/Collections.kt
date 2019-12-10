@@ -1,8 +1,8 @@
 package net.tomasfiers.zoro.sync
 
 import net.tomasfiers.zoro.data.DataRepo
-import net.tomasfiers.zoro.data.storage.Key
-import net.tomasfiers.zoro.data.storage.getValue
+import net.tomasfiers.zoro.data.Key
+import net.tomasfiers.zoro.data.getValue
 import net.tomasfiers.zoro.zotero_api.MAX_ITEMS_PER_RESPONSE
 import net.tomasfiers.zoro.zotero_api.remoteLibraryVersion
 
@@ -19,7 +19,7 @@ suspend fun DataRepo.syncCollections(): Int? {
             throw RemoteLibraryUpdatedSignal()
         }
         jsonCollectionsResponse.body()?.forEach {
-            database.collectionDAO.insert(it.asDomainModel())
+            database.collection.insert(it.asDomainModel())
         }
     }
     return remoteLibraryVersion

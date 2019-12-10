@@ -2,9 +2,9 @@ package net.tomasfiers.zoro.sync
 
 import net.tomasfiers.zoro.BuildConfig
 import net.tomasfiers.zoro.data.DataRepo
-import net.tomasfiers.zoro.data.storage.INITIAL_LOCAL_LIBRARY_VERSION
-import net.tomasfiers.zoro.data.storage.Key
-import net.tomasfiers.zoro.data.storage.setValue
+import net.tomasfiers.zoro.data.INITIAL_LOCAL_LIBRARY_VERSION
+import net.tomasfiers.zoro.data.Key
+import net.tomasfiers.zoro.data.setValue
 import org.threeten.bp.Instant.now
 
 class RemoteLibraryUpdatedSignal : Exception()

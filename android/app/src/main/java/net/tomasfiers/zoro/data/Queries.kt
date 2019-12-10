@@ -1,8 +1,9 @@
 /**
- * Android Room "data acces objects".
+ * Android Room "DAO's", or data acces objects.
+ * Semi-automatically generate SQL queries.
  */
 
-package net.tomasfiers.zoro.data.storage
+package net.tomasfiers.zoro.data
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
@@ -19,7 +20,7 @@ import net.tomasfiers.zoro.data.entities.ItemTypeFieldAssociation
 import net.tomasfiers.zoro.data.entities.KeyValPair
 
 @Dao
-interface KeyValDao {
+interface KeyValPairDao {
     @Insert(onConflict = REPLACE)
     suspend fun insert(data: KeyValPair)
 
@@ -28,7 +29,7 @@ interface KeyValDao {
 }
 
 @Dao
-interface SchemaDAO {
+interface SchemaDao {
 
     @Query("delete from ItemType")
     suspend fun clearItemTypes()
@@ -56,7 +57,7 @@ interface SchemaDAO {
 }
 
 @Dao
-interface CollectionDAO {
+interface CollectionDao {
 
     @Insert(onConflict = REPLACE)
     suspend fun insert(collection: Collection)
@@ -71,5 +72,5 @@ interface CollectionDAO {
     fun getChildren(parentKey: String?): LiveData<List<Collection>>
 
     @Query("delete from Collection")
-    suspend fun clearCollections()
+    suspend fun clearAll()
 }

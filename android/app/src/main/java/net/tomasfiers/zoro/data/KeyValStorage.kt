@@ -1,6 +1,5 @@
-package net.tomasfiers.zoro.data.storage
+package net.tomasfiers.zoro.data
 
-import net.tomasfiers.zoro.data.DataRepo
 import net.tomasfiers.zoro.data.entities.KeyValPair
 
 const val INITIAL_LOCAL_LIBRARY_VERSION = 0
@@ -16,7 +15,7 @@ enum class Key(val dataType: DataType, val defaultValue: Any?) {
 // So no `keyValStore.localLibraryVersion = x` unfortunately :'(
 
 suspend inline fun <reified T> DataRepo.getValue(key: Key): T =
-    when (val value = database.keyValDao.get(key.name)?.value) {
+    when (val value = database.keyValPair.get(key.name)?.value) {
         null -> key.defaultValue as T
         else -> when (key.dataType) {
             Key.DataType.STRING -> value as T
@@ -25,4 +24,4 @@ suspend inline fun <reified T> DataRepo.getValue(key: Key): T =
     }
 
 suspend fun DataRepo.setValue(key: Key, value: Any?) =
-    database.keyValDao.insert(KeyValPair(key.name, value.toString()))
+    database.keyValPair.insert(KeyValPair(key.name, value.toString()))

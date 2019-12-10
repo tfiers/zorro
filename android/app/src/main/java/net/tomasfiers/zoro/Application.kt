@@ -3,7 +3,7 @@ package net.tomasfiers.zoro
 import android.app.Application
 import com.jakewharton.threetenabp.AndroidThreeTen
 import net.tomasfiers.zoro.data.DataRepo
-import net.tomasfiers.zoro.data.storage.ZoroDatabase
+import net.tomasfiers.zoro.data.ZoroDatabase
 import net.tomasfiers.zoro.zotero_api.zoteroAPIClient
 import timber.log.Timber
 

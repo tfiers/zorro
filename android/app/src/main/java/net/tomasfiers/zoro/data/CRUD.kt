@@ -1,21 +1,20 @@
-// CRUD = Create, Read, Update, Delete data in the database.
+/**
+ * CRUD = Create, Read, Update, Delete data in the database.
+ */
 
 package net.tomasfiers.zoro.data
 
-import net.tomasfiers.zoro.data.storage.INITIAL_LOCAL_LIBRARY_VERSION
-import net.tomasfiers.zoro.data.storage.Key
-import net.tomasfiers.zoro.data.storage.setValue
 import net.tomasfiers.zoro.sync.clearSchema
 
 suspend fun DataRepo.clearLocalData() {
     setValue(Key.LOCAL_LIBRARY_VERSION, INITIAL_LOCAL_LIBRARY_VERSION)
     setValue(Key.LOCAL_SCHEMA_ETAG, null)
     clearSchema()
-    database.collectionDAO.clearCollections()
+    database.collection.clearAll()
 }
 
 suspend fun DataRepo.getCollection(collectionKey: String) =
-    database.collectionDAO.get(collectionKey)
+    database.collection.get(collectionKey)
 
 fun DataRepo.getChildrenCollections(parentCollectionKey: String?) =
-    database.collectionDAO.getChildren(parentCollectionKey)
+    database.collection.getChildren(parentCollectionKey)

@@ -6,9 +6,9 @@ import net.tomasfiers.zoro.data.entities.Field
 import net.tomasfiers.zoro.data.entities.ItemType
 import net.tomasfiers.zoro.data.entities.ItemTypeCreatorTypeAssociation
 import net.tomasfiers.zoro.data.entities.ItemTypeFieldAssociation
-import net.tomasfiers.zoro.data.storage.Key
-import net.tomasfiers.zoro.data.storage.getValue
-import net.tomasfiers.zoro.data.storage.setValue
+import net.tomasfiers.zoro.data.Key
+import net.tomasfiers.zoro.data.getValue
+import net.tomasfiers.zoro.data.setValue
 import net.tomasfiers.zoro.zotero_api.SchemaJson
 
 
@@ -31,7 +31,7 @@ suspend fun DataRepo.insertSchema(schemaJson: SchemaJson) {
     val friendlyNames = schemaJson.locales.getValue("en-US")
     schemaJson.itemTypes.forEach { itemTypeJson ->
         val itemTypeName = itemTypeJson.itemType
-        database.schemaDAO.insertItemType(
+        database.schema.insertItemType(
             ItemType(
                 itemTypeName,
                 friendlyNames.itemTypes.getValue(itemTypeName)
@@ -39,14 +39,14 @@ suspend fun DataRepo.insertSchema(schemaJson: SchemaJson) {
         )
         itemTypeJson.fields.forEach { fieldJson ->
             val fieldName = fieldJson.field
-            database.schemaDAO.insertField(
+            database.schema.insertField(
                 Field(
                     fieldName,
                     friendlyNames.fields.getValue(fieldName),
                     fieldJson.baseField
                 )
             )
-            database.schemaDAO.insertItemTypeFieldAssociation(
+            database.schema.insertItemTypeFieldAssociation(
                 ItemTypeFieldAssociation(
                     itemTypeName,
                     fieldName
@@ -55,13 +55,13 @@ suspend fun DataRepo.insertSchema(schemaJson: SchemaJson) {
         }
         itemTypeJson.creatorTypes.forEach { creatorTypeJson ->
             val creatorTypeName = creatorTypeJson.creatorType
-            database.schemaDAO.insertCreatorType(
+            database.schema.insertCreatorType(
                 CreatorType(
                     creatorTypeName,
                     friendlyNames.creatorTypes.getValue(creatorTypeName)
                 )
             )
-            database.schemaDAO.insertItemTypeCreatorTypeAssociation(
+            database.schema.insertItemTypeCreatorTypeAssociation(
                 ItemTypeCreatorTypeAssociation(
                     itemTypeName,
                     creatorTypeName,
@@ -73,7 +73,7 @@ suspend fun DataRepo.insertSchema(schemaJson: SchemaJson) {
 }
 
 suspend fun DataRepo.clearSchema() {
-    database.schemaDAO.clearItemTypes() // Foreign keys will propagate deletion to associations.
-    database.schemaDAO.clearFields()
-    database.schemaDAO.clearCreatorTypes()
+    database.schema.clearItemTypes() // Foreign keys will propagate deletion to associations.
+    database.schema.clearFields()
+    database.schema.clearCreatorTypes()
 }

@@ -1,4 +1,4 @@
-package net.tomasfiers.zoro.data.storage
+package net.tomasfiers.zoro.data
 
 import android.content.Context
 import androidx.room.Database
@@ -33,9 +33,9 @@ import org.threeten.bp.format.DateTimeFormatter
 @TypeConverters(DBTypeConverters::class)
 abstract class ZoroDatabase : RoomDatabase() {
 
-    abstract val keyValDao: KeyValDao
-    abstract val schemaDAO: SchemaDAO
-    abstract val collectionDAO: CollectionDAO
+    abstract val keyValPair: KeyValPairDao
+    abstract val schema: SchemaDao
+    abstract val collection: CollectionDao
 
     // Singleton
     companion object {
