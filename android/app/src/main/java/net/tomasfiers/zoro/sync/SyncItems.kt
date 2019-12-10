@@ -13,6 +13,7 @@ suspend fun DataRepo.syncItems(remoteLibVersionAtStartSync: Int?) {
     )
     val itemIds = itemVersions.keys
     syncStatus.value = "Downloading ${itemIds.size} items…"
+    downloadProgress.value = 0f
     var currentItemNr = 1
     itemIds
         .chunked(MAX_ITEMS_PER_RESPONSE)

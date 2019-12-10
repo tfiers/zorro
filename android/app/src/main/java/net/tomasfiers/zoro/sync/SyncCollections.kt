@@ -14,6 +14,7 @@ suspend fun DataRepo.syncCollections(): Int? {
     val remoteLibVersionAtStartSync = collectionVersionsResponse.remoteLibraryVersion
     val collectionIds = collectionVersionsResponse.body()?.keys ?: emptyList<String>()
     syncStatus.value = "Downloading ${collectionIds.size} collections…"
+    downloadProgress.value = 0f
     var currentCollectionNr = 1
     collectionIds
         .chunked(MAX_ITEMS_PER_RESPONSE)
