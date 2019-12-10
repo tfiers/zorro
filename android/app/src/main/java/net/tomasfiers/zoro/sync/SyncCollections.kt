@@ -14,6 +14,7 @@ suspend fun DataRepo.syncCollections(): Int? {
     val remoteLibVersionAtStartSync = collectionVersionsResponse.remoteLibraryVersion
     val collectionIds = collectionVersionsResponse.body()?.keys ?: emptyList<String>()
     syncStatus.value = "Downloading ${collectionIds.size} collections…"
+    var currentCollectionNr = 1
     collectionIds
         .chunked(MAX_ITEMS_PER_RESPONSE)
         .forEach { someCollectionIds ->
@@ -24,6 +25,7 @@ suspend fun DataRepo.syncCollections(): Int? {
             }
             jsonCollectionsResponse.body()?.forEach {
                 database.collection.insert(it.asDomainModel())
+                downloadProgress.value = (currentCollectionNr++).toFloat() / collectionIds.size
             }
         }
     return remoteLibVersionAtStartSync

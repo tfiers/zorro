@@ -5,7 +5,6 @@ import net.tomasfiers.zoro.data.Key
 import net.tomasfiers.zoro.data.getValue
 import net.tomasfiers.zoro.zotero_api.MAX_ITEMS_PER_RESPONSE
 import net.tomasfiers.zoro.zotero_api.remoteLibraryVersion
-import timber.log.Timber
 
 suspend fun DataRepo.syncItems(remoteLibVersionAtStartSync: Int?) {
     syncStatus.value = "Updating items…"
@@ -13,8 +12,8 @@ suspend fun DataRepo.syncItems(remoteLibVersionAtStartSync: Int?) {
         sinceLibraryVersion = getValue(Key.LOCAL_LIBRARY_VERSION)
     )
     val itemIds = itemVersions.keys
-    var currentItemNr = 1
     syncStatus.value = "Downloading ${itemIds.size} items…"
+    var currentItemNr = 1
     itemIds
         .chunked(MAX_ITEMS_PER_RESPONSE)
         .forEach { someItemIds ->
