@@ -10,6 +10,9 @@ import kotlin.concurrent.timerTask
 
 fun DataRepo.startUpdatingLastSyncText() {
     lastSyncTextUpdateTimer = Timer()
+    // Question: does this job keep running when the application is destroyed? I suppose not because
+    // when the linux application process is killed, its subthreads/subprocesses are probably killed
+    // too.
     lastSyncTextUpdateTimer.schedule(
         timerTask { updateLastSyncText() },
         0,
@@ -31,7 +34,7 @@ fun DataRepo.updateLastSyncText() {
         ).toString()
             .replace(Regex("^0 minutes ago"), "just now")
         // We are not on the main thread (but rather a background thread created by the timer), so
-        // we cannot directly use `syncStatus = x`.
+        // we cannot directly use `syncStatus.value = x`.
         syncStatus.postValue(newSyncStatus)
     }
 }
