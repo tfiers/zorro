@@ -7,7 +7,6 @@ import net.tomasfiers.zoro.data.entities.ItemType
 import net.tomasfiers.zoro.data.entities.ItemTypeCreatorTypeAssociation
 import net.tomasfiers.zoro.data.entities.ItemTypeFieldAssociation
 import net.tomasfiers.zoro.zotero_api.SchemaJson
-import net.tomasfiers.zoro.zotero_api.zoteroAPIClient
 
 
 suspend fun DataRepo.syncSchema() {

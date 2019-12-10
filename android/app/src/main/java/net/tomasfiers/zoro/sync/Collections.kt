@@ -3,7 +3,6 @@ package net.tomasfiers.zoro.sync
 import net.tomasfiers.zoro.data.DataRepo
 import net.tomasfiers.zoro.zotero_api.MAX_ITEMS_PER_RESPONSE
 import net.tomasfiers.zoro.zotero_api.remoteLibraryVersion
-import net.tomasfiers.zoro.zotero_api.zoteroAPIClient
 
 suspend fun DataRepo.syncCollections(): Int? {
     val collectionVersionsResponse = zoteroAPIClient.getCollectionVersions(
