@@ -13,6 +13,7 @@ suspend fun DataRepo.syncItems(remoteLibVersionAtStartSync: Int?) {
     )
     val itemIds = itemVersions.keys
     syncStatus.value = "Downloading ${itemIds.size} items…"
+    showProgressBar.value = true
     downloadProgress.value = 0f
     var currentItemNr = 1
     itemIds
@@ -27,4 +28,5 @@ suspend fun DataRepo.syncItems(remoteLibVersionAtStartSync: Int?) {
                 downloadProgress.value = (currentItemNr++).toFloat() / itemIds.size
             }
         }
+    showProgressBar.value = false
 }

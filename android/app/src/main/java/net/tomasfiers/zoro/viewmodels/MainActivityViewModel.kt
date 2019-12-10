@@ -1,5 +1,6 @@
 package net.tomasfiers.zoro.viewmodels
 
+import android.view.View
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -16,8 +17,14 @@ class MainActivityViewModelFactory(
 
 class MainActivityViewModel(private val dataRepo: DataRepo) : ViewModel() {
     val syncStatus = dataRepo.syncStatus
+    val progressBarVisibility = Transformations.map(dataRepo.showProgressBar) {
+        when (it) {
+            true -> View.VISIBLE
+            false -> View.GONE
+        }
+    }
     val maxProgress = 100
-    val downloadProgress = Transformations.map(dataRepo.downloadProgress) {
-        (it * maxProgress).roundToInt()
+    val downloadProgress = Transformations.map(dataRepo.downloadProgress) { progressFraction ->
+        (progressFraction * maxProgress).roundToInt()
     }
 }

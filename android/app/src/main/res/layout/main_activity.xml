@@ -50,6 +50,7 @@
                     android:layout_height="wrap_content"
                     android:max="@{vm.maxProgress}"
                     android:progress="@{vm.downloadProgress}"
+                    android:visibility='@{vm.progressBarVisibility}'
                     app:mpb_progressBackgroundTint="@color/progressBarBackground"
                     app:mpb_progressStyle="horizontal"
                     app:mpb_progressTint="@color/progressBar"

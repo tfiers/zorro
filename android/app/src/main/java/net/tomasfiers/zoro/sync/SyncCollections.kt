@@ -14,6 +14,7 @@ suspend fun DataRepo.syncCollections(): Int? {
     val remoteLibVersionAtStartSync = collectionVersionsResponse.remoteLibraryVersion
     val collectionIds = collectionVersionsResponse.body()?.keys ?: emptyList<String>()
     syncStatus.value = "Downloading ${collectionIds.size} collections…"
+    showProgressBar.value = true
     downloadProgress.value = 0f
     var currentCollectionNr = 1
     collectionIds
@@ -29,5 +30,6 @@ suspend fun DataRepo.syncCollections(): Int? {
                 downloadProgress.value = (currentCollectionNr++).toFloat() / collectionIds.size
             }
         }
+    showProgressBar.value = false
     return remoteLibVersionAtStartSync
 }
