@@ -5,8 +5,10 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
-// Wrapper to encapsulate OkHttp / Retrofit / Moshi syntax.
-// Call as `createJsonHttpClient(..., MyInterface::class.java)`
+/**
+ * Wrapper to encapsulate OkHttp / Retrofit / Moshi syntax.
+ * Call as `createJsonHttpClient(..., MyInterface::class.java)`
+ */
 fun <T> createJsonHttpClient(
     baseUrl: String,
     requestHeaders: Map<String, String>,
@@ -21,8 +23,7 @@ fun <T> createJsonHttpClient(
             chain.proceed(requestBuilder.build())
         }
         .build()
-    val jsonParser = Moshi.Builder()
-        .build()!!
+    val jsonParser = Moshi.Builder().build()!!
     val jsonConverterFactory = MoshiConverterFactory.create(jsonParser)
     return Retrofit.Builder()
         .client(httpClient)
