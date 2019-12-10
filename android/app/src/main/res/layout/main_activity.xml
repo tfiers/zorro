@@ -33,6 +33,17 @@
                     app:titleTextColor="@color/primaryTextColor"
                     tools:title="My Library" />
 
+                <me.zhanghai.android.materialprogressbar.MaterialProgressBar
+                    android:id="@+id/progressBar"
+                    style="@style/Widget.MaterialProgressBar.ProgressBar.Horizontal.NoPadding"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:progress="30"
+                    app:mpb_progressBackgroundTint="@color/progressBarBackground"
+                    app:mpb_progressStyle="horizontal"
+                    app:mpb_progressTint="@color/progressBar"
+                    app:mpb_useIntrinsicPadding="false" />
+
                 <fragment
                     android:id="@+id/nav_host_fragment"
                     android:name="androidx.navigation.fragment.NavHostFragment"

@@ -98,6 +98,9 @@ dependencies {
 
     // Web UI to browse live sqlite db & sharedprefs. URL is given in logs under key "D/DebugDB".
     debugImplementation 'com.amitshekhar.android:debug-db:1.0.6'
+
+    // A toolbar implementation without padding issues (https://stackoverflow.com/a/39308314/2611913).
+    implementation 'me.zhanghai.android.materialprogressbar:library:1.6.1'
 }
 
 kapt {
