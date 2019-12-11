@@ -1,5 +1,6 @@
 package net.tomasfiers.zorro.viewmodels
 
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
@@ -7,6 +8,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import net.tomasfiers.zorro.data.DataRepo
+import net.tomasfiers.zorro.data.entities.TreeItem
 import net.tomasfiers.zorro.data.getChildCollections
 import net.tomasfiers.zorro.data.getChildItems
 import net.tomasfiers.zorro.data.getCollection
@@ -32,9 +34,9 @@ class CollectionViewModel(
 ) : ViewModel() {
 
     val isSyncing = dataRepo.isSyncing
-    val collectionName = MutableLiveData<String>()
+    private val collectionName = MutableLiveData<String>()
     // Note: Transformations are executed on main thread, so don't do heavy work here.
-    val sortedCollections = Transformations.map(
+    private val sortedCollections = Transformations.map(
         dataRepo.getChildCollections(parentCollectionKey = collectionKey)
     ) {
         it
@@ -42,10 +44,17 @@ class CollectionViewModel(
                 compareStrings(collection1.name, collection2.name)
             })
     }
-    val items = dataRepo.getChildItems(collectionKey)
+    private val items = dataRepo.getChildItems(collectionKey)
+    val treeItems = MediatorLiveData<List<TreeItem>>()
+    val concatTreeItems = {
+        treeItems.value =
+            (sortedCollections.value ?: listOf()) + (items.value ?: listOf())
+    }
 
     init {
         setCollectionName()
+        treeItems.addSource(sortedCollections) { concatTreeItems() }
+        treeItems.addSource(items) { concatTreeItems() }
     }
 
     fun syncLibrary() =
