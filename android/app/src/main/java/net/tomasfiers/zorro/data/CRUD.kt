@@ -18,5 +18,8 @@ suspend fun DataRepo.clearLocalData() =
 suspend fun DataRepo.getCollection(collectionKey: String) =
     database.collection.get(collectionKey)
 
-fun DataRepo.getChildrenCollections(parentCollectionKey: String?) =
+fun DataRepo.getChildCollections(parentCollectionKey: String?) =
     database.collection.getChildren(parentCollectionKey)
+
+fun DataRepo.getChildItems(parentCollectionKey: String?) =
+    database.item.getChildren(parentCollectionKey)

@@ -13,6 +13,7 @@ import net.tomasfiers.zorro.ZorroApplication
 import net.tomasfiers.zorro.databinding.CollectionFragmentBinding
 import net.tomasfiers.zorro.viewmodels.CollectionViewModel
 import net.tomasfiers.zorro.viewmodels.CollectionViewModelFactory
+import timber.log.Timber
 
 class CollectionFragment : Fragment() {
 
@@ -39,6 +40,9 @@ class CollectionFragment : Fragment() {
         viewModel.sortedCollections.observe(viewLifecycleOwner, Observer {
             adapter.submitList(it)
             binding.recyclerView.smoothScrollToPosition(0)
+        })
+        viewModel.items.observe(viewLifecycleOwner, Observer { items ->
+            Timber.i(items.joinToString { it.name })
         })
         // Performance improvement (because changes in list content do not change layout size):
         binding.recyclerView.setHasFixedSize(true)

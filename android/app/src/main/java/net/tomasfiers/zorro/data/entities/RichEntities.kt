@@ -1,6 +1,7 @@
 package net.tomasfiers.zorro.data.entities
 
 import androidx.room.Embedded
+import androidx.room.Ignore
 import androidx.room.Junction
 import androidx.room.Relation
 
@@ -63,11 +64,13 @@ data class ItemWithReferences(
     val creators: List<Creator>
 
 ) : TreeItem {
+    @Ignore
     override val key = item.key
     override var name: String
         get() = getFieldValue(titleField?.name) ?: ""
         set(value) = TODO()
 
+    @Ignore
     private val titleField =
         fields.find { it.baseField == "title" }
             ?: fields.find { it.name == "title" }

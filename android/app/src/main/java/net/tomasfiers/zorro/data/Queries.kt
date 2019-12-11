@@ -10,6 +10,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy.REPLACE
 import androidx.room.Query
+import androidx.room.Transaction
 import net.tomasfiers.zorro.data.entities.*
 import net.tomasfiers.zorro.data.entities.Collection
 
@@ -88,6 +89,11 @@ interface ItemDao {
     @Insert
     suspend fun insertCreators(assocs: List<Creator>)
 
-    //@Query("select * from Item where ")
-    //fun getChildren(parentCollectionKey: String?): LiveData<List<ItemWithReferences>>
+    // "Transaction" because ItemWithReferences requires multiple queries.
+    @Transaction
+    @Query(
+        """select * from Item inner join ItemCollectionAssociation on itemKey = `key`
+                where collectionKey = :parentCollectionKey"""
+    )
+    fun getChildren(parentCollectionKey: String?): LiveData<List<ItemWithReferences>>
 }
