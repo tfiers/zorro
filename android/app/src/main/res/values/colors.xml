@@ -12,4 +12,6 @@
     <color name="ZoteroLogoTaskbar">#a70a0a</color>
     <color name="ZoteroLogoWebsite">#a6212c</color>
     <color name="ZoteroLogoWebapp">#db2c3a</color>
+
+    <color name="logo1Background">#FAFAFA</color>
 </resources>
