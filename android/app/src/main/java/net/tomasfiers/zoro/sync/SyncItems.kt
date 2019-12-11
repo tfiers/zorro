@@ -9,7 +9,6 @@ import net.tomasfiers.zoro.data.entities.ItemFieldValue
 import net.tomasfiers.zoro.data.getValue
 import net.tomasfiers.zoro.zotero_api.MAX_ITEMS_PER_RESPONSE
 import net.tomasfiers.zoro.zotero_api.remoteLibraryVersion
-import timber.log.Timber
 import java.util.concurrent.atomic.AtomicInteger
 
 suspend fun DataRepo.syncItems(remoteLibVersionAtStartSync: Int?) {
@@ -18,27 +17,23 @@ suspend fun DataRepo.syncItems(remoteLibVersionAtStartSync: Int?) {
         sinceLibraryVersion = getValue(Key.LOCAL_LIBRARY_VERSION)
     )
     val itemIds = itemVersions.keys
-    val numItemsToDownload = itemIds.size
-    if (numItemsToDownload > 0) {
+    if (itemIds.isNotEmpty()) {
         syncStatus.value = "Downloading ${itemIds.size} items…"
-        showProgressBar.value = true
         val fieldNames = database.schema.getFields().map { it.name }
-        numObjectsToDownload.value = numItemsToDownload
-        val numDownloadedObjectsAtomic = AtomicInteger(0)
         val chunkedItemIds = itemIds.chunked(MAX_ITEMS_PER_RESPONSE)
-        val items = mutableListOf<Item>()
-        val itemFieldValues = mutableListOf<ItemFieldValue>()
+        numRequests.value = chunkedItemIds.size
+        val numCompletedRequestsAtomic = AtomicInteger(0)
+        showProgressBar.value = true
         // Wait until all coroutines launched inside this block have completed.
         coroutineScope {
             chunkedItemIds.forEach { someItemIds ->
                 launch {
-                    val threadName = Thread.currentThread().name
-                    Timber.i("Starting request in $threadName…")
                     val response = zoteroAPIClient.getItems(someItemIds.joinToString(","))
-                    Timber.i("Response received in $threadName")
                     if (response.remoteLibraryVersion != remoteLibVersionAtStartSync) {
                         throw RemoteLibraryUpdatedSignal()
                     }
+                    val items = mutableListOf<Item>()
+                    val itemFieldValues = mutableListOf<ItemFieldValue>()
                     response.body()?.forEach { itemJson ->
                         items.add(itemJson.asDomainModel())
                         val knownFields = itemJson.data.filter { it.key in fieldNames }
@@ -47,16 +42,13 @@ suspend fun DataRepo.syncItems(remoteLibVersionAtStartSync: Int?) {
                                 ItemFieldValue(itemJson.key, fieldName, value.toString())
                             itemFieldValues.add(itemFieldValue)
                         }
-                        numDownloadedObjects.value = numDownloadedObjectsAtomic.incrementAndGet()
                     }
-                    Timber.i("Results saved in $threadName")
+                    database.item.insert(items)
+                    database.item.insertFieldValues(itemFieldValues)
+                    numCompletedRequests.value = numCompletedRequestsAtomic.incrementAndGet()
                 }
             }
         }
-        Timber.i("Exiting that scope")
-        syncStatus.value = "Inserting new items in database…"
         showProgressBar.value = false
-        database.item.insert(items)
-        database.item.insertFieldValues(itemFieldValues)
     }
 }

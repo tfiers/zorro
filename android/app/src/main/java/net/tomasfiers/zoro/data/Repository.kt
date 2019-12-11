@@ -5,9 +5,7 @@ import androidx.lifecycle.Transformations
 import net.tomasfiers.zoro.ZoroApplication
 import net.tomasfiers.zoro.zotero_api.ZoteroAPIClient
 import org.threeten.bp.Instant
-import timber.log.Timber
 import java.util.Timer
-import java.util.concurrent.atomic.AtomicInteger
 
 /**
  * Global state for the app. A singleton (by usage, not enforced), initialised in [ZoroApplication].
@@ -25,8 +23,8 @@ class DataRepo(
     // "Private" properties (only to be accessed by extension functions).
     var lastSyncTime: Instant? = null
     var lastSyncTextUpdateTimer = Timer()
-    val numObjectsToDownload = MutableLiveData<Int?>(null)
-    val numDownloadedObjects = MutableLiveData<Int?>(null)
+    val numRequests = MutableLiveData<Int?>(null)
+    val numCompletedRequests = MutableLiveData<Int?>(null)
 
     // For use by ViewModels
     val isSyncing = MutableLiveData<Boolean>(false)
@@ -34,7 +32,7 @@ class DataRepo(
     val syncError = MutableLiveData<String?>(null)
     val lastSyncText = MutableLiveData<String>()
     val showProgressBar = MutableLiveData<Boolean>(false)
-    val downloadProgress = Transformations.map(numDownloadedObjects) {
-        (it ?: 0).toFloat() / (numObjectsToDownload.value ?: 1)
+    val downloadProgress = Transformations.map(numCompletedRequests) {
+        (it ?: 0).toFloat() / (numRequests.value ?: 1)
     }
 }
