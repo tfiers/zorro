@@ -3,6 +3,7 @@ package net.tomasfiers.zorro.sync
 import net.tomasfiers.zorro.data.DataRepo
 import net.tomasfiers.zorro.data.Key
 import net.tomasfiers.zorro.data.entities.Item
+import net.tomasfiers.zorro.data.entities.ItemCollectionAssociation
 import net.tomasfiers.zorro.data.entities.ItemFieldValue
 import net.tomasfiers.zorro.data.getValue
 import net.tomasfiers.zorro.zotero_api.MAX_ITEMS_PER_RESPONSE
@@ -38,6 +39,7 @@ private suspend fun DataRepo.downloadSomeItems(args: DownloadSomeItemsArgs) {
     }
     val items = mutableListOf<Item>()
     val itemFieldValues = mutableListOf<ItemFieldValue>()
+    val itemCollectionAssocs = mutableListOf<ItemCollectionAssociation>()
     response.body()?.forEach { itemJson ->
         items.add(itemJson.asDomainModel())
         val knownAndFilledFields = itemJson.data
@@ -47,7 +49,13 @@ private suspend fun DataRepo.downloadSomeItems(args: DownloadSomeItemsArgs) {
             val itemFieldValue = ItemFieldValue(itemJson.key, fieldName, value.toString())
             itemFieldValues.add(itemFieldValue)
         }
+        if (itemJson.collectionKeys != null) {
+            itemJson.collectionKeys.forEach { collectionKey ->
+                itemCollectionAssocs.add(ItemCollectionAssociation(collectionKey, itemJson.key))
+            }
+        }
     }
     database.item.insert(items)
     database.item.insertFieldValues(itemFieldValues)
+    database.item.insertItemCollectionAssocs(itemCollectionAssocs)
 }

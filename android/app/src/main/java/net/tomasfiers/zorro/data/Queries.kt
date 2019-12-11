@@ -82,6 +82,9 @@ interface ItemDao {
     @Insert
     suspend fun insertFieldValues(data: List<ItemFieldValue>)
 
-    @Query("select * from Item where `key` = :key")
-    suspend fun get(key: String): Item
+    @Insert
+    suspend fun insertItemCollectionAssocs(assocs: List<ItemCollectionAssociation>)
+
+    //@Query("select * from Item where ")
+    //fun getChildren(parentCollectionKey: String?): LiveData<List<ItemWithReferences>>
 }
