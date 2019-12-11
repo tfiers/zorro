@@ -4,7 +4,7 @@ import android.app.Application
 import com.jakewharton.threetenabp.AndroidThreeTen
 import net.tomasfiers.zorro.data.DataRepo
 import net.tomasfiers.zorro.data.ZorroDatabase
-import net.tomasfiers.zorro.zotero_api.zoteroAPIClient
+import net.tomasfiers.zorro.zotero_api.createZoteroAPIClient
 import timber.log.Timber
 
 class ZorroApplication : Application() {
@@ -19,6 +19,7 @@ class ZorroApplication : Application() {
             Timber.i("Development mode ")
         }
         val database = ZorroDatabase.getDatabase(applicationContext)
+        val zoteroAPIClient = createZoteroAPIClient()
         dataRepo = DataRepo(database, zoteroAPIClient, this)
     }
 }

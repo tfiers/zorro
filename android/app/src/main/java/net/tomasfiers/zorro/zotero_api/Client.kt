@@ -6,18 +6,15 @@ import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Query
 
-// "lazy" computes value only on first access (client creation is expensive).
-val zoteroAPIClient by lazy {
-    createJsonHttpClient(
-        baseUrl = "https://api.zotero.org",
-        requestHeaders = mapOf(
-            "Zotero-API-Version" to "3",
-            "Zotero-API-Key" to ZOTERO_API_KEY
-        ),
-        maxConcurrentRequests = 12,
-        APIInterface = ZoteroAPIClient::class.java
-    )
-}
+fun createZoteroAPIClient() = createJsonHttpClient(
+    baseUrl = "https://api.zotero.org",
+    requestHeaders = mapOf(
+        "Zotero-API-Version" to "3",
+        "Zotero-API-Key" to ZOTERO_API_KEY
+    ),
+    APIInterface = ZoteroAPIClient::class.java,
+    maxConcurrentRequests = 12
+)
 
 private const val USER_PREFIX = "/users/4670453"
 
