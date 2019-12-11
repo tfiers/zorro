@@ -80,6 +80,7 @@ data class ItemJson(val data: Map<String, Any>) {
 
     fun asDomainModel() = Item(
         key = key,
+        itemTypeName = data["itemType"] as String,
         dateAdded = OffsetDateTime.parse(data["dateAdded"] as String),
         dateModified = OffsetDateTime.parse(data["dateModified"] as String)
     )

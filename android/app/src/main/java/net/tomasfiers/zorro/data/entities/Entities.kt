@@ -1,6 +1,5 @@
 package net.tomasfiers.zorro.data.entities
 
-import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import org.threeten.bp.OffsetDateTime
@@ -26,11 +25,9 @@ interface TreeItem {
     var name: String
 }
 
-// We need separately named "key" columns to be able to make many-to-many associations between
-// Collection and Item (see Associations.kt). Idem for "name" columns below.
 @Entity
 data class Collection(
-    @PrimaryKey @ColumnInfo(name = "collectionKey")
+    @PrimaryKey
     override val key: String,
     override var name: String,
     var parentKey: String?
@@ -38,24 +35,23 @@ data class Collection(
 
 @Entity
 data class Item(
-    @PrimaryKey @ColumnInfo(name = "itemKey")
-    override var key: String,
+    @PrimaryKey
+    val key: String,
+    var itemTypeName: String,
     var dateAdded: OffsetDateTime,
     var dateModified: OffsetDateTime
-) : TreeItem {
-    override var name: String = "todo"
-}
+)
 
 @Entity
 data class ItemType(
-    @PrimaryKey @ColumnInfo(name = "itemTypeName")
+    @PrimaryKey
     val name: String,
     var friendlyName: String
 )
 
 @Entity
 data class Field(
-    @PrimaryKey @ColumnInfo(name = "fieldName")
+    @PrimaryKey
     val name: String,
     var friendlyName: String,
     var baseField: String? = null
@@ -63,7 +59,7 @@ data class Field(
 
 @Entity
 data class CreatorType(
-    @PrimaryKey @ColumnInfo(name = "creatorTypeName")
+    @PrimaryKey
     val name: String,
     var friendlyName: String
 )
@@ -81,5 +77,5 @@ data class Creator(
     var firstName: String?,
     var lastName: String?,
     @PrimaryKey(autoGenerate = true)
-    val creatorId: Int = 0
+    val id: Int = 0
 )

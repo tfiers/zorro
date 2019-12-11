@@ -62,7 +62,7 @@ interface CollectionDao {
     @Insert(onConflict = REPLACE)
     suspend fun insert(collections: List<Collection>)
 
-    @Query("select * from Collection where collectionKey = :key")
+    @Query("select * from Collection where `key` = :key")
     suspend fun get(key: String): Collection
 
     // LiveData queries are automatically executed off the main thread by Room - so we don't mark
@@ -82,6 +82,6 @@ interface ItemDao {
     @Insert
     suspend fun insertFieldValues(data: List<ItemFieldValue>)
 
-    @Query("select * from Item where itemKey = :key")
+    @Query("select * from Item where `key` = :key")
     suspend fun get(key: String): Item
 }

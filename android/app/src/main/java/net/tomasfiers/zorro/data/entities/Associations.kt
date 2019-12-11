@@ -4,11 +4,13 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.ForeignKey.CASCADE
 
+
 @Entity(primaryKeys = ["collectionKey", "itemKey"])
 data class ItemCollectionAssociation(
     val collectionKey: String,
     val itemKey: String
 )
+
 
 @Entity(primaryKeys = ["itemKey", "creatorId"])
 data class ItemCreatorAssociation(
@@ -23,7 +25,7 @@ data class ItemCreatorAssociation(
     primaryKeys = ["itemTypeName", "fieldName"],
     foreignKeys = [ForeignKey(
         entity = ItemType::class,
-        parentColumns = ["itemTypeName"],
+        parentColumns = ["name"],
         childColumns = ["itemTypeName"],
         onDelete = CASCADE
     )]
@@ -33,11 +35,12 @@ data class ItemTypeFieldAssociation(
     val fieldName: String
 )
 
+
 @Entity(
     primaryKeys = ["itemTypeName", "creatorTypeName"],
     foreignKeys = [ForeignKey(
         entity = ItemType::class,
-        parentColumns = ["itemTypeName"],
+        parentColumns = ["name"],
         childColumns = ["itemTypeName"],
         onDelete = CASCADE
     )]

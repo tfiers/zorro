@@ -7,9 +7,13 @@ import androidx.room.Relation
 data class CollectionWithItems(
     @Embedded val collection: Collection,
     @Relation(
-        parentColumn = "collectionKey",
-        entityColumn = "itemKey",
-        associateBy = Junction(ItemCollectionAssociation::class)
+        parentColumn = "key",
+        entityColumn = "key",
+        associateBy = Junction(
+            ItemCollectionAssociation::class,
+            parentColumn = "collectionKey",
+            entityColumn = "itemKey"
+        )
     )
     val items: List<Item>
 )
@@ -19,41 +23,75 @@ data class ItemWithReferences(
     @Embedded val item: Item,
 
     @Relation(
-        parentColumn = "itemKey",
-        entityColumn = "itemTypeName"
+        parentColumn = "itemTypeName",
+        entityColumn = "name"
     )
     var type: ItemType,
 
     @Relation(
-        parentColumn = "itemKey",
-        entityColumn = "collectionKey",
-        associateBy = Junction(ItemCollectionAssociation::class)
+        parentColumn = "key",
+        entityColumn = "itemKey"
+    )
+    val fieldValues: List<ItemFieldValue>,
+
+    @Relation(
+        parentColumn = "key",
+        entityColumn = "key",
+        associateBy = Junction(
+            ItemCollectionAssociation::class,
+            parentColumn = "itemKey",
+            entityColumn = "collectionKey"
+        )
     )
     val collections: List<Collection>,
 
     @Relation(
-        parentColumn = "itemKey",
-        entityColumn = "creatorId",
-        associateBy = Junction(ItemCreatorAssociation::class)
+        parentColumn = "key",
+        entityColumn = "id",
+        associateBy = Junction(
+            ItemCreatorAssociation::class,
+            parentColumn = "itemKey",
+            entityColumn = "creatorId"
+        )
     )
     val creators: List<Creator>
-)
+
+) : TreeItem {
+    override val key = item.key
+    override var name: String
+        get() = getTitle()
+        set(value) {}
+
+    //val titleField: String = fieldValues.map { it. }
+
+    fun getTitle(): String {
+        return TODO()
+    }
+}
 
 
 data class ItemTypeWithReferences(
     @Embedded val itemType: ItemType,
 
     @Relation(
-        parentColumn = "itemTypeName",
-        entityColumn = "fieldName",
-        associateBy = Junction(ItemTypeFieldAssociation::class)
+        parentColumn = "name",
+        entityColumn = "name",
+        associateBy = Junction(
+            ItemTypeFieldAssociation::class,
+            parentColumn = "itemTypeName",
+            entityColumn = "fieldName"
+        )
     )
     var fields: List<Field>,
 
     @Relation(
-        parentColumn = "itemTypeName",
-        entityColumn = "creatorTypeName",
-        associateBy = Junction(ItemTypeCreatorTypeAssociation::class)
+        parentColumn = "name",
+        entityColumn = "name",
+        associateBy = Junction(
+            ItemTypeCreatorTypeAssociation::class,
+            parentColumn = "itemTypeName",
+            entityColumn = "creatorTypeName"
+        )
     )
     var creatorTypes: List<CreatorType>
 )
