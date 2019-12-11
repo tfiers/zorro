@@ -47,12 +47,7 @@ data class ItemWithReferences(
 
     @Relation(
         parentColumn = "key",
-        entityColumn = "id",
-        associateBy = Junction(
-            ItemCreatorAssociation::class,
-            parentColumn = "itemKey",
-            entityColumn = "creatorId"
-        )
+        entityColumn = "itemKey"
     )
     val creators: List<Creator>
 

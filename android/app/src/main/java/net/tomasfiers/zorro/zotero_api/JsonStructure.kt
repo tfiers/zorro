@@ -72,15 +72,20 @@ data class CollectionJson(
     )
 }
 
+@Suppress("UNCHECKED_CAST")
 @JsonClass(generateAdapter = true)
 data class ItemJson(val data: Map<String, Any>) {
 
     val key: String = data["key"] as String
 
-    @Suppress("UNCHECKED_CAST")
-    val collectionKeys: List<String>? =
+    val collectionKeys =
         if (data.containsKey("collections"))
             data["collections"] as List<String>
+        else null
+
+    val creators =
+        if (data.containsKey("creators"))
+            data["creators"] as List<Map<String, String>>?
         else null
 
     fun asDomainModel() = Item(

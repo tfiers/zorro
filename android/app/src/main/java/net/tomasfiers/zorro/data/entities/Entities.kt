@@ -71,11 +71,14 @@ data class ItemFieldValue(
     var value: String
 )
 
-// Note: a default value of 0 means "autogenerate when not given on Insert".
 @Entity
 data class Creator(
     var firstName: String?,
     var lastName: String?,
+    var name: String?,
+    val itemKey: String,
+    val type: String,
+    // Note: a default value of 0 means "autogenerate when not given on Insert".
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0
 )

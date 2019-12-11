@@ -85,6 +85,9 @@ interface ItemDao {
     @Insert
     suspend fun insertItemCollectionAssocs(assocs: List<ItemCollectionAssociation>)
 
+    @Insert
+    suspend fun insertCreators(assocs: List<Creator>)
+
     //@Query("select * from Item where ")
     //fun getChildren(parentCollectionKey: String?): LiveData<List<ItemWithReferences>>
 }

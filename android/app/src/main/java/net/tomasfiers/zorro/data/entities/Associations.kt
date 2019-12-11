@@ -1,3 +1,7 @@
+/**
+ * Helper classes for many-to-many associations between Entities.
+ */
+
 package net.tomasfiers.zorro.data.entities
 
 import androidx.room.Entity
@@ -9,13 +13,6 @@ import androidx.room.ForeignKey.CASCADE
 data class ItemCollectionAssociation(
     val collectionKey: String,
     val itemKey: String
-)
-
-
-@Entity(primaryKeys = ["itemKey", "creatorId"])
-data class ItemCreatorAssociation(
-    val itemKey: String,
-    val creatorId: Int
 )
 
 
