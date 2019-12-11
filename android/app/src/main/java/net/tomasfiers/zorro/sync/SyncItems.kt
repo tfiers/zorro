@@ -20,10 +20,12 @@ suspend fun DataRepo.syncItems(remoteLibVersionAtStartSync: Int?) {
     if (itemIds.isNotEmpty()) {
         syncStatus.value = "Downloading ${itemIds.size} items…"
         numCompletedRequests.value = 0
-        showProgressBar.value = true
         val fieldNames = database.schema.getFields().map { it.name }
         val chunkedItemIds = itemIds.chunked(MAX_ITEMS_PER_RESPONSE)
         numRequests.value = chunkedItemIds.size
+        if (numRequests.value ?: 0 > 5) {
+            showProgressBar.value = true
+        }
         val numCompletedRequestsAtomic = AtomicInteger(0)
         // Wait until all coroutines launched inside this block have completed.
         coroutineScope {
