@@ -29,6 +29,17 @@ data class ItemWithReferences(
     var type: ItemType,
 
     @Relation(
+        parentColumn = "itemTypeName",
+        entityColumn = "name",
+        associateBy = Junction(
+            ItemTypeFieldAssociation::class,
+            parentColumn = "itemTypeName",
+            entityColumn = "fieldName"
+        )
+    )
+    val fields: List<Field>,
+
+    @Relation(
         parentColumn = "key",
         entityColumn = "itemKey"
     )
@@ -54,14 +65,15 @@ data class ItemWithReferences(
 ) : TreeItem {
     override val key = item.key
     override var name: String
-        get() = getTitle()
-        set(value) {}
+        get() = getFieldValue(titleField?.name) ?: ""
+        set(value) = TODO()
 
-    //val titleField: String = fieldValues.map { it. }
+    private val titleField =
+        fields.find { it.baseField == "title" }
+            ?: fields.find { it.name == "title" }
 
-    fun getTitle(): String {
-        return TODO()
-    }
+    private fun getFieldValue(fieldName: String?) =
+        fieldValues.find { it.fieldName == fieldName }?.value
 }
 
 
