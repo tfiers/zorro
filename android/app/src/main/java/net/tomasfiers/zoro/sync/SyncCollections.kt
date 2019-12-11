@@ -19,9 +19,11 @@ suspend fun DataRepo.syncCollections(): Int? {
     if (collectionIds.isNotEmpty()) {
         syncStatus.value = "Downloading ${collectionIds.size} collections…"
         numCompletedRequests.value = 0
-        showProgressBar.value = true
         val chunkedCollectionIds = collectionIds.chunked(MAX_ITEMS_PER_RESPONSE)
         numRequests.value = chunkedCollectionIds.size
+        if (numRequests.value ?: 0 > 5) {
+            showProgressBar.value = true
+        }
         val numCompletedRequestsAtomic = AtomicInteger(0)
         coroutineScope {
             chunkedCollectionIds.forEach { someCollectionIds ->
