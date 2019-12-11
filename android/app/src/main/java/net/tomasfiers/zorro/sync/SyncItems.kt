@@ -40,10 +40,11 @@ private suspend fun DataRepo.downloadSomeItems(args: DownloadSomeItemsArgs) {
     val itemFieldValues = mutableListOf<ItemFieldValue>()
     response.body()?.forEach { itemJson ->
         items.add(itemJson.asDomainModel())
-        val knownFields = itemJson.data.filter { it.key in args.fieldNames }
-        for ((fieldName, value) in knownFields) {
-            val itemFieldValue =
-                ItemFieldValue(itemJson.key, fieldName, value.toString())
+        val knownAndFilledFields = itemJson.data
+            .filter { it.key in args.fieldNames }
+            .filter { it.value != "" }
+        for ((fieldName, value) in knownAndFilledFields) {
+            val itemFieldValue = ItemFieldValue(itemJson.key, fieldName, value.toString())
             itemFieldValues.add(itemFieldValue)
         }
     }
