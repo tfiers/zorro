@@ -8,7 +8,7 @@
 
         <variable
             name="vm"
-            type="net.tomasfiers.zoro.viewmodels.DrawerMenuViewModel" />
+            type="net.tomasfiers.zorro.viewmodels.DrawerMenuViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

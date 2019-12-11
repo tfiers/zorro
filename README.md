@@ -1,4 +1,4 @@
-# Zoro: a [Zotero](https://www.zotero.org/) client for Android
+# Zorro: a [Zotero](https://www.zotero.org/) client for Android
 
 Status: initial development.
 

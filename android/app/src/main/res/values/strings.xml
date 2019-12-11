@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Zoro</string>
+    <string name="app_name">Zorro client for Zotero</string>
     <string name="close_drawer">Close drawer menu.</string>
     <string name="open_drawer">Open drawer menu.</string>
 </resources>

@@ -8,7 +8,7 @@
 
         <variable
             name="vm"
-            type="net.tomasfiers.zoro.viewmodels.MainActivityViewModel" />
+            type="net.tomasfiers.zorro.viewmodels.MainActivityViewModel" />
     </data>
 
     <!-- To display snackbars. -->
@@ -79,7 +79,7 @@
 
                 <fragment
                     android:id="@+id/drawer_menu_fragment"
-                    android:name="net.tomasfiers.zoro.ui.DrawerMenuFragment"
+                    android:name="net.tomasfiers.zorro.ui.DrawerMenuFragment"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     tools:layout="@layout/drawer_menu_fragment" />

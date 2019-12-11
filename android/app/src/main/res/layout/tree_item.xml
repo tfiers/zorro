@@ -7,11 +7,11 @@
 
         <variable
             name="item"
-            type="net.tomasfiers.zoro.data.entities.TreeItem" />
+            type="net.tomasfiers.zorro.data.entities.TreeItem" />
 
         <variable
             name="clickListener"
-            type="net.tomasfiers.zoro.ui.TreeItemClickListener" />
+            type="net.tomasfiers.zorro.ui.TreeItemClickListener" />
 
     </data>
 
