@@ -1,5 +1,9 @@
 # Zorro: a [Zotero](https://www.zotero.org/) client for Android
 
+<br>
+<img width="240px" src="logo/logo.png" />
+<br>
+
 Status: initial development.
 
 
