@@ -13,6 +13,7 @@ import timber.log.Timber
 fun <T> createJsonHttpClient(
     baseUrl: String,
     requestHeaders: Map<String, String>,
+    maxConcurrentRequests: Int = 5,
     APIInterface: Class<T>
 ): T {
     val httpClient = OkHttpClient.Builder()
@@ -24,6 +25,7 @@ fun <T> createJsonHttpClient(
             chain.proceed(requestBuilder.build())
         }
         .build()
+    httpClient.dispatcher.maxRequestsPerHost = maxConcurrentRequests
     val jsonParser = Moshi.Builder().build()!!
     val jsonConverterFactory = MoshiConverterFactory.create(jsonParser)
     return Retrofit.Builder()

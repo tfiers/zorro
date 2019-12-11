@@ -14,6 +14,7 @@ val zoteroAPIClient by lazy {
             "Zotero-API-Version" to "3",
             "Zotero-API-Key" to ZOTERO_API_KEY
         ),
+        maxConcurrentRequests = 12,
         APIInterface = ZoteroAPIClient::class.java
     )
 }
