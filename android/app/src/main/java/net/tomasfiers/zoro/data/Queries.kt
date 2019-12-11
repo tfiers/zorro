@@ -78,13 +78,10 @@ interface CollectionDao {
 interface ItemDao {
 
     @Insert(onConflict = REPLACE)
-    suspend fun insert(item: Item)
+    suspend fun insert(items: List<Item>)
 
     @Insert
-    suspend fun insertDataValue(data: ItemDataValue): Long
-
-    @Insert
-    suspend fun insertDataValueAssociation(assoc: ItemItemDataValueAssociation)
+    suspend fun insertFieldValues(data: List<ItemFieldValue>)
 
     @Query("select * from Item where itemKey = :key")
     suspend fun get(key: String): Item
