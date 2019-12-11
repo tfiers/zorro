@@ -61,7 +61,7 @@ interface SchemaDao {
 interface CollectionDao {
 
     @Insert(onConflict = REPLACE)
-    suspend fun insert(collection: Collection)
+    suspend fun insert(collections: List<Collection>)
 
     @Query("select * from Collection where collectionKey = :key")
     suspend fun get(key: String): Collection

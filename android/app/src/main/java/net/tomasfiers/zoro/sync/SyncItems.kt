@@ -19,36 +19,45 @@ suspend fun DataRepo.syncItems(remoteLibVersionAtStartSync: Int?) {
     val itemIds = itemVersions.keys
     if (itemIds.isNotEmpty()) {
         syncStatus.value = "Downloading ${itemIds.size} items…"
+        numCompletedRequests.value = 0
+        showProgressBar.value = true
         val fieldNames = database.schema.getFields().map { it.name }
         val chunkedItemIds = itemIds.chunked(MAX_ITEMS_PER_RESPONSE)
         numRequests.value = chunkedItemIds.size
         val numCompletedRequestsAtomic = AtomicInteger(0)
-        showProgressBar.value = true
         // Wait until all coroutines launched inside this block have completed.
         coroutineScope {
             chunkedItemIds.forEach { someItemIds ->
                 launch {
-                    val response = zoteroAPIClient.getItems(someItemIds.joinToString(","))
-                    if (response.remoteLibraryVersion != remoteLibVersionAtStartSync) {
-                        throw RemoteLibraryUpdatedSignal()
-                    }
-                    val items = mutableListOf<Item>()
-                    val itemFieldValues = mutableListOf<ItemFieldValue>()
-                    response.body()?.forEach { itemJson ->
-                        items.add(itemJson.asDomainModel())
-                        val knownFields = itemJson.data.filter { it.key in fieldNames }
-                        for ((fieldName, value) in knownFields) {
-                            val itemFieldValue =
-                                ItemFieldValue(itemJson.key, fieldName, value.toString())
-                            itemFieldValues.add(itemFieldValue)
-                        }
-                    }
-                    database.item.insert(items)
-                    database.item.insertFieldValues(itemFieldValues)
+                    downloadSomeItems(someItemIds, remoteLibVersionAtStartSync, fieldNames)
                     numCompletedRequests.value = numCompletedRequestsAtomic.incrementAndGet()
                 }
             }
         }
         showProgressBar.value = false
     }
+}
+
+private suspend fun DataRepo.downloadSomeItems(
+    itemIds: List<String>,
+    remoteLibVersionAtStartSync: Int?,
+    fieldNames: List<String>
+) {
+    val response = zoteroAPIClient.getItems(itemIds.joinToString(","))
+    if (response.remoteLibraryVersion != remoteLibVersionAtStartSync) {
+        throw RemoteLibraryUpdatedSignal()
+    }
+    val items = mutableListOf<Item>()
+    val itemFieldValues = mutableListOf<ItemFieldValue>()
+    response.body()?.forEach { itemJson ->
+        items.add(itemJson.asDomainModel())
+        val knownFields = itemJson.data.filter { it.key in fieldNames }
+        for ((fieldName, value) in knownFields) {
+            val itemFieldValue =
+                ItemFieldValue(itemJson.key, fieldName, value.toString())
+            itemFieldValues.add(itemFieldValue)
+        }
+    }
+    database.item.insert(items)
+    database.item.insertFieldValues(itemFieldValues)
 }
