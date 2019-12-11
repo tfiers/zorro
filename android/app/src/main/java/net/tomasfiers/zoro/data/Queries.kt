@@ -38,19 +38,19 @@ interface SchemaDao {
     suspend fun clearCreatorTypes()
 
     @Insert
-    suspend fun insertItemType(itemType: ItemType)
+    suspend fun insertItemTypes(itemType: List<ItemType>)
 
-    @Insert(onConflict = IGNORE)
-    suspend fun insertField(field: Field)
+    @Insert
+    suspend fun insertFields(field: List<Field>)
 
-    @Insert(onConflict = IGNORE)
-    suspend fun insertCreatorType(creatorType: CreatorType)
+    @Insert
+    suspend fun insertCreatorTypes(creatorType: List<CreatorType>)
 
-    @Insert(onConflict = IGNORE)
-    suspend fun insertItemTypeFieldAssociation(obj: ItemTypeFieldAssociation)
+    @Insert
+    suspend fun insertItemTypeFieldAssociations(obj: List<ItemTypeFieldAssociation>)
 
-    @Insert(onConflict = IGNORE)
-    suspend fun insertItemTypeCreatorTypeAssociation(obj: ItemTypeCreatorTypeAssociation)
+    @Insert
+    suspend fun insertItemTypeCreatorTypeAssociations(obj: List<ItemTypeCreatorTypeAssociation>)
 
     @Query("select * from Field")
     suspend fun getFields(): List<Field>

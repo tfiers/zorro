@@ -13,7 +13,7 @@ import net.tomasfiers.zoro.zotero_api.SchemaJson
 
 
 suspend fun DataRepo.syncSchema() {
-    syncStatus.value = "Updating schema…"
+    syncStatus.value = "Checking for updated schema…"
     val schemaResponse = zoteroAPIClient.getSchema(
         checkIfSchemaUpdated = getValue(Key.LOCAL_SCHEMA_ETAG)
     )
@@ -21,6 +21,7 @@ suspend fun DataRepo.syncSchema() {
         // Schema not modified since last check.
         return
     } else {
+        syncStatus.value = "Updating schema…"
         clearSchema()
         insertSchema(schemaResponse.body()!!)
         // Only update local schema tag when all db inserts have completed succesfully.
@@ -30,47 +31,41 @@ suspend fun DataRepo.syncSchema() {
 
 suspend fun DataRepo.insertSchema(schemaJson: SchemaJson) {
     val friendlyNames = schemaJson.locales.getValue("en-US")
+    val itemTypes = mutableListOf<ItemType>()
+    val fields = mutableSetOf<Field>()
+    val itemTypeFieldAssociations = mutableListOf<ItemTypeFieldAssociation>()
+    val creatorTypes = mutableSetOf<CreatorType>()
+    val itemTypeCreatorTypeAssociations = mutableListOf<ItemTypeCreatorTypeAssociation>()
     schemaJson.itemTypes.forEach { itemTypeJson ->
         val itemTypeName = itemTypeJson.itemType
-        database.schema.insertItemType(
-            ItemType(
-                itemTypeName,
-                friendlyNames.itemTypes.getValue(itemTypeName)
-            )
+        itemTypes.add(
+            ItemType(itemTypeName, friendlyNames.itemTypes.getValue(itemTypeName))
         )
         itemTypeJson.fields.forEach { fieldJson ->
             val fieldName = fieldJson.field
-            database.schema.insertField(
-                Field(
-                    fieldName,
-                    friendlyNames.fields.getValue(fieldName),
-                    fieldJson.baseField
-                )
+            fields.add(
+                Field(fieldName, friendlyNames.fields.getValue(fieldName), fieldJson.baseField)
             )
-            database.schema.insertItemTypeFieldAssociation(
-                ItemTypeFieldAssociation(
-                    itemTypeName,
-                    fieldName
-                )
+            itemTypeFieldAssociations.add(
+                ItemTypeFieldAssociation(itemTypeName, fieldName)
             )
         }
         itemTypeJson.creatorTypes.forEach { creatorTypeJson ->
             val creatorTypeName = creatorTypeJson.creatorType
-            database.schema.insertCreatorType(
-                CreatorType(
-                    creatorTypeName,
-                    friendlyNames.creatorTypes.getValue(creatorTypeName)
-                )
+            creatorTypes.add(
+                CreatorType(creatorTypeName, friendlyNames.creatorTypes.getValue(creatorTypeName))
             )
-            database.schema.insertItemTypeCreatorTypeAssociation(
-                ItemTypeCreatorTypeAssociation(
-                    itemTypeName,
-                    creatorTypeName,
-                    creatorTypeJson.primary ?: false
-                )
+            val primary = creatorTypeJson.primary ?: false
+            itemTypeCreatorTypeAssociations.add(
+                ItemTypeCreatorTypeAssociation(itemTypeName, creatorTypeName, primary)
             )
         }
     }
+    database.schema.insertItemTypes(itemTypes)
+    database.schema.insertFields(fields.toList())
+    database.schema.insertItemTypeFieldAssociations(itemTypeFieldAssociations)
+    database.schema.insertCreatorTypes(creatorTypes.toList())
+    database.schema.insertItemTypeCreatorTypeAssociations(itemTypeCreatorTypeAssociations)
 }
 
 suspend fun DataRepo.clearSchema() {
