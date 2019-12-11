@@ -17,7 +17,7 @@ suspend fun DataRepo.syncCollections(): Int? {
     if (numCollectionsToDownload > 0) {
         syncStatus.value = "Downloading ${collectionIds.size} collections…"
         showProgressBar.value = true
-        downloadProgress.value = 0f
+        //downloadProgress.value = 0f
         var currentCollectionNr = 1
         collectionIds
             .chunked(MAX_ITEMS_PER_RESPONSE)
@@ -29,8 +29,8 @@ suspend fun DataRepo.syncCollections(): Int? {
                 }
                 jsonCollectionsResponse.body()?.forEach {
                     database.collection.insert(it.asDomainModel())
-                    downloadProgress.value =
-                        (currentCollectionNr++).toFloat() / numCollectionsToDownload
+                    //downloadProgress.value =
+                    //    (currentCollectionNr++).toFloat() / numCollectionsToDownload
                 }
             }
         showProgressBar.value = false

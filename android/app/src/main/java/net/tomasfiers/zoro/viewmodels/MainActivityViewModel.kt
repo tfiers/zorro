@@ -25,6 +25,6 @@ class MainActivityViewModel(dataRepo: DataRepo) : ViewModel() {
     }
     val maxProgress = 100
     val downloadProgress = Transformations.map(dataRepo.downloadProgress) { progressFraction ->
-        (progressFraction * maxProgress).roundToInt()
+        ((progressFraction ?: 0f) * maxProgress).roundToInt()
     }
 }
