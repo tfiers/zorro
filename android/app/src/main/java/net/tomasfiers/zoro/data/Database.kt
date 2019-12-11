@@ -15,18 +15,17 @@ import org.threeten.bp.OffsetDateTime
         KeyValPair::class,
         Collection::class,
         Item::class,
+        ItemFieldValue::class,
+        Creator::class,
         ItemType::class,
         Field::class,
         CreatorType::class,
-        ItemDataValue::class,
-        Creator::class,
         ItemCollectionAssociation::class,
-        ItemItemDataValueAssociation::class,
         ItemCreatorAssociation::class,
         ItemTypeFieldAssociation::class,
         ItemTypeCreatorTypeAssociation::class
     ],
-    version = 9,
+    version = 10,
     exportSchema = false
 )
 @TypeConverters(DBTypeConverters::class)

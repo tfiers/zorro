@@ -10,13 +10,6 @@ data class ItemCollectionAssociation(
     val itemKey: String
 )
 
-@Entity(primaryKeys = ["itemKey", "fieldName", "itemDataValueId"])
-data class ItemItemDataValueAssociation(
-    val itemKey: String,
-    val fieldName: String,
-    val itemDataValueId: Int
-)
-
 @Entity(primaryKeys = ["itemKey", "creatorId"])
 data class ItemCreatorAssociation(
     val itemKey: String,
