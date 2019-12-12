@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="item"
-            type="net.tomasfiers.zorro.data.entities.ListItem" />
+            name="collection"
+            type="net.tomasfiers.zorro.data.entities.Collection" />
 
         <variable
             name="clickListener"
@@ -16,7 +16,6 @@
     </data>
 
     <LinearLayout
-        android:id="@+id/collection"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -25,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?android:attr/selectableItemBackground"
-            android:onClick="@{() -> clickListener.onClick(item)}">
+            android:onClick="@{() -> clickListener.onClick(collection)}">
 
             <ImageView
                 android:id="@+id/imageView"
@@ -52,7 +51,7 @@
                 android:layout_marginBottom="12dp"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="@{item.name}"
+                android:text="@{collection.name}"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

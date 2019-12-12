@@ -5,8 +5,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import net.tomasfiers.zorro.data.entities.Collection
+import net.tomasfiers.zorro.data.entities.ItemWithReferences
 import net.tomasfiers.zorro.data.entities.ListItem
-import net.tomasfiers.zorro.databinding.CollectionListItemBinding
+import net.tomasfiers.zorro.databinding.ListItemCollectionBinding
+import net.tomasfiers.zorro.databinding.ListItemItemBinding
 
 class ListItemDiffCallback : DiffUtil.ItemCallback<ListItem>() {
     override fun areItemsTheSame(oldItem: ListItem, newItem: ListItem) =
@@ -17,20 +20,41 @@ class ListItemDiffCallback : DiffUtil.ItemCallback<ListItem>() {
 }
 
 // One container in the RecyclerView list.
-class ListItemViewHolder private constructor(private val binding: CollectionListItemBinding) :
+class ListItemCollectionViewHolder private constructor(private val binding: ListItemCollectionBinding) :
     RecyclerView.ViewHolder(binding.root) {
-    fun bind(listItem: ListItem, clickListener: ListItemClickListener) {
-        binding.item = listItem
+
+    fun bind(collection: Collection, clickListener: ListItemClickListener) {
+        binding.collection = collection
         binding.clickListener = clickListener
         // (A recommended slight speed optimization:)
         binding.executePendingBindings()
     }
 
     companion object {
-        fun from(parent: ViewGroup): ListItemViewHolder {
+        fun from(parent: ViewGroup): ListItemCollectionViewHolder {
             val layoutInflater = LayoutInflater.from(parent.context)
-            val binding = CollectionListItemBinding.inflate(layoutInflater, parent, false)
-            return ListItemViewHolder(binding)
+            val binding = ListItemCollectionBinding.inflate(layoutInflater, parent, false)
+            return ListItemCollectionViewHolder(binding)
+        }
+    }
+}
+
+// One container in the RecyclerView list.
+class ListItemItemViewHolder private constructor(private val binding: ListItemItemBinding) :
+    RecyclerView.ViewHolder(binding.root) {
+
+    fun bind(item: ItemWithReferences, clickListener: ListItemClickListener) {
+        binding.item = item
+        binding.clickListener = clickListener
+        // (A recommended slight speed optimization:)
+        binding.executePendingBindings()
+    }
+
+    companion object {
+        fun from(parent: ViewGroup): ListItemItemViewHolder {
+            val layoutInflater = LayoutInflater.from(parent.context)
+            val binding = ListItemItemBinding.inflate(layoutInflater, parent, false)
+            return ListItemItemViewHolder(binding)
         }
     }
 }
@@ -41,15 +65,35 @@ class ListItemClickListener(val clickListener: (listItem: ListItem) -> Unit) {
     fun onClick(listItem: ListItem) = clickListener(listItem)
 }
 
-class RecyclerViewAdapter(private val clickListener: ListItemClickListener) :
-    ListAdapter<ListItem, ListItemViewHolder>(ListItemDiffCallback()) {
+class RecyclerViewAdapter(
+    private val collectionClickListener: ListItemClickListener,
+    private val itemClickListener: ListItemClickListener
+) :
+    ListAdapter<ListItem, RecyclerView.ViewHolder>(ListItemDiffCallback()) {
+
+    private enum class ViewHolderTypes { COLLECTION, ITEM }
+
+    override fun getItemViewType(position: Int): Int = when (getItem(position)) {
+        is Collection -> ViewHolderTypes.COLLECTION.ordinal
+        is ItemWithReferences -> ViewHolderTypes.ITEM.ordinal
+        else -> throw TypeCastException()
+    }
 
     // Called when the RecyclerView requests a new container to add to the list.
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-        ListItemViewHolder.from(parent)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = when (viewType) {
+        ViewHolderTypes.COLLECTION.ordinal -> ListItemCollectionViewHolder.from(parent)
+        ViewHolderTypes.ITEM.ordinal -> ListItemItemViewHolder.from(parent)
+        else -> throw TypeCastException()
+    }
 
     // Called when the RecyclerView wants to fill a container with a concrete item.
-    override fun onBindViewHolder(holder: ListItemViewHolder, position: Int) {
-        holder.bind(getItem(position), clickListener)
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        val listItem = getItem(position)
+        if (listItem is Collection) {
+            (holder as ListItemCollectionViewHolder)
+                .bind(listItem, collectionClickListener)
+        } else if (listItem is ItemWithReferences)
+            (holder as ListItemItemViewHolder)
+                .bind(listItem, itemClickListener)
     }
 }

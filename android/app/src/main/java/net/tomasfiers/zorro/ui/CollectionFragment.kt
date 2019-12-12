@@ -30,11 +30,13 @@ class CollectionFragment : Fragment() {
     ): View {
         val binding = CollectionFragmentBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
-        val adapter = RecyclerViewAdapter(ListItemClickListener { listItem ->
+        val collectionClickListener = ListItemClickListener { collection ->
             findNavController().navigate(
-                CollectionFragmentDirections.actionCollectionSelf(listItem.key)
+                CollectionFragmentDirections.actionCollectionSelf(collection.key)
             )
-        })
+        }
+        val itemClickListener = ListItemClickListener { item -> TODO() }
+        val adapter = RecyclerViewAdapter(collectionClickListener, itemClickListener)
         binding.recyclerView.adapter = adapter
         viewModel.listItems.observe(viewLifecycleOwner, Observer {
             adapter.submitList(it)
