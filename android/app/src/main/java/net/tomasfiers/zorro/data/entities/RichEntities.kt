@@ -63,7 +63,7 @@ data class ItemWithReferences(
     )
     val creators: List<Creator>
 
-) : TreeItem {
+) : ListItem {
     @Ignore
     override val key = item.key
     override var name: String

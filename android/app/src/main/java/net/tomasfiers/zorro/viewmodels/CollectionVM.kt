@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import net.tomasfiers.zorro.data.DataRepo
-import net.tomasfiers.zorro.data.entities.TreeItem
+import net.tomasfiers.zorro.data.entities.ListItem
 import net.tomasfiers.zorro.data.getChildCollections
 import net.tomasfiers.zorro.data.getChildItems
 import net.tomasfiers.zorro.data.getCollection
@@ -45,16 +45,16 @@ class CollectionViewModel(
             })
     }
     private val items = dataRepo.getChildItems(collectionKey)
-    val treeItems = MediatorLiveData<List<TreeItem>>()
-    val concatTreeItems = {
-        treeItems.value =
+    val listItems = MediatorLiveData<List<ListItem>>()
+    val concatListItems = {
+        listItems.value =
             (sortedCollections.value ?: listOf()) + (items.value ?: listOf())
     }
 
     init {
         setCollectionName()
-        treeItems.addSource(sortedCollections) { concatTreeItems() }
-        treeItems.addSource(items) { concatTreeItems() }
+        listItems.addSource(sortedCollections) { concatListItems() }
+        listItems.addSource(items) { concatListItems() }
     }
 
     fun syncLibrary() =
