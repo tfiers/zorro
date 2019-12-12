@@ -77,6 +77,10 @@ data class ItemWithReferences(
 
     private fun getFieldValue(fieldName: String?) =
         fieldValues.find { it.fieldName == fieldName }?.value
+
+    fun getDrawableName() {
+
+    }
 }
 
 

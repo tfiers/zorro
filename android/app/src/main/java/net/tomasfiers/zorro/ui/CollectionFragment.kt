@@ -13,6 +13,7 @@ import net.tomasfiers.zorro.ZorroApplication
 import net.tomasfiers.zorro.databinding.CollectionFragmentBinding
 import net.tomasfiers.zorro.viewmodels.CollectionViewModel
 import net.tomasfiers.zorro.viewmodels.CollectionViewModelFactory
+import timber.log.Timber
 
 class CollectionFragment : Fragment() {
 
@@ -35,7 +36,9 @@ class CollectionFragment : Fragment() {
                 CollectionFragmentDirections.actionCollectionSelf(collection.key)
             )
         }
-        val itemClickListener = ListItemClickListener { item -> TODO() }
+        val itemClickListener = ListItemClickListener { item ->
+            Timber.i("Show item ${item.name}")
+        }
         val adapter = RecyclerViewAdapter(collectionClickListener, itemClickListener)
         binding.recyclerView.adapter = adapter
         viewModel.listItems.observe(viewLifecycleOwner, Observer {
