@@ -5,6 +5,7 @@ import androidx.room.Ignore
 import androidx.room.Junction
 import androidx.room.Relation
 
+
 data class CollectionWithItems(
     @Embedded val collection: Collection,
     @Relation(
@@ -77,10 +78,6 @@ data class ItemWithReferences(
 
     private fun getFieldValue(fieldName: String?) =
         fieldValues.find { it.fieldName == fieldName }?.value
-
-    fun getDrawableName() {
-
-    }
 }
 
 

@@ -2,6 +2,8 @@ package net.tomasfiers.zorro.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
+import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -46,9 +48,11 @@ class ListItemItemViewHolder private constructor(private val binding: ListItemIt
     fun bind(item: ItemWithReferences, clickListener: ListItemClickListener) {
         binding.item = item
         binding.clickListener = clickListener
+
         // (A recommended slight speed optimization:)
         binding.executePendingBindings()
     }
+
 
     companion object {
         fun from(parent: ViewGroup): ListItemItemViewHolder {
@@ -58,6 +62,22 @@ class ListItemItemViewHolder private constructor(private val binding: ListItemIt
         }
     }
 }
+
+@BindingAdapter("drawableForItem")
+fun setItemDrawable(imageView: ImageView, item: ItemWithReferences) {
+    val drawableName = "list_item__${camelToSnakeCase(item.item.itemTypeName)}"
+    val drawableId = imageView.resources.getIdentifier(
+        drawableName, "drawable", "net.tomasfiers.zorro"
+    )
+    imageView.setImageResource(drawableId)
+}
+
+private fun camelToSnakeCase(string: String): String =
+    string.toList().joinToString("") { char ->
+        if (char.isUpperCase())
+            "_${char.toLowerCase()}"
+        else "$char"
+    }
 
 // This verbose wrapper class is necessary because `[layout].xml > data > variable` only accepts a
 // class, not a function type. It also can only reference a method, not a functional property 👎

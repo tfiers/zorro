@@ -28,6 +28,7 @@
 
             <ImageView
                 android:id="@+id/imageView"
+                drawableForItem="@{item}"
                 android:layout_width="26dp"
                 android:layout_height="26dp"
                 android:layout_marginStart="20dp"
@@ -37,8 +38,7 @@
                 android:contentDescription="Item icon"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/list_item__item" />
+                app:layout_constraintTop_toTopOf="parent" />
             <!-- Or layout_width/height="wrap_content" -->
 
             <TextView

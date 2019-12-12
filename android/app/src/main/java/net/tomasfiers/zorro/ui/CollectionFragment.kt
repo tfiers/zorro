@@ -31,6 +31,7 @@ class CollectionFragment : Fragment() {
     ): View {
         val binding = CollectionFragmentBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
+
         val collectionClickListener = ListItemClickListener { collection ->
             findNavController().navigate(
                 CollectionFragmentDirections.actionCollectionSelf(collection.key)
@@ -41,6 +42,7 @@ class CollectionFragment : Fragment() {
         }
         val adapter = RecyclerViewAdapter(collectionClickListener, itemClickListener)
         binding.recyclerView.adapter = adapter
+
         viewModel.listItems.observe(viewLifecycleOwner, Observer {
             adapter.submitList(it)
             binding.recyclerView.smoothScrollToPosition(0)
