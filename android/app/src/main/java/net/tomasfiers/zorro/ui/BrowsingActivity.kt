@@ -38,6 +38,21 @@ class BrowsingActivity : AppCompatActivity() {
         lifecycleScope.launch { dataRepo.syncLibrary() }
     }
 
+    private fun setupToolbar() {
+        // Set toolbar to act as activity's action bar
+        setSupportActionBar(binding.toolbar)
+        // Connect toolbar to drawerLayout
+        actionBarDrawerToggle = ActionBarDrawerToggle(
+            this,
+            binding.drawerLayout,
+            binding.toolbar,
+            R.string.close_drawer,
+            R.string.open_drawer
+        )
+        binding.drawerLayout.addDrawerListener(actionBarDrawerToggle)
+        actionBarDrawerToggle.syncState()
+    }
+
     private fun observeSyncErrors() {
         var snackbar: Snackbar? = null
         dataRepo.syncError.observe(this, Observer { error ->
@@ -54,21 +69,6 @@ class BrowsingActivity : AppCompatActivity() {
                 }
             }
         })
-    }
-
-    private fun setupToolbar() {
-        // Set toolbar to act as activity's action bar
-        setSupportActionBar(binding.toolbar)
-        // Connect toolbar to drawerLayout
-        actionBarDrawerToggle = ActionBarDrawerToggle(
-            this,
-            binding.drawerLayout,
-            binding.toolbar,
-            R.string.close_drawer,
-            R.string.open_drawer
-        )
-        binding.drawerLayout.addDrawerListener(actionBarDrawerToggle)
-        actionBarDrawerToggle.syncState()
     }
 
     override fun onPostCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {

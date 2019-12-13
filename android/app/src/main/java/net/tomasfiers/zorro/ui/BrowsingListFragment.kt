@@ -20,7 +20,7 @@ class BrowsingListFragment : Fragment() {
     private val navigationArgs: BrowsingListFragmentArgs by navArgs()
     private val viewModel: BrowsingListViewModel by viewModels {
         BrowsingListViewModelFactory(
-            navigationArgs.collectionId,
+            navigationArgs.collectionKey,
             (activity?.application as ZorroApplication).dataRepo
         )
     }
@@ -30,7 +30,15 @@ class BrowsingListFragment : Fragment() {
     ): View {
         val binding = BrowsingListFragmentBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
+        setupRecyclerView(binding)
+        setupPullToRefresh(binding)
+        //viewModel.collectionName.observe(viewLifecycleOwner, Observer { collectionName ->
+        //    (activity as MainActivity).binding.toolbar.title = collectionName
+        //})
+        return binding.root
+    }
 
+    private fun setupRecyclerView(binding: BrowsingListFragmentBinding) {
         val collectionClickListener = ListItemClickListener { collection ->
             findNavController().navigate(
                 BrowsingListFragmentDirections.actionNavigateIntoCollection(collection.key)
@@ -48,13 +56,12 @@ class BrowsingListFragment : Fragment() {
         })
         // Performance improvement (because changes in list content do not change layout size):
         binding.recyclerView.setHasFixedSize(true)
+    }
+
+    private fun setupPullToRefresh(binding: BrowsingListFragmentBinding) {
         binding.pullToRefresh.setOnRefreshListener { viewModel.syncLibrary() }
         viewModel.isSyncing.observe(viewLifecycleOwner, Observer { isSyncing ->
             binding.pullToRefresh.isRefreshing = isSyncing
         })
-        //viewModel.collectionName.observe(viewLifecycleOwner, Observer { collectionName ->
-        //    (activity as MainActivity).binding.toolbar.title = collectionName
-        //})
-        return binding.root
     }
 }
