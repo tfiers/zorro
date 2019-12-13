@@ -7,13 +7,14 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import net.tomasfiers.zorro.R
 import net.tomasfiers.zorro.ZorroApplication
 import net.tomasfiers.zorro.databinding.BrowsingListFragmentBinding
 import net.tomasfiers.zorro.viewmodels.BrowsingListViewModel
 import net.tomasfiers.zorro.viewmodels.BrowsingListViewModelFactory
-import timber.log.Timber
 
 class BrowsingListFragment : Fragment() {
 
@@ -43,7 +44,9 @@ class BrowsingListFragment : Fragment() {
             )
         }
         val itemClickListener = ListItemClickListener { item ->
-            Timber.i("Show item ${item.name}")
+            Navigation.findNavController(requireActivity(), R.id.main_nav_host_fragment).navigate(
+                BrowsingContainerFragmentDirections.actionBrowsingToShowItem(item.key)
+            )
         }
         val adapter = RecyclerViewAdapter(collectionClickListener, itemClickListener)
         binding.recyclerView.adapter = adapter
