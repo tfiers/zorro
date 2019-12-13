@@ -5,6 +5,10 @@
 
 Project status: initial development.
 
+## License
+
+The Zorro application and its logo are Copyright © 2019 Tomas Fiers.<br>
+Its source code is made available under the [AGPLv3 license](LICENSE).
 
 ## Contributing
 
