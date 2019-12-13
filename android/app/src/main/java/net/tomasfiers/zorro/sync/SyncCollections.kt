@@ -23,10 +23,10 @@ suspend fun DataRepo.syncCollections(): Int? {
     return remoteLibVersionAtStartSync
 }
 
-class DownloadSomeCollectionsArgs(
+data class DownloadSomeCollectionsArgs(
     val collectionKeys: List<String>,
     val remoteLibVersionAtStartSync: Int?
-) : FunctionArgs()
+)
 
 suspend fun DataRepo.downloadSomeCollections(args: DownloadSomeCollectionsArgs) {
     val jsonCollectionsResponse =

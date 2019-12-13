@@ -26,11 +26,11 @@ suspend fun DataRepo.syncItems(remoteLibVersionAtStartSync: Int?) {
     }
 }
 
-class DownloadSomeItemsArgs(
+data class DownloadSomeItemsArgs(
     val itemKeys: List<String>,
     val remoteLibVersionAtStartSync: Int?,
     val fieldNames: List<String>
-) : FunctionArgs()
+)
 
 private suspend fun DataRepo.downloadSomeItems(args: DownloadSomeItemsArgs) {
     val response = zoteroAPIClient.getItems(args.itemKeys.joinToString(","))

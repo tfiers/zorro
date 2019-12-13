@@ -5,9 +5,8 @@ import kotlinx.coroutines.launch
 import net.tomasfiers.zorro.data.DataRepo
 import java.util.concurrent.atomic.AtomicInteger
 
-open class FunctionArgs
 
-suspend fun <T : FunctionArgs> DataRepo.makeConcurrentRequests(
+suspend fun <T> DataRepo.makeConcurrentRequests(
     downloadFunction: suspend DataRepo.(args: T) -> Unit,
     argsList: List<T>
 ) {
