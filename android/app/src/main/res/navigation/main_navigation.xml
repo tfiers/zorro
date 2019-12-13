@@ -7,8 +7,8 @@
 
     <fragment
         android:id="@+id/browsingActivity"
-        android:name="net.tomasfiers.zorro.ui.BrowsingMainFragment"
+        android:name="net.tomasfiers.zorro.ui.BrowsingContainerFragment"
         android:label="browsing__activity"
-        tools:layout="@layout/browsing__main_fragment" />
+        tools:layout="@layout/browsing__container_fragment" />
 
 </navigation>

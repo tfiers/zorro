@@ -14,18 +14,18 @@ import kotlinx.coroutines.launch
 import net.tomasfiers.zorro.R
 import net.tomasfiers.zorro.ZorroApplication
 import net.tomasfiers.zorro.data.DataRepo
-import net.tomasfiers.zorro.databinding.BrowsingMainFragmentBinding
+import net.tomasfiers.zorro.databinding.BrowsingContainerFragmentBinding
 import net.tomasfiers.zorro.sync.syncLibrary
-import net.tomasfiers.zorro.viewmodels.BrowsingMainViewModel
-import net.tomasfiers.zorro.viewmodels.BrowsingMainViewModelFactory
+import net.tomasfiers.zorro.viewmodels.BrowsingContainerViewModel
+import net.tomasfiers.zorro.viewmodels.BrowsingContainerViewModelFactory
 
-class BrowsingMainFragment : Fragment() {
+class BrowsingContainerFragment : Fragment() {
 
-    private lateinit var binding: BrowsingMainFragmentBinding
+    private lateinit var binding: BrowsingContainerFragmentBinding
     private lateinit var dataRepo: DataRepo
     private lateinit var actionBarDrawerToggle: ActionBarDrawerToggle
-    private val viewModel: BrowsingMainViewModel by viewModels {
-        BrowsingMainViewModelFactory((requireActivity().application as ZorroApplication).dataRepo)
+    private val viewModel: BrowsingContainerViewModel by viewModels {
+        BrowsingContainerViewModelFactory((requireActivity().application as ZorroApplication).dataRepo)
     }
 
     override fun onCreateView(
@@ -33,7 +33,7 @@ class BrowsingMainFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = BrowsingMainFragmentBinding.inflate(inflater, container, false)
+        binding = BrowsingContainerFragmentBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
         binding.vm = viewModel
         dataRepo = (requireActivity().application as ZorroApplication).dataRepo
