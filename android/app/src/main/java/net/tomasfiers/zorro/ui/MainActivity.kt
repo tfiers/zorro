@@ -2,7 +2,6 @@ package net.tomasfiers.zorro.ui
 
 import android.os.Bundle
 import android.os.PersistableBundle
-import android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
@@ -11,7 +10,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
-import net.tomasfiers.zorro.BuildConfig
 import net.tomasfiers.zorro.R
 import net.tomasfiers.zorro.ZorroApplication
 import net.tomasfiers.zorro.data.DataRepo
@@ -38,10 +36,6 @@ class MainActivity : AppCompatActivity() {
         setupToolbar()
         observeSyncErrors()
         lifecycleScope.launch { dataRepo.syncLibrary() }
-        if (BuildConfig.DEBUG) {
-            // Keep screen on for development ease.
-            window.addFlags(FLAG_KEEP_SCREEN_ON)
-        }
     }
 
     private fun observeSyncErrors() {
