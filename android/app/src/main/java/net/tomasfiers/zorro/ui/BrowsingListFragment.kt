@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -34,23 +33,10 @@ class BrowsingListFragment : Fragment() {
         binding.lifecycleOwner = this
         setupRecyclerView()
         setupPullToRefresh()
-        configureBackButton()
         //viewModel.collectionName.observe(viewLifecycleOwner, Observer { collectionName ->
         //    (activity as MainActivity).binding.toolbar.title = collectionName
         //})
         return binding.root
-    }
-
-    private fun configureBackButton() {
-        // When we are at the topmost collection and the back button is pressed, quit the app
-        // (instead of going to an empty screen in the containing MainActivity).
-        requireActivity().onBackPressedDispatcher.addCallback(this) {
-            if (navigationArgs.collectionKey == null) {
-                activity!!.finishAffinity()
-            } else {
-                findNavController().popBackStack()
-            }
-        }
     }
 
     private fun setupRecyclerView() {

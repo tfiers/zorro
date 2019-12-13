@@ -5,9 +5,10 @@
     android:id="@+id/main_navigation"
     app:startDestination="@id/browsingActivity">
 
-    <activity
+    <fragment
         android:id="@+id/browsingActivity"
-        android:name="net.tomasfiers.zorro.ui.BrowsingActivity"
+        android:name="net.tomasfiers.zorro.ui.BrowsingMainFragment"
         android:label="browsing__activity"
-        tools:layout="@layout/browsing__activity" />
+        tools:layout="@layout/browsing__main_fragment" />
+
 </navigation>

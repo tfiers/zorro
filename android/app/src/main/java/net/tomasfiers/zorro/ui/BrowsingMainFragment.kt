@@ -1,11 +1,12 @@
 package net.tomasfiers.zorro.ui
 
 import android.os.Bundle
-import android.os.PersistableBundle
-import androidx.activity.viewModels
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.snackbar.Snackbar
@@ -13,37 +14,39 @@ import kotlinx.coroutines.launch
 import net.tomasfiers.zorro.R
 import net.tomasfiers.zorro.ZorroApplication
 import net.tomasfiers.zorro.data.DataRepo
-import net.tomasfiers.zorro.databinding.BrowsingActivityBinding
+import net.tomasfiers.zorro.databinding.BrowsingMainFragmentBinding
 import net.tomasfiers.zorro.sync.syncLibrary
-import net.tomasfiers.zorro.viewmodels.BrowsingActivityViewModel
-import net.tomasfiers.zorro.viewmodels.BrowsingActivityViewModelFactory
+import net.tomasfiers.zorro.viewmodels.BrowsingMainViewModel
+import net.tomasfiers.zorro.viewmodels.BrowsingMainViewModelFactory
 
-class BrowsingActivity : AppCompatActivity() {
+class BrowsingMainFragment : Fragment() {
 
-    private lateinit var binding: BrowsingActivityBinding
+    private lateinit var binding: BrowsingMainFragmentBinding
     private lateinit var dataRepo: DataRepo
     private lateinit var actionBarDrawerToggle: ActionBarDrawerToggle
-    private val viewModel: BrowsingActivityViewModel by viewModels {
-        BrowsingActivityViewModelFactory((application as ZorroApplication).dataRepo)
+    private val viewModel: BrowsingMainViewModel by viewModels {
+        BrowsingMainViewModelFactory((requireActivity().application as ZorroApplication).dataRepo)
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.browsing__activity)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = BrowsingMainFragmentBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
         binding.vm = viewModel
-        dataRepo = (application as ZorroApplication).dataRepo
+        dataRepo = (requireActivity().application as ZorroApplication).dataRepo
         setupToolbar()
         observeSyncErrors()
         lifecycleScope.launch { dataRepo.syncLibrary() }
+        return binding.root
     }
 
     private fun setupToolbar() {
-        // Set toolbar to act as activity's action bar
-        setSupportActionBar(binding.toolbar)
         // Connect toolbar to drawerLayout
         actionBarDrawerToggle = ActionBarDrawerToggle(
-            this,
+            requireActivity(),
             binding.drawerLayout,
             binding.toolbar,
             R.string.close_drawer,
@@ -69,10 +72,5 @@ class BrowsingActivity : AppCompatActivity() {
                 }
             }
         })
-    }
-
-    override fun onPostCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        super.onPostCreate(savedInstanceState, persistentState)
-        actionBarDrawerToggle.syncState()
     }
 }

@@ -2,13 +2,13 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.BrowsingActivity">
+    tools:context=".ui.BrowsingMainFragment">
 
     <data>
 
         <variable
             name="vm"
-            type="net.tomasfiers.zorro.viewmodels.BrowsingActivityViewModel" />
+            type="net.tomasfiers.zorro.viewmodels.BrowsingMainViewModel" />
     </data>
 
     <!-- To display snackbars. -->
@@ -37,6 +37,7 @@
                     android:minHeight="?attr/actionBarSize"
                     android:theme="@style/ThemeOverlay.MaterialComponents.Toolbar.Primary"
                     app:layout_constraintTop_toTopOf="parent"
+                    app:title="@string/app_name"
                     app:subtitle="@{vm.syncStatus}"
                     app:subtitleTextAppearance="@style/TextAppearance.SyncStatus"
                     app:subtitleTextColor="@color/mutedText"
