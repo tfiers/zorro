@@ -14,6 +14,7 @@ suspend fun DataRepo.syncLibrary() {
     syncError.value = null
     stopUpdatingLastSyncText()
     lastSyncText.value = "Syncing with zotero.org…"
+    syncStatus.value = "Checking for updates…"
     // There may be updates to the remote library *while* we are synching. We handle these by
     // checking the remote library version after each request, and restarting the synching procedure
     // if necessary.

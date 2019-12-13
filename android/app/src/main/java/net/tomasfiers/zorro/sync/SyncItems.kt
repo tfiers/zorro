@@ -11,7 +11,6 @@ import net.tomasfiers.zorro.zotero_api.MAX_ITEMS_PER_RESPONSE
 import net.tomasfiers.zorro.zotero_api.remoteLibraryVersion
 
 suspend fun DataRepo.syncItems(remoteLibVersionAtStartSync: Int?) {
-    syncStatus.value = "Checking for updated items…"
     val itemVersions = zoteroAPIClient.getItemVersions(
         sinceLibraryVersion = getValue(Key.LOCAL_LIBRARY_VERSION)
     )
