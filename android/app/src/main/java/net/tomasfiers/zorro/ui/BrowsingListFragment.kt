@@ -10,31 +10,30 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import net.tomasfiers.zorro.ZorroApplication
-import net.tomasfiers.zorro.databinding.CollectionFragmentBinding
-import net.tomasfiers.zorro.viewmodels.CollectionViewModel
-import net.tomasfiers.zorro.viewmodels.CollectionViewModelFactory
+import net.tomasfiers.zorro.databinding.BrowsingListFragmentBinding
+import net.tomasfiers.zorro.viewmodels.BrowsingListViewModel
+import net.tomasfiers.zorro.viewmodels.BrowsingListViewModelFactory
 import timber.log.Timber
 
-class CollectionFragment : Fragment() {
+class BrowsingListFragment : Fragment() {
 
-    private val navigationArgs: CollectionFragmentArgs by navArgs()
-    private val viewModel: CollectionViewModel by viewModels {
-        CollectionViewModelFactory(
+    private val navigationArgs: BrowsingListFragmentArgs by navArgs()
+    private val viewModel: BrowsingListViewModel by viewModels {
+        BrowsingListViewModelFactory(
             navigationArgs.collectionId,
             (activity?.application as ZorroApplication).dataRepo
         )
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        val binding = CollectionFragmentBinding.inflate(inflater, container, false)
+        val binding = BrowsingListFragmentBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
 
         val collectionClickListener = ListItemClickListener { collection ->
             findNavController().navigate(
-                CollectionFragmentDirections.actionCollectionSelf(collection.key)
+                BrowsingListFragmentDirections.actionNavigateIntoCollection(collection.key)
             )
         }
         val itemClickListener = ListItemClickListener { item ->

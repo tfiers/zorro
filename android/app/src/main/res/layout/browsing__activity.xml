@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.BrowsingActivity">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="net.tomasfiers.zorro.viewmodels.BrowsingActivityViewModel" />
+    </data>
+
+    <!-- To display snackbars. -->
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/coordinator_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.drawerlayout.widget.DrawerLayout
+            android:id="@+id/drawer_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/colorPrimary"
+                    android:elevation="4dp"
+                    android:minHeight="?attr/actionBarSize"
+                    android:theme="@style/ThemeOverlay.MaterialComponents.Toolbar.Primary"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:subtitle="@{vm.syncStatus}"
+                    app:subtitleTextAppearance="@style/TextAppearance.SyncStatus"
+                    app:subtitleTextColor="@color/mutedText"
+                    app:titleTextColor="@color/primaryText"
+                    tools:title="My Library" />
+
+                <me.zhanghai.android.materialprogressbar.MaterialProgressBar
+                    android:id="@+id/progressBar"
+                    style="@style/Widget.MaterialProgressBar.ProgressBar.Horizontal.NoPadding"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:max="@{vm.maxProgress}"
+                    android:progress="@{vm.downloadProgress}"
+                    android:visibility='@{vm.progressBarVisibility}'
+                    app:mpb_progressBackgroundTint="@color/progressBarBackground"
+                    app:mpb_progressStyle="horizontal"
+                    app:mpb_progressTint="@color/progressBar"
+                    app:mpb_useIntrinsicPadding="false" />
+
+                <fragment
+                    android:id="@+id/nav_host_fragment"
+                    android:name="androidx.navigation.fragment.NavHostFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:defaultNavHost="true"
+                    app:navGraph="@navigation/browsing_navigation" />
+
+            </LinearLayout>
+
+            <FrameLayout
+                android:id="@+id/drawer_menu"
+                android:layout_width="320dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="start"
+                android:clickable="true"
+                android:fitsSystemWindows="true"
+                android:focusable="true"
+                android:importantForAccessibility="no">
+                <!-- Why clickable/focusable and accesiblity? -> https://stackoverflow.com/a/19423579/2611913 -->
+
+                <fragment
+                    android:id="@+id/drawer_menu_fragment"
+                    android:name="net.tomasfiers.zorro.ui.BrowsingDrawerMenuFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    tools:layout="@layout/browsing__drawer_menu_fragment" />
+
+            </FrameLayout>
+
+        </androidx.drawerlayout.widget.DrawerLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

@@ -7,15 +7,15 @@ import kotlinx.coroutines.launch
 import net.tomasfiers.zorro.data.DataRepo
 import net.tomasfiers.zorro.data.clearLocalData
 
-class DrawerMenuViewModelFactory(
+class BrowsingDrawerMenuViewModelFactory(
     private val dataRepo: DataRepo
 ) : ViewModelProvider.Factory {
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T =
-        DrawerMenuViewModel(dataRepo) as T
+        BrowsingDrawerMenuViewModel(dataRepo) as T
 }
 
-class DrawerMenuViewModel(private val dataRepo: DataRepo) : ViewModel() {
+class BrowsingDrawerMenuViewModel(private val dataRepo: DataRepo) : ViewModel() {
 
     val lastSyncText = dataRepo.lastSyncText
 

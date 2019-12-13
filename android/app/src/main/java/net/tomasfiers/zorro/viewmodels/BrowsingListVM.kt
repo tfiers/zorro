@@ -15,20 +15,20 @@ import net.tomasfiers.zorro.data.getCollection
 import net.tomasfiers.zorro.sync.syncLibrary
 import java.text.Collator
 
-class CollectionViewModelFactory(
+class BrowsingListViewModelFactory(
     private val collectionKey: String?,
     private val dataRepo: DataRepo
 ) : ViewModelProvider.Factory {
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T =
-        CollectionViewModel(collectionKey, dataRepo) as T
+        BrowsingListViewModel(collectionKey, dataRepo) as T
 }
 
 // Makes sure "_PhD" comes before "Academia". `getInstance` depends on current default locale.
 private fun compareStrings(x: String, y: String) =
     Collator.getInstance().compare(x, y)
 
-class CollectionViewModel(
+class BrowsingListViewModel(
     private val collectionKey: String?,
     private val dataRepo: DataRepo
 ) : ViewModel() {

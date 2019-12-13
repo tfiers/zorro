@@ -11,8 +11,8 @@ import net.tomasfiers.zorro.R
 import net.tomasfiers.zorro.data.entities.Collection
 import net.tomasfiers.zorro.data.entities.ItemWithReferences
 import net.tomasfiers.zorro.data.entities.ListItem
-import net.tomasfiers.zorro.databinding.ListItemCollectionBinding
-import net.tomasfiers.zorro.databinding.ListItemItemBinding
+import net.tomasfiers.zorro.databinding.BrowsingListItemCollectionBinding
+import net.tomasfiers.zorro.databinding.BrowsingListItemItemBinding
 
 class ListItemDiffCallback : DiffUtil.ItemCallback<ListItem>() {
     override fun areItemsTheSame(oldItem: ListItem, newItem: ListItem) =
@@ -23,7 +23,7 @@ class ListItemDiffCallback : DiffUtil.ItemCallback<ListItem>() {
 }
 
 // One container in the RecyclerView list.
-class ListItemCollectionViewHolder private constructor(private val binding: ListItemCollectionBinding) :
+class BrowsingListItemCollectionViewHolder private constructor(private val binding: BrowsingListItemCollectionBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
     fun bind(collection: Collection, clickListener: ListItemClickListener) {
@@ -34,16 +34,16 @@ class ListItemCollectionViewHolder private constructor(private val binding: List
     }
 
     companion object {
-        fun from(parent: ViewGroup): ListItemCollectionViewHolder {
+        fun from(parent: ViewGroup): BrowsingListItemCollectionViewHolder {
             val layoutInflater = LayoutInflater.from(parent.context)
-            val binding = ListItemCollectionBinding.inflate(layoutInflater, parent, false)
-            return ListItemCollectionViewHolder(binding)
+            val binding = BrowsingListItemCollectionBinding.inflate(layoutInflater, parent, false)
+            return BrowsingListItemCollectionViewHolder(binding)
         }
     }
 }
 
 // One container in the RecyclerView list.
-class ListItemItemViewHolder private constructor(private val binding: ListItemItemBinding) :
+class BrowsingListItemItemViewHolder private constructor(private val binding: BrowsingListItemItemBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
     fun bind(item: ItemWithReferences, clickListener: ListItemClickListener) {
@@ -56,10 +56,10 @@ class ListItemItemViewHolder private constructor(private val binding: ListItemIt
 
 
     companion object {
-        fun from(parent: ViewGroup): ListItemItemViewHolder {
+        fun from(parent: ViewGroup): BrowsingListItemItemViewHolder {
             val layoutInflater = LayoutInflater.from(parent.context)
-            val binding = ListItemItemBinding.inflate(layoutInflater, parent, false)
-            return ListItemItemViewHolder(binding)
+            val binding = BrowsingListItemItemBinding.inflate(layoutInflater, parent, false)
+            return BrowsingListItemItemViewHolder(binding)
         }
     }
 }
@@ -105,8 +105,8 @@ class RecyclerViewAdapter(
 
     // Called when the RecyclerView requests a new container to add to the list.
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = when (viewType) {
-        ViewHolderTypes.COLLECTION.ordinal -> ListItemCollectionViewHolder.from(parent)
-        ViewHolderTypes.ITEM.ordinal -> ListItemItemViewHolder.from(parent)
+        ViewHolderTypes.COLLECTION.ordinal -> BrowsingListItemCollectionViewHolder.from(parent)
+        ViewHolderTypes.ITEM.ordinal -> BrowsingListItemItemViewHolder.from(parent)
         else -> throw TypeCastException()
     }
 
@@ -114,10 +114,10 @@ class RecyclerViewAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val listItem = getItem(position)
         if (listItem is Collection) {
-            (holder as ListItemCollectionViewHolder)
+            (holder as BrowsingListItemCollectionViewHolder)
                 .bind(listItem, collectionClickListener)
         } else if (listItem is ItemWithReferences)
-            (holder as ListItemItemViewHolder)
+            (holder as BrowsingListItemItemViewHolder)
                 .bind(listItem, itemClickListener)
     }
 }

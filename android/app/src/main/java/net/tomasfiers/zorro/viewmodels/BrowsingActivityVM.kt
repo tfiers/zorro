@@ -7,15 +7,15 @@ import androidx.lifecycle.ViewModelProvider
 import net.tomasfiers.zorro.data.DataRepo
 import kotlin.math.roundToInt
 
-class MainActivityViewModelFactory(
+class BrowsingActivityViewModelFactory(
     private val dataRepo: DataRepo
 ) : ViewModelProvider.Factory {
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T =
-        MainActivityViewModel(dataRepo) as T
+        BrowsingActivityViewModel(dataRepo) as T
 }
 
-class MainActivityViewModel(dataRepo: DataRepo) : ViewModel() {
+class BrowsingActivityViewModel(dataRepo: DataRepo) : ViewModel() {
     val syncStatus = dataRepo.syncStatus
     val progressBarVisibility = Transformations.map(dataRepo.showProgressBar) {
         when (it) {

@@ -2,17 +2,17 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/navigation"
-    app:startDestination="@id/collection">
+    android:id="@+id/browsing_navigation"
+    app:startDestination="@id/browsing_list_fragment">
 
     <fragment
-        android:id="@+id/collection"
-        android:name="net.tomasfiers.zorro.ui.CollectionFragment"
+        android:id="@+id/browsing_list_fragment"
+        android:name="net.tomasfiers.zorro.ui.BrowsingListFragment"
         android:label="Collection"
-        tools:layout="@layout/collection_fragment">
+        tools:layout="@layout/browsing__list_fragment">
         <action
-            android:id="@+id/action_collection_self"
-            app:destination="@id/collection"
+            android:id="@+id/action_navigate_into_collection"
+            app:destination="@id/browsing_list_fragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
@@ -23,4 +23,5 @@
             app:argType="string"
             app:nullable="true" />
     </fragment>
+
 </navigation>
