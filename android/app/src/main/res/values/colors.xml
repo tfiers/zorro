@@ -13,5 +13,7 @@
     <color name="ZoteroLogoWebsite">#a6212c</color>
     <color name="ZoteroLogoWebapp">#db2c3a</color>
 
-    <color name="logo1Background">#FAFAFA</color>
+    <color name="logo1FirefoxyBackground">#FAFAFA</color>
+    <color name="logo2ZorroFoxBackground">#26A69A</color>
+    <color name="logo3MagnifierBackground">#47C372</color>
 </resources>
