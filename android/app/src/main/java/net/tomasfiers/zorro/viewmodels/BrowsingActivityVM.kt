@@ -17,11 +17,8 @@ class BrowsingActivityViewModelFactory(
 
 class BrowsingActivityViewModel(dataRepo: DataRepo) : ViewModel() {
     val syncStatus = dataRepo.syncStatus
-    val progressBarVisibility = Transformations.map(dataRepo.showProgressBar) {
-        when (it) {
-            true -> View.VISIBLE
-            false -> View.GONE
-        }
+    val progressBarVisibility = Transformations.map(dataRepo.showProgressBar) { showProgressBar ->
+        if (showProgressBar) View.VISIBLE else View.GONE
     }
     val maxProgress = 100
     val downloadProgress = Transformations.map(dataRepo.downloadProgress) { progressFraction ->
