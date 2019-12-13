@@ -44,7 +44,7 @@ class BrowsingListFragment : Fragment() {
             )
         }
         val itemClickListener = ListItemClickListener { item ->
-            val browsingShowItemFragment = BrowsingShowItemFragment(item.key)
+            val browsingShowItemFragment = BrowsingItemDetailFragment(item.key)
             val fragmentManager = requireActivity().supportFragmentManager
             browsingShowItemFragment.show(fragmentManager, null)
         }
