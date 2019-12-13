@@ -67,9 +67,8 @@ data class ItemWithReferences(
 ) : ListItem {
     @Ignore
     override val key = item.key
-    override var name: String
+    override val name: String
         get() = getFieldValue(titleField?.name) ?: ""
-        set(value) = TODO()
 
     @Ignore
     private val titleField =

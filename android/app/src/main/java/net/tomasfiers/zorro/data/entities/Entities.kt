@@ -22,14 +22,14 @@ data class KeyValPair(
 // 2^32 / 2 = 2 billion. (Android dev docs use Ints too).
 interface ListItem {
     val key: String
-    var name: String
+    val name: String
 }
 
 @Entity
 data class Collection(
     @PrimaryKey
     override val key: String,
-    override var name: String,
+    override val name: String,
     var parentKey: String?
 ) : ListItem
 
