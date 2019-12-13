@@ -15,7 +15,7 @@ import net.tomasfiers.zorro.viewmodels.ZorroViewModelFactory
 class BrowsingDrawerMenuFragment : Fragment() {
 
     private val viewModel: BrowsingDrawerMenuViewModel by viewModels {
-        ZorroViewModelFactory(dataRepo, null)
+        ZorroViewModelFactory(BrowsingDrawerMenuViewModel::class.java, dataRepo, null)
     }
 
     override fun onCreateView(

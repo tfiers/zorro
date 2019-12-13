@@ -7,22 +7,16 @@ import net.tomasfiers.zorro.data.DataRepo
 
 interface ViewModelArgs
 
-class ZorroViewModelFactory<A : ViewModelArgs>(
+class ZorroViewModelFactory<V, A>(
+    private val viewModelClass: Class<V>,
     private val dataRepo: DataRepo,
     private val otherArgs: A? = null
-) : ViewModelProvider.Factory {
-
-    private val viewModelClasses = listOf(
-        BrowsingContainerViewModel::class.java,
-        BrowsingDrawerMenuViewModel::class.java,
-        BrowsingListViewModel::class.java,
-        EditItemViewModel::class.java
-    )
+) : ViewModelProvider.Factory
+        where V : ViewModel, A : ViewModelArgs {
 
     @Suppress("UNCHECKED_CAST")
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        val viewModelClass = viewModelClasses.first { modelClass.isAssignableFrom(it) }
-        return if (otherArgs == null) {
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T =
+        if (otherArgs == null) {
             viewModelClass
                 .getConstructor(dataRepo.javaClass)
                 .newInstance(dataRepo)
@@ -31,5 +25,4 @@ class ZorroViewModelFactory<A : ViewModelArgs>(
                 .getConstructor(dataRepo.javaClass, otherArgs.javaClass)
                 .newInstance(dataRepo, otherArgs)
         } as T
-    }
 }

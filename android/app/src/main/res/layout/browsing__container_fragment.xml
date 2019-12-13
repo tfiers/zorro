@@ -37,10 +37,10 @@
                     android:minHeight="?attr/actionBarSize"
                     android:theme="@style/ThemeOverlay.MaterialComponents.Toolbar.Primary"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:title="@string/app_name"
                     app:subtitle="@{vm.syncStatus}"
                     app:subtitleTextAppearance="@style/TextAppearance.SyncStatus"
                     app:subtitleTextColor="@color/mutedText"
+                    app:title="@string/app_name"
                     app:titleTextColor="@color/primaryText"
                     tools:title="My Library" />
 
@@ -88,5 +88,6 @@
             </FrameLayout>
 
         </androidx.drawerlayout.widget.DrawerLayout>
+
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

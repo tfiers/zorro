@@ -17,7 +17,11 @@ class EditItemFragment : Fragment() {
 
     private val navigationArgs: EditItemFragmentArgs by navArgs()
     private val viewModel: EditItemViewModel by viewModels {
-        ZorroViewModelFactory(dataRepo, EditItemViewModelArgs(navigationArgs.itemKey))
+        ZorroViewModelFactory(
+            EditItemViewModel::class.java,
+            dataRepo,
+            EditItemViewModelArgs(navigationArgs.itemKey)
+        )
     }
 
     override fun onCreateView(

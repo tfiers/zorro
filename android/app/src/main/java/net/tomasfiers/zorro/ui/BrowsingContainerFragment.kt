@@ -20,7 +20,7 @@ class BrowsingContainerFragment : Fragment() {
     private lateinit var binding: BrowsingContainerFragmentBinding
     private lateinit var actionBarDrawerToggle: ActionBarDrawerToggle
     private val viewModel: BrowsingContainerViewModel by viewModels {
-        ZorroViewModelFactory(dataRepo, null)
+        ZorroViewModelFactory(BrowsingContainerViewModel::class.java, dataRepo, null)
     }
 
     override fun onCreateView(

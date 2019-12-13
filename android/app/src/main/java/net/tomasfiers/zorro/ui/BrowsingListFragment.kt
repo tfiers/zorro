@@ -7,10 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import net.tomasfiers.zorro.R
 import net.tomasfiers.zorro.dataRepo
 import net.tomasfiers.zorro.databinding.BrowsingListFragmentBinding
 import net.tomasfiers.zorro.viewmodels.BrowsingListViewModel
@@ -22,7 +20,11 @@ class BrowsingListFragment : Fragment() {
     private lateinit var binding: BrowsingListFragmentBinding
     private val navigationArgs: BrowsingListFragmentArgs by navArgs()
     private val viewModel: BrowsingListViewModel by viewModels {
-        ZorroViewModelFactory(dataRepo, BrowsingListViewModelArgs(navigationArgs.collectionKey))
+        ZorroViewModelFactory(
+            BrowsingListViewModel::class.java,
+            dataRepo,
+            BrowsingListViewModelArgs(navigationArgs.collectionKey)
+        )
     }
 
     override fun onCreateView(
@@ -42,9 +44,9 @@ class BrowsingListFragment : Fragment() {
             )
         }
         val itemClickListener = ListItemClickListener { item ->
-            Navigation.findNavController(requireActivity(), R.id.main_nav_host_fragment).navigate(
-                BrowsingContainerFragmentDirections.actionBrowsingToEditItem(item.key)
-            )
+            val browsingShowItemFragment = BrowsingShowItemFragment(item.key)
+            val fragmentManager = requireActivity().supportFragmentManager
+            browsingShowItemFragment.show(fragmentManager, null)
         }
         val adapter = RecyclerViewAdapter(collectionClickListener, itemClickListener)
         binding.recyclerView.adapter = adapter
