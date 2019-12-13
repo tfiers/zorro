@@ -16,7 +16,7 @@ class ZorroViewModelFactory<A : ViewModelArgs>(
         BrowsingContainerViewModel::class.java,
         BrowsingDrawerMenuViewModel::class.java,
         BrowsingListViewModel::class.java,
-        ShowItemViewModel::class.java
+        EditItemViewModel::class.java
     )
 
     @Suppress("UNCHECKED_CAST")

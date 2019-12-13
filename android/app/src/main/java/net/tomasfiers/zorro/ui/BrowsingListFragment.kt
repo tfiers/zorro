@@ -43,7 +43,7 @@ class BrowsingListFragment : Fragment() {
         }
         val itemClickListener = ListItemClickListener { item ->
             Navigation.findNavController(requireActivity(), R.id.main_nav_host_fragment).navigate(
-                BrowsingContainerFragmentDirections.actionBrowsingToShowItem(item.key)
+                BrowsingContainerFragmentDirections.actionBrowsingToEditItem(item.key)
             )
         }
         val adapter = RecyclerViewAdapter(collectionClickListener, itemClickListener)

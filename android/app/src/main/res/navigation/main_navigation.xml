@@ -8,18 +8,16 @@
     <fragment
         android:id="@+id/browsing_container"
         android:name="net.tomasfiers.zorro.ui.BrowsingContainerFragment"
-        android:label="BrowsingContainerFragment"
         tools:layout="@layout/browsing__container_fragment">
         <action
-            android:id="@+id/action_browsing_to_showItem"
-            app:destination="@id/showItemFragment" />
+            android:id="@+id/action_browsing_to_editItem"
+            app:destination="@id/editItemFragment" />
     </fragment>
 
     <fragment
-        android:id="@+id/showItemFragment"
-        android:name="net.tomasfiers.zorro.ui.ShowItemFragment"
-        android:label="ShowItemFragment"
-        tools:layout="@layout/show_item_fragment" >
+        android:id="@+id/editItemFragment"
+        android:name="net.tomasfiers.zorro.ui.EditItemFragment"
+        tools:layout="@layout/edit_item_fragment">
         <argument
             android:name="itemKey"
             app:argType="string" />

@@ -3,9 +3,9 @@ package net.tomasfiers.zorro.viewmodels
 import androidx.lifecycle.ViewModel
 import net.tomasfiers.zorro.data.DataRepo
 
-data class ShowItemViewModelArgs(val itemKey: String) : ViewModelArgs
+data class EditItemViewModelArgs(val itemKey: String) : ViewModelArgs
 
-class ShowItemViewModel(dataRepo: DataRepo, args: ShowItemViewModelArgs) : ViewModel() {
+class EditItemViewModel(dataRepo: DataRepo, args: EditItemViewModelArgs) : ViewModel() {
 
     val item = dataRepo.database.item.get(args.itemKey)
 
