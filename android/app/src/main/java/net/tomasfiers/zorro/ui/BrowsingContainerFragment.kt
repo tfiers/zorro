@@ -12,20 +12,18 @@ import androidx.lifecycle.lifecycleScope
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
 import net.tomasfiers.zorro.R
-import net.tomasfiers.zorro.ZorroApplication
-import net.tomasfiers.zorro.data.DataRepo
+import net.tomasfiers.zorro.dataRepo
 import net.tomasfiers.zorro.databinding.BrowsingContainerFragmentBinding
 import net.tomasfiers.zorro.sync.syncLibrary
 import net.tomasfiers.zorro.viewmodels.BrowsingContainerViewModel
-import net.tomasfiers.zorro.viewmodels.BrowsingContainerViewModelFactory
+import net.tomasfiers.zorro.viewmodels.ZorroViewModelFactory
 
 class BrowsingContainerFragment : Fragment() {
 
     private lateinit var binding: BrowsingContainerFragmentBinding
-    private lateinit var dataRepo: DataRepo
     private lateinit var actionBarDrawerToggle: ActionBarDrawerToggle
     private val viewModel: BrowsingContainerViewModel by viewModels {
-        BrowsingContainerViewModelFactory((requireActivity().application as ZorroApplication).dataRepo)
+        ZorroViewModelFactory(dataRepo, null)
     }
 
     override fun onCreateView(
@@ -36,7 +34,6 @@ class BrowsingContainerFragment : Fragment() {
         binding = BrowsingContainerFragmentBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
         binding.vm = viewModel
-        dataRepo = (requireActivity().application as ZorroApplication).dataRepo
         setupToolbar()
         observeSyncErrors()
         lifecycleScope.launch { dataRepo.syncLibrary() }

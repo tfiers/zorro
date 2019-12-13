@@ -1,6 +1,7 @@
 package net.tomasfiers.zorro
 
 import android.app.Application
+import androidx.fragment.app.Fragment
 import com.jakewharton.threetenabp.AndroidThreeTen
 import net.tomasfiers.zorro.data.DataRepo
 import net.tomasfiers.zorro.data.ZorroDatabase
@@ -23,3 +24,8 @@ class ZorroApplication : Application() {
         dataRepo = DataRepo(database, zoteroAPIClient, this)
     }
 }
+
+// Inject dataRepo in each Fragment
+val Fragment.dataRepo: DataRepo
+    get() = (requireActivity().application as ZorroApplication).dataRepo
+

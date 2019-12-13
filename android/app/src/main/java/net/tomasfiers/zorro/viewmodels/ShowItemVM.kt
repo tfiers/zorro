@@ -1,20 +1,12 @@
 package net.tomasfiers.zorro.viewmodels
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import net.tomasfiers.zorro.data.DataRepo
 
-class ShowItemViewModelFactory(
-    private val itemKey: String,
-    private val dataRepo: DataRepo
-) : ViewModelProvider.Factory {
-    @Suppress("UNCHECKED_CAST")
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T =
-        ShowItemViewModel(itemKey, dataRepo) as T
-}
+data class ShowItemViewModelArgs(val itemKey: String) : ViewModelArgs
 
-class ShowItemViewModel(itemKey: String, dataRepo: DataRepo) : ViewModel() {
+class ShowItemViewModel(dataRepo: DataRepo, args: ShowItemViewModelArgs) : ViewModel() {
 
-    val item = dataRepo.database.item.get(itemKey)
+    val item = dataRepo.database.item.get(args.itemKey)
 
 }

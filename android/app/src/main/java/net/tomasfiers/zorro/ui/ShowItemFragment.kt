@@ -7,19 +7,17 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
-import net.tomasfiers.zorro.ZorroApplication
+import net.tomasfiers.zorro.dataRepo
 import net.tomasfiers.zorro.databinding.ShowItemFragmentBinding
 import net.tomasfiers.zorro.viewmodels.ShowItemViewModel
-import net.tomasfiers.zorro.viewmodels.ShowItemViewModelFactory
+import net.tomasfiers.zorro.viewmodels.ShowItemViewModelArgs
+import net.tomasfiers.zorro.viewmodels.ZorroViewModelFactory
 
 class ShowItemFragment : Fragment() {
 
     private val navigationArgs: ShowItemFragmentArgs by navArgs()
     private val viewModel: ShowItemViewModel by viewModels {
-        ShowItemViewModelFactory(
-            navigationArgs.itemKey,
-            (requireActivity().application as ZorroApplication).dataRepo
-        )
+        ZorroViewModelFactory(dataRepo, ShowItemViewModelArgs(navigationArgs.itemKey))
     }
 
     override fun onCreateView(

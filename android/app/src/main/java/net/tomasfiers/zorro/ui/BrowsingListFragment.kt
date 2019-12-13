@@ -11,20 +11,18 @@ import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import net.tomasfiers.zorro.R
-import net.tomasfiers.zorro.ZorroApplication
+import net.tomasfiers.zorro.dataRepo
 import net.tomasfiers.zorro.databinding.BrowsingListFragmentBinding
 import net.tomasfiers.zorro.viewmodels.BrowsingListViewModel
-import net.tomasfiers.zorro.viewmodels.BrowsingListViewModelFactory
+import net.tomasfiers.zorro.viewmodels.BrowsingListViewModelArgs
+import net.tomasfiers.zorro.viewmodels.ZorroViewModelFactory
 
 class BrowsingListFragment : Fragment() {
 
     private lateinit var binding: BrowsingListFragmentBinding
     private val navigationArgs: BrowsingListFragmentArgs by navArgs()
     private val viewModel: BrowsingListViewModel by viewModels {
-        BrowsingListViewModelFactory(
-            navigationArgs.collectionKey,
-            (activity?.application as ZorroApplication).dataRepo
-        )
+        ZorroViewModelFactory(dataRepo, BrowsingListViewModelArgs(navigationArgs.collectionKey))
     }
 
     override fun onCreateView(

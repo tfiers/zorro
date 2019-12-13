@@ -3,17 +3,8 @@ package net.tomasfiers.zorro.viewmodels
 import android.view.View
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import net.tomasfiers.zorro.data.DataRepo
 import kotlin.math.roundToInt
-
-class BrowsingContainerViewModelFactory(
-    private val dataRepo: DataRepo
-) : ViewModelProvider.Factory {
-    @Suppress("UNCHECKED_CAST")
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T =
-        BrowsingContainerViewModel(dataRepo) as T
-}
 
 class BrowsingContainerViewModel(dataRepo: DataRepo) : ViewModel() {
     val syncStatus = dataRepo.syncStatus

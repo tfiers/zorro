@@ -7,15 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import net.tomasfiers.zorro.ZorroApplication
+import net.tomasfiers.zorro.dataRepo
 import net.tomasfiers.zorro.databinding.BrowsingDrawerMenuFragmentBinding
 import net.tomasfiers.zorro.viewmodels.BrowsingDrawerMenuViewModel
-import net.tomasfiers.zorro.viewmodels.BrowsingDrawerMenuViewModelFactory
+import net.tomasfiers.zorro.viewmodels.ZorroViewModelFactory
 
 class BrowsingDrawerMenuFragment : Fragment() {
 
     private val viewModel: BrowsingDrawerMenuViewModel by viewModels {
-        BrowsingDrawerMenuViewModelFactory((activity?.application as ZorroApplication).dataRepo)
+        ZorroViewModelFactory(dataRepo, null)
     }
 
     override fun onCreateView(
