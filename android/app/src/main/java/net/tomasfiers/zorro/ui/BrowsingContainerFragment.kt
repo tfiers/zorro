@@ -8,13 +8,10 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.lifecycleScope
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.coroutines.launch
 import net.tomasfiers.zorro.R
 import net.tomasfiers.zorro.dataRepo
 import net.tomasfiers.zorro.databinding.BrowsingContainerFragmentBinding
-import net.tomasfiers.zorro.sync.syncLibrary
 import net.tomasfiers.zorro.viewmodels.BrowsingContainerViewModel
 import net.tomasfiers.zorro.viewmodels.ZorroViewModelFactory
 
@@ -36,7 +33,6 @@ class BrowsingContainerFragment : Fragment() {
         binding.vm = viewModel
         setupToolbar()
         observeSyncErrors()
-        lifecycleScope.launch { dataRepo.syncLibrary() }
         return binding.root
     }
 
