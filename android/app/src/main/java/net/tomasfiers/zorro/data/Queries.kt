@@ -80,16 +80,16 @@ interface ItemDao {
     @Insert(onConflict = REPLACE)
     suspend fun insert(items: List<Item>)
 
-    @Insert
+    @Insert(onConflict = REPLACE)
     suspend fun insertFieldValues(data: List<ItemFieldValue>)
 
-    @Insert
+    @Insert(onConflict = REPLACE)
     suspend fun insertItemCollectionAssocs(assocs: List<ItemCollectionAssociation>)
 
     @Insert
     suspend fun insertCreators(assocs: List<Creator>)
 
-    // "Transaction" because ItemWithReferences requires multiple queries.
+    // "Transaction" because `ItemWithReferences` requires multiple queries.
     @Transaction
     @Query(
         """select * from Item inner join ItemCollectionAssociation on itemKey = `key`
