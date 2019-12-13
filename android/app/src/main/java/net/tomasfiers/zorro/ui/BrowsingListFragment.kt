@@ -33,9 +33,6 @@ class BrowsingListFragment : Fragment() {
         binding.lifecycleOwner = this
         setupRecyclerView()
         setupPullToRefresh()
-        //viewModel.collectionName.observe(viewLifecycleOwner, Observer { collectionName ->
-        //    (activity as MainActivity).binding.toolbar.title = collectionName
-        //})
         return binding.root
     }
 

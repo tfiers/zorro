@@ -52,19 +52,10 @@ class BrowsingListViewModel(
     }
 
     init {
-        setCollectionName()
         listItems.addSource(sortedCollections) { concatListItems() }
         listItems.addSource(items) { concatListItems() }
     }
 
     fun syncLibrary() =
         viewModelScope.launch { dataRepo.syncLibrary() }
-
-    private fun setCollectionName() =
-        viewModelScope.launch {
-            collectionName.value = when (collectionKey) {
-                null -> "My Library"
-                else -> dataRepo.getCollection(collectionKey).name
-            }
-        }
 }

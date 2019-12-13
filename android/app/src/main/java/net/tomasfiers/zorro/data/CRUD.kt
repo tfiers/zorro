@@ -15,7 +15,7 @@ import kotlinx.coroutines.withContext
 suspend fun DataRepo.clearLocalData() =
     withContext(Dispatchers.IO) { database.clearAllTables() }
 
-suspend fun DataRepo.getCollection(collectionKey: String) =
+fun DataRepo.getCollection(collectionKey: String) =
     database.collection.get(collectionKey)
 
 fun DataRepo.getChildCollections(parentCollectionKey: String?) =

@@ -3,12 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_navigation"
-    app:startDestination="@id/browsingActivity">
+    app:startDestination="@id/browsing_container">
 
     <fragment
-        android:id="@+id/browsingActivity"
+        android:id="@+id/browsing_container"
         android:name="net.tomasfiers.zorro.ui.BrowsingContainerFragment"
-        android:label="browsing__activity"
         tools:layout="@layout/browsing__container_fragment" />
 
 </navigation>
