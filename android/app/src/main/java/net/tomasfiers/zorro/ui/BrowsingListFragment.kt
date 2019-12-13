@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -17,6 +18,7 @@ import timber.log.Timber
 
 class BrowsingListFragment : Fragment() {
 
+    private lateinit var binding: BrowsingListFragmentBinding
     private val navigationArgs: BrowsingListFragmentArgs by navArgs()
     private val viewModel: BrowsingListViewModel by viewModels {
         BrowsingListViewModelFactory(
@@ -28,17 +30,30 @@ class BrowsingListFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        val binding = BrowsingListFragmentBinding.inflate(inflater, container, false)
+        binding = BrowsingListFragmentBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
-        setupRecyclerView(binding)
-        setupPullToRefresh(binding)
+        setupRecyclerView()
+        setupPullToRefresh()
+        configureBackButton()
         //viewModel.collectionName.observe(viewLifecycleOwner, Observer { collectionName ->
         //    (activity as MainActivity).binding.toolbar.title = collectionName
         //})
         return binding.root
     }
 
-    private fun setupRecyclerView(binding: BrowsingListFragmentBinding) {
+    private fun configureBackButton() {
+        // When we are at the topmost collection and the back button is pressed, quit the app
+        // (instead of going to an empty screen in the containing MainActivity).
+        requireActivity().onBackPressedDispatcher.addCallback(this) {
+            if (navigationArgs.collectionKey == null) {
+                activity!!.finishAffinity()
+            } else {
+                findNavController().popBackStack()
+            }
+        }
+    }
+
+    private fun setupRecyclerView() {
         val collectionClickListener = ListItemClickListener { collection ->
             findNavController().navigate(
                 BrowsingListFragmentDirections.actionNavigateIntoCollection(collection.key)
@@ -58,7 +73,7 @@ class BrowsingListFragment : Fragment() {
         binding.recyclerView.setHasFixedSize(true)
     }
 
-    private fun setupPullToRefresh(binding: BrowsingListFragmentBinding) {
+    private fun setupPullToRefresh() {
         binding.pullToRefresh.setOnRefreshListener { viewModel.syncLibrary() }
         viewModel.isSyncing.observe(viewLifecycleOwner, Observer { isSyncing ->
             binding.pullToRefresh.isRefreshing = isSyncing
