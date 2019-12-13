@@ -7,6 +7,7 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import net.tomasfiers.zorro.R
 import net.tomasfiers.zorro.data.entities.Collection
 import net.tomasfiers.zorro.data.entities.ItemWithReferences
 import net.tomasfiers.zorro.data.entities.ListItem
@@ -66,9 +67,12 @@ class ListItemItemViewHolder private constructor(private val binding: ListItemIt
 @BindingAdapter("drawableForItem")
 fun setItemDrawable(imageView: ImageView, item: ItemWithReferences) {
     val drawableName = "list_item__${camelToSnakeCase(item.item.itemTypeName)}"
-    val drawableId = imageView.resources.getIdentifier(
+    var drawableId = imageView.resources.getIdentifier(
         drawableName, "drawable", "net.tomasfiers.zorro"
     )
+    if (drawableId == 0) {
+        drawableId = R.drawable.list_item__item
+    }
     imageView.setImageResource(drawableId)
 }
 
