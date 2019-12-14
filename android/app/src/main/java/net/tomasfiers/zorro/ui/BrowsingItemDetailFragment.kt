@@ -28,7 +28,7 @@ class BrowsingItemDetailFragment(itemKey: String) : BottomSheetDialogFragment() 
     ): View? {
         val binding = BrowsingItemDetailFragmentBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
-        binding.vm = viewModel
+        //binding.linearLayout.addView()
         return binding.root
     }
 }

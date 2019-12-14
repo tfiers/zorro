@@ -3,22 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.BrowsingItemDetailFragment">
 
-    <data>
-
-        <variable
-            name="vm"
-            type="net.tomasfiers.zorro.viewmodels.BrowsingItemDetailViewModel" />
-    </data>
-
     <LinearLayout
+        android:id="@+id/linear_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{vm.item.name}" />
 
     </LinearLayout>
 </layout>
