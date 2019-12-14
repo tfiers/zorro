@@ -1,42 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Generator: Adobe Illustrator 19.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 viewBox="0 0 176 168.7" style="enable-background:new 0 0 176 168.7;" xml:space="preserve">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="-11 12.7 176 176" style="enable-background:new -11 12.7 176 176;" xml:space="preserve">
 <style type="text/css">
-	.st1{display:inline;fill:#E04A34;}
-	.st2{fill:#FFFFFF;stroke:#000000;stroke-width:5;stroke-linejoin:round;stroke-miterlimit:10;}
-	.st4{fill:none;stroke:#000000;stroke-width:5;stroke-linejoin:round;stroke-miterlimit:10;}
-	.st5{fill:none;stroke:#000000;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
-	.st6{fill:#FFFFFF;}
-	.st8{fill:none;stroke:#000000;stroke-width:8;stroke-linejoin:round;stroke-miterlimit:10;}
-	.st9{fill:#FFFFFF;stroke:#000000;stroke-width:14;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
-	.st10{fill:#FFFFFF;stroke:#000000;stroke-width:6;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
-	.st11{fill:#A70A0A;}
+	.st0{fill:#FFFFFF;stroke:#000000;stroke-width:5;stroke-linejoin:round;stroke-miterlimit:10;}
+	.st1{fill:none;stroke:#000000;stroke-width:5;stroke-linejoin:round;stroke-miterlimit:10;}
+	.st2{fill:none;stroke:#000000;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
+	.st3{fill:#FFFFFF;}
+	.st4{fill:none;stroke:#000000;stroke-width:8;stroke-linejoin:round;stroke-miterlimit:10;}
+	.st5{fill:none;stroke:#000000;stroke-width:13;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
+	.st6{fill:none;stroke:#000000;stroke-width:6;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
+	.st7{fill:#A70A0A;}
 </style>
 <g id="papers">
 	<g id="XMLID_3_">
-		<path id="paper_1_" class="st2" d="M96.7,149.7h-72c-2.2,0-4-1.8-4-4V40.5c0-2.2,1.8-4,4-4h72c2.2,0,4,1.8,4,4v105.1
-			C100.7,147.9,98.9,149.7,96.7,149.7z"/>
-		<path id="paper_-_rect_2_" class="st2" d="M95.5,23.1H38.1c-2.2,0-4,1.8-4,4v105.3c0,2.2,1.8,4,4,4h72c2.2,0,4-1.8,4-4V41.9
-			L95.5,23.1z"/>
-		<path id="corner_2_" class="st4" d="M95.7,23.2v14c0,2.6,2.1,4.7,4.7,4.7H114"/>
+		<path id="paper_1_" class="st0" d="M26.6,153.4V48.3c0-2.2,1.8-4,4-4h72c2.2,0,4,1.8,4,4v105.2c0,2.2-1.8,4-4,4h-72
+			C28.4,157.5,26.6,155.7,26.6,153.4z"/>
+		<path id="paper_-_rect_2_" class="st0" d="M17.7,54.2v90.5c0,2.2,1.8,4,4,4h72c2.2,0,4-1.8,4-4V39.4c0-2.2-1.8-4-4-4H36.3
+			L17.7,54.2z"/>
+		<path id="corner_2_" class="st1" d="M18.8,54.2h12.6c2.6,0,4.7-2.1,4.7-4.7v-13"/>
 	</g>
 </g>
 <g id="textlines">
 	<g id="XMLID_70_">
-		<line id="XMLID_74_" class="st5" x1="46" y1="62.8" x2="100.7" y2="62.8"/>
-		<line id="XMLID_73_" class="st5" x1="46" y1="80.9" x2="100.7" y2="80.9"/>
-		<line id="XMLID_72_" class="st5" x1="46" y1="99.1" x2="100.7" y2="99.1"/>
-		<line id="XMLID_71_" class="st5" x1="46" y1="117.2" x2="100.7" y2="117.2"/>
+		<line id="XMLID_74_" class="st2" x1="33" y1="75.1" x2="87.7" y2="75.1"/>
+		<line id="XMLID_73_" class="st2" x1="33" y1="93.2" x2="87.7" y2="93.2"/>
+		<line id="XMLID_72_" class="st2" x1="33" y1="111.4" x2="87.7" y2="111.4"/>
+		<line id="XMLID_71_" class="st2" x1="33" y1="129.5" x2="87.7" y2="129.5"/>
 	</g>
 </g>
 <g id="magnifier">
 	<g id="XMLID_39_">
-		<circle id="bg_1_" class="st6" cx="90.8" cy="87.6" r="34.5"/>
-		<circle id="XMLID_40_" class="st8" cx="90.8" cy="87.4" r="34.5"/>
-		<line id="handle_2_1_" class="st9" x1="125.4" y1="121.9" x2="158.3" y2="154.3"/>
-		<line id="handle_big_1_" class="st10" x1="114.6" y1="111.3" x2="121.3" y2="117.7"/>
-		<path id="XMLID_45_" class="st11" d="M74.6,102.9l19.6-28.2v-0.2H76.3v-7.7h29.8v5.4L87,99.9v0.2h19.5v7.7H74.6V102.9z"/>
+		<circle id="bg_1_" class="st3" cx="76.8" cy="101.9" r="34.5"/>
+		<circle id="XMLID_40_" class="st4" cx="76.8" cy="101.7" r="34.5"/>
+		<line id="handle_2_1_" class="st5" x1="117.4" y1="142.2" x2="149" y2="174.6"/>
+		<line id="handle_big_1_" class="st6" x1="100.6" y1="125.6" x2="118.3" y2="143"/>
+		<path id="XMLID_45_" class="st7" d="M60.6,117.2L80.2,89v-0.2H62.3v-7.7h29.8v5.4L73,114.2v0.2h19.5v7.7H60.6V117.2z"/>
 	</g>
 </g>
 </svg>
