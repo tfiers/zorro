@@ -1,4 +1,4 @@
-package net.tomasfiers.zorro.viewmodels
+package net.tomasfiers.zorro.util
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

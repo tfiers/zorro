@@ -11,7 +11,7 @@
 
         <variable
             name="clickListener"
-            type="net.tomasfiers.zorro.ui.ListItemClickListener" />
+            type="net.tomasfiers.zorro.ui.browsing.list.ListElementClicklistener" />
 
     </data>
 

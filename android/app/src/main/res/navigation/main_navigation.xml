@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/browsing_container"
-        android:name="net.tomasfiers.zorro.ui.BrowsingContainerFragment"
+        android:name="net.tomasfiers.zorro.ui.browsing.ContainerFragment"
         tools:layout="@layout/browsing__container_fragment">
         <action
             android:id="@+id/action_browsing_to_editItem"
@@ -16,8 +16,8 @@
 
     <fragment
         android:id="@+id/editItemFragment"
-        android:name="net.tomasfiers.zorro.ui.EditItemFragment"
-        tools:layout="@layout/edit_item_fragment">
+        android:name="net.tomasfiers.zorro.ui.edititem.ContainerFragment"
+        tools:layout="@layout/edititem__container_fragment">
         <argument
             android:name="itemKey"
             app:argType="string" />

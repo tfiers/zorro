@@ -1,4 +1,4 @@
-package net.tomasfiers.zorro.ui
+package net.tomasfiers.zorro.ui.browsing
 
 
 import android.os.Bundle
@@ -9,13 +9,16 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import net.tomasfiers.zorro.dataRepo
 import net.tomasfiers.zorro.databinding.BrowsingDrawerMenuFragmentBinding
-import net.tomasfiers.zorro.viewmodels.BrowsingDrawerMenuViewModel
-import net.tomasfiers.zorro.viewmodels.ZorroViewModelFactory
+import net.tomasfiers.zorro.util.ZorroViewModelFactory
 
-class BrowsingDrawerMenuFragment : Fragment() {
+class DrawerMenuFragment : Fragment() {
 
-    private val viewModel: BrowsingDrawerMenuViewModel by viewModels {
-        ZorroViewModelFactory(BrowsingDrawerMenuViewModel::class.java, dataRepo, null)
+    private val viewModel: DrawerMenuViewModel by viewModels {
+        ZorroViewModelFactory(
+            DrawerMenuViewModel::class.java,
+            dataRepo,
+            null
+        )
     }
 
     override fun onCreateView(

@@ -1,4 +1,4 @@
-package net.tomasfiers.zorro.ui
+package net.tomasfiers.zorro.ui.browsing
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,15 +12,18 @@ import com.google.android.material.snackbar.Snackbar
 import net.tomasfiers.zorro.R
 import net.tomasfiers.zorro.dataRepo
 import net.tomasfiers.zorro.databinding.BrowsingContainerFragmentBinding
-import net.tomasfiers.zorro.viewmodels.BrowsingContainerViewModel
-import net.tomasfiers.zorro.viewmodels.ZorroViewModelFactory
+import net.tomasfiers.zorro.util.ZorroViewModelFactory
 
-class BrowsingContainerFragment : Fragment() {
+class ContainerFragment : Fragment() {
 
     private lateinit var binding: BrowsingContainerFragmentBinding
     private lateinit var actionBarDrawerToggle: ActionBarDrawerToggle
-    private val viewModel: BrowsingContainerViewModel by viewModels {
-        ZorroViewModelFactory(BrowsingContainerViewModel::class.java, dataRepo, null)
+    private val viewModel: ContainerViewModel by viewModels {
+        ZorroViewModelFactory(
+            ContainerViewModel::class.java,
+            dataRepo,
+            null
+        )
     }
 
     override fun onCreateView(

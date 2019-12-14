@@ -1,4 +1,4 @@
-package net.tomasfiers.zorro.viewmodels
+package net.tomasfiers.zorro.ui.browsing.list
 
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
@@ -7,18 +7,20 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import net.tomasfiers.zorro.data.DataRepo
-import net.tomasfiers.zorro.data.entities.ListItem
+import net.tomasfiers.zorro.data.entities.ListElement
 import net.tomasfiers.zorro.data.getChildCollections
 import net.tomasfiers.zorro.data.getChildItems
 import net.tomasfiers.zorro.sync.syncLibrary
+import net.tomasfiers.zorro.util.ViewModelArgs
 import java.text.Collator
 
 
-data class BrowsingListViewModelArgs(val collectionKey: String?) : ViewModelArgs
+data class ContainerViewModelArgs(val collectionKey: String?) :
+    ViewModelArgs
 
-class BrowsingListViewModel(
+class ContainerViewModel(
     private val dataRepo: DataRepo,
-    args: BrowsingListViewModelArgs
+    args: ContainerViewModelArgs
 ) : ViewModel() {
 
     val isSyncing = dataRepo.isSyncing
@@ -29,19 +31,22 @@ class BrowsingListViewModel(
     ) {
         it
             .sortedWith(Comparator { collection1, collection2 ->
-                compareStrings(collection1.name, collection2.name)
+                compareStrings(
+                    collection1.name,
+                    collection2.name
+                )
             })
     }
     private val items = dataRepo.getChildItems(args.collectionKey)
-    val listItems = MediatorLiveData<List<ListItem>>()
-    val concatListItems = {
-        listItems.value =
+    val listElements = MediatorLiveData<List<ListElement>>()
+    val concatListElements = {
+        listElements.value =
             (sortedCollections.value ?: listOf()) + (items.value ?: listOf())
     }
 
     init {
-        listItems.addSource(sortedCollections) { concatListItems() }
-        listItems.addSource(items) { concatListItems() }
+        listElements.addSource(sortedCollections) { concatListElements() }
+        listElements.addSource(items) { concatListElements() }
     }
 
     fun syncLibrary() =

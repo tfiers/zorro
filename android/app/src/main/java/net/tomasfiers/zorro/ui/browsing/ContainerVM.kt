@@ -1,4 +1,4 @@
-package net.tomasfiers.zorro.viewmodels
+package net.tomasfiers.zorro.ui.browsing
 
 import android.view.View
 import androidx.lifecycle.Transformations
@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import net.tomasfiers.zorro.data.DataRepo
 import kotlin.math.roundToInt
 
-class BrowsingContainerViewModel(dataRepo: DataRepo) : ViewModel() {
+class ContainerViewModel(dataRepo: DataRepo) : ViewModel() {
     val syncStatus = dataRepo.syncStatus
     val progressBarVisibility = Transformations.map(dataRepo.showProgressBar) { showProgressBar ->
         if (showProgressBar) View.VISIBLE else View.GONE

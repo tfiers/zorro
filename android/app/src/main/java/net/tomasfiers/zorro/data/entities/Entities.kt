@@ -20,7 +20,7 @@ data class KeyValPair(
 // characters. 8^36 unique keys = 2821 billion = 10^12 = 1/10 of cells in human body.
 // Similarly, Int's are OK for ID's: https://stackoverflow.com/a/55995219/2611913.
 // 2^32 / 2 = 2 billion. (Android dev docs use Ints too).
-interface ListItem {
+interface ListElement {
     val key: String
     val name: String
 }
@@ -31,7 +31,7 @@ data class Collection(
     override val key: String,
     override val name: String,
     var parentKey: String?
-) : ListItem
+) : ListElement
 
 @Entity
 data class Item(

@@ -2,13 +2,13 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.BrowsingDrawerMenuFragment">
+    tools:context=".ui.browsing.DrawerMenuFragment">
 
     <data>
 
         <variable
             name="vm"
-            type="net.tomasfiers.zorro.viewmodels.BrowsingDrawerMenuViewModel" />
+            type="net.tomasfiers.zorro.ui.browsing.DrawerMenuViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

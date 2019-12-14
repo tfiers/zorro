@@ -1,4 +1,4 @@
-package net.tomasfiers.zorro.ui
+package net.tomasfiers.zorro.ui.browsing.list
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,13 +7,13 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import net.tomasfiers.zorro.R
 import net.tomasfiers.zorro.data.entities.ItemWithReferences
-import net.tomasfiers.zorro.databinding.BrowsingListItemItemBinding
+import net.tomasfiers.zorro.databinding.BrowsingListElementItemBinding
 
 // One container in the RecyclerView list.
-class BrowsingListItemItemViewHolder private constructor(private val binding: BrowsingListItemItemBinding) :
+class ItemElementViewHolder private constructor(private val binding: BrowsingListElementItemBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(item: ItemWithReferences, clickListener: ListItemClickListener) {
+    fun bind(item: ItemWithReferences, clickListener: ListElementClicklistener) {
         binding.item = item
         binding.clickListener = clickListener
 
@@ -23,17 +23,21 @@ class BrowsingListItemItemViewHolder private constructor(private val binding: Br
 
 
     companion object {
-        fun from(parent: ViewGroup): BrowsingListItemItemViewHolder {
+        fun from(parent: ViewGroup): ItemElementViewHolder {
             val layoutInflater = LayoutInflater.from(parent.context)
-            val binding = BrowsingListItemItemBinding.inflate(layoutInflater, parent, false)
-            return BrowsingListItemItemViewHolder(binding)
+            val binding = BrowsingListElementItemBinding.inflate(layoutInflater, parent, false)
+            return ItemElementViewHolder(
+                binding
+            )
         }
     }
 }
 
 @BindingAdapter("drawableForItem")
 fun setItemDrawable(imageView: ImageView, item: ItemWithReferences) {
-    val drawableName = "list_item__${camelToSnakeCase(item.item.itemTypeName)}"
+    val drawableName = "list_item__${camelToSnakeCase(
+        item.item.itemTypeName
+    )}"
     var drawableId = imageView.resources.getIdentifier(
         drawableName, "drawable", "net.tomasfiers.zorro"
     )

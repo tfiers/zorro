@@ -1,4 +1,4 @@
-package net.tomasfiers.zorro.ui
+package net.tomasfiers.zorro.ui.browsing.list
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,27 +10,28 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import net.tomasfiers.zorro.dataRepo
-import net.tomasfiers.zorro.databinding.BrowsingListFragmentBinding
-import net.tomasfiers.zorro.viewmodels.BrowsingListViewModel
-import net.tomasfiers.zorro.viewmodels.BrowsingListViewModelArgs
-import net.tomasfiers.zorro.viewmodels.ZorroViewModelFactory
+import net.tomasfiers.zorro.databinding.BrowsingListContainerFragmentBinding
+import net.tomasfiers.zorro.ui.browsing.itemdetail.ContainerFragment
+import net.tomasfiers.zorro.util.ZorroViewModelFactory
 
-class BrowsingListFragment : Fragment() {
+class ContainerFragment : Fragment() {
 
-    private lateinit var binding: BrowsingListFragmentBinding
-    private val navigationArgs: BrowsingListFragmentArgs by navArgs()
-    private val viewModel: BrowsingListViewModel by viewModels {
+    private lateinit var binding: BrowsingListContainerFragmentBinding
+    private val navigationArgs: ContainerFragmentArgs by navArgs()
+    private val viewModel: ContainerViewModel by viewModels {
         ZorroViewModelFactory(
-            BrowsingListViewModel::class.java,
+            ContainerViewModel::class.java,
             dataRepo,
-            BrowsingListViewModelArgs(navigationArgs.collectionKey)
+            ContainerViewModelArgs(
+                navigationArgs.collectionKey
+            )
         )
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        binding = BrowsingListFragmentBinding.inflate(inflater, container, false)
+        binding = BrowsingListContainerFragmentBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
         setupRecyclerView()
         setupPullToRefresh()
@@ -38,20 +39,22 @@ class BrowsingListFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        val collectionClickListener = ListItemClickListener { collection ->
-            findNavController().navigate(
-                BrowsingListFragmentDirections.actionNavigateIntoCollection(collection.key)
-            )
-        }
-        val itemClickListener = ListItemClickListener { item ->
-            val browsingShowItemFragment = BrowsingItemDetailFragment(item.key)
-            val fragmentManager = requireActivity().supportFragmentManager
-            browsingShowItemFragment.show(fragmentManager, null)
-        }
+        val collectionClickListener =
+            ListElementClicklistener { collection ->
+                findNavController().navigate(
+                    ContainerFragmentDirections.actionNavigateIntoCollection(collection.key)
+                )
+            }
+        val itemClickListener =
+            ListElementClicklistener { item ->
+                val browsingShowItemFragment = ContainerFragment(item.key)
+                val fragmentManager = requireActivity().supportFragmentManager
+                browsingShowItemFragment.show(fragmentManager, null)
+            }
         val adapter = RecyclerViewAdapter(collectionClickListener, itemClickListener)
         binding.recyclerView.adapter = adapter
 
-        viewModel.listItems.observe(viewLifecycleOwner, Observer {
+        viewModel.listElements.observe(viewLifecycleOwner, Observer {
             adapter.submitList(it)
             binding.recyclerView.smoothScrollToPosition(0)
         })

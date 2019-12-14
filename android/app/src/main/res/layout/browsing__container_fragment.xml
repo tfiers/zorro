@@ -2,13 +2,13 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.BrowsingContainerFragment">
+    tools:context=".ui.browsing.ContainerFragment">
 
     <data>
 
         <variable
             name="vm"
-            type="net.tomasfiers.zorro.viewmodels.BrowsingContainerViewModel" />
+            type="net.tomasfiers.zorro.ui.browsing.ContainerViewModel" />
     </data>
 
     <!-- To display snackbars. -->
@@ -58,7 +58,7 @@
                     app:mpb_useIntrinsicPadding="false" />
 
                 <fragment
-                    android:id="@+id/main_nav_host_fragment"
+                    android:id="@+id/browsing_nav_host_fragment"
                     android:name="androidx.navigation.fragment.NavHostFragment"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -80,7 +80,7 @@
 
                 <fragment
                     android:id="@+id/drawer_menu_fragment"
-                    android:name="net.tomasfiers.zorro.ui.BrowsingDrawerMenuFragment"
+                    android:name="net.tomasfiers.zorro.ui.browsing.DrawerMenuFragment"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     tools:layout="@layout/browsing__drawer_menu_fragment" />

@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/browsing_list_fragment"
-        android:name="net.tomasfiers.zorro.ui.BrowsingListFragment"
+        android:name="net.tomasfiers.zorro.ui.browsing.list.ContainerFragment"
         android:label="Collection"
-        tools:layout="@layout/browsing__list_fragment">
+        tools:layout="@layout/browsing__list__container_fragment">
         <action
             android:id="@+id/action_navigate_into_collection"
             app:destination="@id/browsing_list_fragment"

@@ -1,4 +1,4 @@
-package net.tomasfiers.zorro.ui
+package net.tomasfiers.zorro.ui.browsing.itemdetail
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,17 +7,17 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import net.tomasfiers.zorro.dataRepo
-import net.tomasfiers.zorro.databinding.BrowsingItemDetailFragmentBinding
-import net.tomasfiers.zorro.viewmodels.BrowsingItemDetailViewModel
-import net.tomasfiers.zorro.viewmodels.BrowsingItemDetailViewModelArgs
-import net.tomasfiers.zorro.viewmodels.ZorroViewModelFactory
+import net.tomasfiers.zorro.databinding.BrowsingItemdetailContainerFragmentBinding
+import net.tomasfiers.zorro.util.ZorroViewModelFactory
 
-class BrowsingItemDetailFragment(itemKey: String) : BottomSheetDialogFragment() {
+class ContainerFragment(itemKey: String) : BottomSheetDialogFragment() {
     private val viewModel: BrowsingItemDetailViewModel by viewModels {
         ZorroViewModelFactory(
             BrowsingItemDetailViewModel::class.java,
             dataRepo,
-            BrowsingItemDetailViewModelArgs(itemKey)
+            BrowsingItemDetailViewModelArgs(
+                itemKey
+            )
         )
     }
 
@@ -26,7 +26,7 @@ class BrowsingItemDetailFragment(itemKey: String) : BottomSheetDialogFragment() 
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = BrowsingItemDetailFragmentBinding.inflate(inflater, container, false)
+        val binding = BrowsingItemdetailContainerFragmentBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
         //binding.linearLayout.addView()
         return binding.root
