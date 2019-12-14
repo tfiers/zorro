@@ -6,21 +6,6 @@ import androidx.room.Junction
 import androidx.room.Relation
 
 
-data class CollectionWithItems(
-    @Embedded val collection: Collection,
-    @Relation(
-        parentColumn = "key",
-        entityColumn = "key",
-        associateBy = Junction(
-            ItemCollectionAssociation::class,
-            parentColumn = "collectionKey",
-            entityColumn = "itemKey"
-        )
-    )
-    val items: List<Item>
-)
-
-
 data class ItemWithReferences(
     @Embedded val item: Item,
 
