@@ -3,11 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.browsing.itemdetail.ContainerFragment">
 
-    <LinearLayout
-        android:id="@+id/linear_layout"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
-    </LinearLayout>
+        <LinearLayout
+            android:id="@+id/linear_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+    </androidx.core.widget.NestedScrollView>
 </layout>
