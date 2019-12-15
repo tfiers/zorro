@@ -11,8 +11,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import net.tomasfiers.zorro.dataRepo
 import net.tomasfiers.zorro.databinding.BrowsingListContainerFragmentBinding
-import net.tomasfiers.zorro.ui.browsing.itemdetail.ContainerFragment
 import net.tomasfiers.zorro.util.ZorroViewModelFactory
+import net.tomasfiers.zorro.ui.browsing.itemdetail.ContainerFragment as ItemdetailContainerFragment
 
 class ContainerFragment : Fragment() {
 
@@ -47,9 +47,9 @@ class ContainerFragment : Fragment() {
             }
         val itemClickListener =
             ListElementClicklistener { item ->
-                val browsingShowItemFragment = ContainerFragment(item.key)
+                val itemDetailFragment = ItemdetailContainerFragment(item.key)
                 val fragmentManager = requireActivity().supportFragmentManager
-                browsingShowItemFragment.show(fragmentManager, null)
+                itemDetailFragment.show(fragmentManager, null)
             }
         val adapter = RecyclerViewAdapter(collectionClickListener, itemClickListener)
         binding.recyclerView.adapter = adapter
