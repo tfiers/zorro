@@ -42,4 +42,4 @@ Additionally, the following dependencies are used (these are not taught in the m
 - [OkHttp](https://square.github.io/okhttp/) (on which Retrofit is built), to insert headers
   in all HTTP requests.
 - [ThreeTenABP](https://github.com/JakeWharton/ThreeTenABP), a backport of Java's new `util.time.*`,
-  to support older Android versions.
+  to be able to use this great package on older Android versions.
