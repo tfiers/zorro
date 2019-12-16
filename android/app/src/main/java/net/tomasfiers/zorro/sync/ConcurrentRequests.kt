@@ -7,20 +7,20 @@ import java.util.concurrent.atomic.AtomicInteger
 
 
 suspend fun <T> DataRepo.makeConcurrentRequests(
-    downloadFunction: suspend DataRepo.(args: T) -> Unit,
-    argsList: List<T>
+    requestFunction: suspend DataRepo.(args: T) -> Unit,
+    argsPerRequest: List<T>
 ) {
+    numRequests.value = argsPerRequest.size
     numCompletedRequests.value = 0
-    numRequests.value = argsList.size
     if (numRequests.value ?: 0 > 5) {
         showProgressBar.value = true
     }
     val numCompletedRequestsAtomic = AtomicInteger(0)
     // Wait until all coroutines launched inside this block have completed.
     coroutineScope {
-        argsList.forEach { args ->
+        argsPerRequest.forEach { args ->
             launch {
-                downloadFunction(args)
+                requestFunction(args)
                 numCompletedRequests.value = numCompletedRequestsAtomic.incrementAndGet()
             }
         }
