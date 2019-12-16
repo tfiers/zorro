@@ -22,9 +22,7 @@ class ContainerFragment : Fragment() {
         ZorroViewModelFactory(
             ContainerViewModel::class.java,
             dataRepo,
-            ContainerViewModelArgs(
-                navigationArgs.collectionKey
-            )
+            ContainerViewModelArgs(navigationArgs.collectionKey)
         )
     }
 

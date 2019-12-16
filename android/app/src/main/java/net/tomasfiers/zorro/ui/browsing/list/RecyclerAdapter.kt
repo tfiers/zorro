@@ -24,10 +24,10 @@ class RecyclerViewAdapter(
 
     // Called when the RecyclerView requests a new container to add to the list.
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = when (viewType) {
-        ViewHolderTypes.COLLECTION.ordinal -> CollectionElementViewHolder.from(
+        ViewHolderTypes.COLLECTION.ordinal -> RecyclerElementCollectionViewHolder.from(
             parent
         )
-        ViewHolderTypes.ITEM.ordinal -> ItemElementViewHolder.from(
+        ViewHolderTypes.ITEM.ordinal -> RecyclerElementItemViewHolder.from(
             parent
         )
         else -> throw TypeCastException()
@@ -37,10 +37,10 @@ class RecyclerViewAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val listElement = getItem(position)
         if (listElement is Collection) {
-            (holder as CollectionElementViewHolder)
+            (holder as RecyclerElementCollectionViewHolder)
                 .bind(listElement, collectionClickListener)
         } else if (listElement is ItemWithReferences)
-            (holder as ItemElementViewHolder)
+            (holder as RecyclerElementItemViewHolder)
                 .bind(listElement, elementClicklistener)
     }
 }

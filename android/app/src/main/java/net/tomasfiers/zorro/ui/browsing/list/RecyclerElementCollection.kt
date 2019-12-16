@@ -8,7 +8,8 @@ import net.tomasfiers.zorro.databinding.BrowsingListElementCollectionBinding
 
 
 // One container in the RecyclerView list.
-class CollectionElementViewHolder private constructor(private val binding: BrowsingListElementCollectionBinding) :
+class RecyclerElementCollectionViewHolder
+private constructor(private val binding: BrowsingListElementCollectionBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
     fun bind(collection: Collection, clickListener: ListElementClicklistener) {
@@ -19,10 +20,11 @@ class CollectionElementViewHolder private constructor(private val binding: Brows
     }
 
     companion object {
-        fun from(parent: ViewGroup): CollectionElementViewHolder {
+        fun from(parent: ViewGroup): RecyclerElementCollectionViewHolder {
             val layoutInflater = LayoutInflater.from(parent.context)
-            val binding = BrowsingListElementCollectionBinding.inflate(layoutInflater, parent, false)
-            return CollectionElementViewHolder(
+            val binding =
+                BrowsingListElementCollectionBinding.inflate(layoutInflater, parent, false)
+            return RecyclerElementCollectionViewHolder(
                 binding
             )
         }

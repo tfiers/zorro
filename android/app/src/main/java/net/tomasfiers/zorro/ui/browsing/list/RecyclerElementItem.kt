@@ -10,7 +10,8 @@ import net.tomasfiers.zorro.data.entities.ItemWithReferences
 import net.tomasfiers.zorro.databinding.BrowsingListElementItemBinding
 
 // One container in the RecyclerView list.
-class ItemElementViewHolder private constructor(private val binding: BrowsingListElementItemBinding) :
+class RecyclerElementItemViewHolder
+private constructor(private val binding: BrowsingListElementItemBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
     fun bind(item: ItemWithReferences, clickListener: ListElementClicklistener) {
@@ -23,10 +24,10 @@ class ItemElementViewHolder private constructor(private val binding: BrowsingLis
 
 
     companion object {
-        fun from(parent: ViewGroup): ItemElementViewHolder {
+        fun from(parent: ViewGroup): RecyclerElementItemViewHolder {
             val layoutInflater = LayoutInflater.from(parent.context)
             val binding = BrowsingListElementItemBinding.inflate(layoutInflater, parent, false)
-            return ItemElementViewHolder(
+            return RecyclerElementItemViewHolder(
                 binding
             )
         }
