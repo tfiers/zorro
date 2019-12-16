@@ -19,9 +19,10 @@
             app:popExitAnim="@anim/slide_out_right" />
         <argument
             android:name="collectionKey"
-            android:defaultValue="@null"
+            android:defaultValue="838WYWGX"
             app:argType="string"
             app:nullable="true" />
+            <!--android:defaultValue="@null"-->
     </fragment>
 
 </navigation>
