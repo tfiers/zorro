@@ -7,33 +7,50 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.lifecycle.Observer
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import net.tomasfiers.zorro.data.entities.ItemFieldValue
+import net.tomasfiers.zorro.data.entities.ItemWithReferences
 import net.tomasfiers.zorro.dataRepo
 import net.tomasfiers.zorro.databinding.BrowsingItemdetailContainerFragmentBinding
+import net.tomasfiers.zorro.zotero_api.TITLE
 
 class ContainerFragment(val itemKey: String) : BottomSheetDialogFragment() {
+
+    private lateinit var binding: BrowsingItemdetailContainerFragmentBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = BrowsingItemdetailContainerFragmentBinding.inflate(inflater, container, false)
+        binding = BrowsingItemdetailContainerFragmentBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
         val itemLiveData = dataRepo.database.item.get(itemKey)
         itemLiveData.observe(this, Observer { item ->
-            binding.linearLayout.removeAllViews()
-            item.fieldValues.forEach() { itemFieldValue ->
-                val fragmentContainer = FrameLayout(requireContext())
-                fragmentContainer.id = View.generateViewId()
-                val field = item.fields.find { it.name == itemFieldValue.fieldName }!!
-                val fieldFragment = FieldFragment(field.friendlyName, itemFieldValue.value)
-                childFragmentManager
-                    .beginTransaction()
-                    .add(fragmentContainer.id, fieldFragment, null)
-                    .commit()
-                binding.linearLayout.addView(fragmentContainer)
-            }
+            binding.fieldsContainer.removeAllViews()
+
+            item.fieldValues
+                .find { it.fieldName == TITLE }
+                ?.let { addFieldValueToLayout(it, item) }
+
+            item.fieldValues
+                .filter { it.fieldName != TITLE }
+                .forEach() { addFieldValueToLayout(it, item) }
         })
         return binding.root
+    }
+
+    private fun addFieldValueToLayout(
+        itemFieldValue: ItemFieldValue,
+        item: ItemWithReferences
+    ) {
+        val fragmentContainer = FrameLayout(requireContext())
+        fragmentContainer.id = View.generateViewId()
+        val field = item.fields.find { it.name == itemFieldValue.fieldName }!!
+        val fieldFragment = FieldFragment(field.friendlyName, itemFieldValue.value)
+        childFragmentManager
+            .beginTransaction()
+            .add(fragmentContainer.id, fieldFragment, null)
+            .commit()
+        binding.fieldsContainer.addView(fragmentContainer)
     }
 }

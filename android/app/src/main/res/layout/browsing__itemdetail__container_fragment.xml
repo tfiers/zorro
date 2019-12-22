@@ -8,13 +8,13 @@
         android:layout_height="wrap_content">
 
         <LinearLayout
-            android:id="@+id/linear_layout"
+            android:id="@+id/fields_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingStart="20dp"
+            android:paddingStart="16dp"
             android:paddingTop="8dp"
-            android:paddingEnd="20dp"
+            android:paddingEnd="16dp"
             android:paddingBottom="8dp" />
     </androidx.core.widget.NestedScrollView>
 </layout>
