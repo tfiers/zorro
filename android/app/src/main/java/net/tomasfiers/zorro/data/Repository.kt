@@ -2,6 +2,8 @@ package net.tomasfiers.zorro.data
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import net.tomasfiers.zorro.ZorroApplication
 import net.tomasfiers.zorro.zotero_api.ZoteroAPIClient
 import org.threeten.bp.Instant
@@ -11,8 +13,7 @@ import java.util.Timer
  * Global state for the app. A singleton (by usage, not enforced), initialised in [ZorroApplication].
  *
  * Extension functions for this class in the `sync/` package keep the local database in sync with
- * the data on zotero.org. Extension functions in `CRUD.kt` are thin wrappers to access and modify
- * local data.
+ * the data on zotero.org.
  * These extension functions (and the LiveData in this class) are used by ViewModels.
  */
 class DataRepo(
@@ -36,3 +37,12 @@ class DataRepo(
         (it ?: 0).toFloat() / (numRequests.value ?: 1)
     }
 }
+
+/**
+ * Note that this `clearAllTables` is not a suspending function; It fires an asynchronous task
+ * without callback. There is thus no way to know when the database is actually cleared (other than
+ * manually checking if data is still present).
+ */
+suspend fun DataRepo.clearLocalData() =
+    withContext(Dispatchers.IO) { database.clearAllTables() }
+

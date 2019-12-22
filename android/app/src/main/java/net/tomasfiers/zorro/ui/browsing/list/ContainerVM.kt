@@ -8,8 +8,6 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import net.tomasfiers.zorro.data.DataRepo
 import net.tomasfiers.zorro.data.entities.ListElement
-import net.tomasfiers.zorro.data.getChildCollections
-import net.tomasfiers.zorro.data.getChildItems
 import net.tomasfiers.zorro.sync.syncLibrary
 import net.tomasfiers.zorro.util.ViewModelArgs
 import java.text.Collator
@@ -27,7 +25,7 @@ class ContainerViewModel(
     private val collectionName = MutableLiveData<String>()
     // Note: Transformations are executed on main thread, so don't do heavy work here.
     private val sortedCollections = Transformations.map(
-        dataRepo.getChildCollections(parentCollectionKey = args.collectionKey)
+        dataRepo.database.collection.getChildren(parentKey = args.collectionKey)
     ) {
         it
             .sortedWith(Comparator { collection1, collection2 ->
@@ -37,7 +35,7 @@ class ContainerViewModel(
                 )
             })
     }
-    private val items = dataRepo.getChildItems(args.collectionKey)
+    private val items = dataRepo.database.item.getChildren(args.collectionKey)
     val listElements = MediatorLiveData<List<ListElement>>()
     val concatListElements = {
         listElements.value =

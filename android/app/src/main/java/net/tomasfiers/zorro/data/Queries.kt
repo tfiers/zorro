@@ -68,7 +68,7 @@ interface CollectionDao {
     @Query("select * from Collection where `key` = :key")
     fun get(key: String): LiveData<Collection>
 
-    // Also, a gotcha: in SQL you cannot use `= null`, only `is null`.
+    // A gotcha: in SQL you cannot use `= null`, only `is null`.
     @Query("select * from Collection where (parentKey = :parentKey) or (:parentKey is null and parentKey is null)")
     fun getChildren(parentKey: String?): LiveData<List<Collection>>
 }
@@ -96,8 +96,9 @@ interface ItemDao {
 
     @Transaction
     @Query(
-        """select * from Item inner join ItemCollectionAssociation on itemKey = `key`
-                where collectionKey = :parentCollectionKey"""
+        """select * from Item
+                    inner join ItemCollectionAssociation on itemKey = `key`
+                    where collectionKey = :parentCollectionKey"""
     )
     fun getChildren(parentCollectionKey: String?): LiveData<List<ItemWithReferences>>
 }
