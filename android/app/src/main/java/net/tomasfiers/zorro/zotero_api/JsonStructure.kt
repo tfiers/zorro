@@ -79,19 +79,19 @@ data class ItemJson(val data: Map<String, Any>) {
     val key: String = data["key"] as String
 
     val collectionKeys =
-        if (data.containsKey("collections"))
-            data["collections"] as List<String>
+        if (data.containsKey(COLLECTIONS))
+            data[COLLECTIONS] as List<String>
         else null
 
     val creators =
-        if (data.containsKey("creators"))
-            data["creators"] as List<Map<String, String>>?
+        if (data.containsKey(CREATORS))
+            data[CREATORS] as List<Map<String, String>>?
         else null
 
     fun asDomainModel() = Item(
         key = key,
-        itemTypeName = data["itemType"] as String,
-        dateAdded = OffsetDateTime.parse(data["dateAdded"] as String),
-        dateModified = OffsetDateTime.parse(data["dateModified"] as String)
+        itemTypeName = data[ITEMTYPE] as String,
+        dateAdded = OffsetDateTime.parse(data[DATE_ADDED] as String),
+        dateModified = OffsetDateTime.parse(data[DATE_MODIFIED] as String)
     )
 }
