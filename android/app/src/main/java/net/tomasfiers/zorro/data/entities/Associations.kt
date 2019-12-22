@@ -29,7 +29,8 @@ data class ItemCollectionAssociation(
 )
 data class ItemTypeFieldAssociation(
     val itemTypeName: String,
-    val fieldName: String
+    val fieldName: String,
+    val orderIndex: Int
 )
 
 

@@ -40,13 +40,13 @@ suspend fun DataRepo.insertSchema(schemaJson: SchemaJson) {
         itemTypes.add(
             ItemType(itemTypeName, friendlyNames.itemTypes.getValue(itemTypeName))
         )
-        itemTypeJson.fields.forEach { fieldJson ->
+        itemTypeJson.fields.forEachIndexed { index, fieldJson ->
             val fieldName = fieldJson.field
             fields.add(
                 Field(fieldName, friendlyNames.fields.getValue(fieldName), fieldJson.baseField)
             )
             itemTypeFieldAssociations.add(
-                ItemTypeFieldAssociation(itemTypeName, fieldName)
+                ItemTypeFieldAssociation(itemTypeName, fieldName, index)
             )
         }
         itemTypeJson.creatorTypes.forEach { creatorTypeJson ->

@@ -24,7 +24,7 @@ import org.threeten.bp.OffsetDateTime
         ItemTypeFieldAssociation::class,
         ItemTypeCreatorTypeAssociation::class
     ],
-    version = 12,
+    version = 14,
     exportSchema = false
 )
 @TypeConverters(DBTypeConverters::class)

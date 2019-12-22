@@ -25,18 +25,20 @@ class ContainerFragment(val itemKey: String) : BottomSheetDialogFragment() {
         binding = BrowsingItemdetailContainerFragmentBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
         val itemLiveData = dataRepo.database.item.get(itemKey)
-        itemLiveData.observe(this, Observer { item ->
-            binding.fieldsContainer.removeAllViews()
-
-            item.fieldValues
-                .find { it.fieldName == TITLE }
-                ?.let { addFieldValueToLayout(it, item) }
-
-            item.fieldValues
-                .filter { it.fieldName != TITLE }
-                .forEach() { addFieldValueToLayout(it, item) }
-        })
+        itemLiveData.observe(this, Observer { onItemUpdated(it) })
         return binding.root
+    }
+
+    private fun onItemUpdated(item: ItemWithReferences) {
+        binding.fieldsContainer.removeAllViews()
+
+        item.fieldValues
+            .find { it.fieldName == TITLE }
+            ?.let { addFieldValueToLayout(it, item) }
+
+        item.sortedFieldValues
+            .filter { it.fieldName != TITLE }
+            .forEach { addFieldValueToLayout(it, item) }
     }
 
     private fun addFieldValueToLayout(

@@ -33,6 +33,12 @@ data class ItemWithReferences(
     val fieldValues: List<ItemFieldValue>,
 
     @Relation(
+        parentColumn = "itemTypeName",
+        entityColumn = "itemTypeName"
+    )
+    private val itemTypeFieldAssociations: List<ItemTypeFieldAssociation>,
+
+    @Relation(
         parentColumn = "key",
         entityColumn = "key",
         associateBy = Junction(
@@ -54,6 +60,11 @@ data class ItemWithReferences(
     override val key = item.key
     override val name: String
         get() = getFieldValue(titleField?.name) ?: ""
+
+    val sortedFieldValues: List<ItemFieldValue>
+        get() = fieldValues.sortedBy { fieldValue ->
+            itemTypeFieldAssociations.find { it.fieldName == fieldValue.fieldName }?.orderIndex
+        }
 
     @Ignore
     private val titleField =
