@@ -14,7 +14,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/primary">
+        android:background="@color/design_default_color_background">
 
         <TextView
             android:id="@+id/sync_status_textview"
@@ -22,25 +22,32 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:text="@{vm.lastSyncText}"
-            android:textAppearance="@style/TextAppearance.SyncStatus"
             android:textColor="@color/primaryText"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Last sync: just now" />
 
-        <Button
-            android:id="@+id/clear_local_data_button"
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/developer_mode_switch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:backgroundTint="@color/primaryDark"
-            android:onClick="@{() -> vm.clearLocalData()}"
-            android:text="Clear local data"
+            android:layout_marginTop="42dp"
+            android:text="Developer mode"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/sync_status_textview" />
 
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/clear_local_data_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:onClick="@{() -> vm.clearLocalData()}"
+            android:text="Clear local data"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/developer_mode_switch" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -14,16 +14,11 @@ import net.tomasfiers.zorro.util.ZorroViewModelFactory
 class DrawerMenuFragment : Fragment() {
 
     private val viewModel: DrawerMenuViewModel by viewModels {
-        ZorroViewModelFactory(
-            DrawerMenuViewModel::class.java,
-            dataRepo,
-            null
-        )
+        ZorroViewModelFactory(DrawerMenuViewModel::class.java, dataRepo, null)
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         val binding = BrowsingDrawerMenuFragmentBinding.inflate(inflater, container, false)
         // The following is necessary so that LiveData changes get propagated to the UI.
