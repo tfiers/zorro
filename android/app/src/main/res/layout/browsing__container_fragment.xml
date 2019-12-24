@@ -39,7 +39,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:subtitle="@{vm.syncStatus}"
                     app:subtitleTextAppearance="@style/TextAppearance.SyncStatus"
-                    app:subtitleTextColor="@color/mutedText"
+                    app:subtitleTextColor="@color/primaryTextMuted"
                     app:title="@string/app_name"
                     app:titleTextColor="@color/primaryText"
                     tools:title="My Library" />
@@ -52,9 +52,7 @@
                     android:max="@{vm.maxProgress}"
                     android:progress="@{vm.downloadProgress}"
                     android:visibility='@{vm.progressBarVisibility}'
-                    app:mpb_progressBackgroundTint="@color/progressBarBackground"
                     app:mpb_progressStyle="horizontal"
-                    app:mpb_progressTint="@color/progressBar"
                     app:mpb_useIntrinsicPadding="false" />
 
                 <fragment

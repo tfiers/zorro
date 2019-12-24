@@ -1,15 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="primary">#a70a0a</color>
-    <color name="primaryLight">#e04a34</color>
-    <color name="primaryDark">#710000</color>
-    <color name="primaryText">#ffffff</color>
+    <color name="primary">#25b87f</color>
+    <color name="primaryLight">#65ebaf</color>
+    <color name="primaryDark">#008752</color>
+    <color name="secondary">#a70a0a</color>
+    <color name="secondaryLight">#e04a34</color>
+    <color name="secondaryDark">#710000</color>
+    <color name="primaryText">#000000</color>
+    <color name="secondaryText">#ffffff</color>
 
-    <color name="mutedText">#dddddd</color>
-    <color name="progressBar">#26a69a</color>
-    <color name="progressBarBackground">#ECECEC</color>
+    <color name="oldRedTheme__primary">#a70a0a</color>
+    <color name="oldRedTheme__primaryLight">#e04a34</color>
+    <color name="oldRedTheme__primaryDark">#710000</color>
+    <color name="oldRedTheme__primaryText">#ffffff</color>
 
-    <color name="ZoteroLogoTaskbar">#a70a0a</color>
+    <color name="primaryTextMuted">#333333</color>
+    <color name="secondaryTextMuted">#dddddd</color>
+
+    <color name="ZoteroLogoTaskbar">#a70a0a</color> <!-- Also color of Z in logo4. -->
     <color name="ZoteroLogoWebsite">#a6212c</color>
     <color name="ZoteroLogoWebapp">#db2c3a</color>
 
