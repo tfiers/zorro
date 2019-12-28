@@ -19,10 +19,11 @@
             app:popExitAnim="@anim/slide_out_right" />
         <argument
             android:name="collectionKey"
-            android:defaultValue="838WYWGX"
+            android:defaultValue="@null"
             app:argType="string"
             app:nullable="true" />
-            <!--android:defaultValue="@null"-->
+        <!--Alternative start collection for debugging needs: -->
+        <!--android:defaultValue="838WYWGX"-->
     </fragment>
 
 </navigation>

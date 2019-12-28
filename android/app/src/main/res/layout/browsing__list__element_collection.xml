@@ -51,13 +51,15 @@
                 android:layout_marginBottom="12dp"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text='@{collection.name+" ("+collection.key+")"}'
+                android:text='@{collection.name}'
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="Mathematics" />
+            <!--Alternative collection name for debugging needs: -->
+            <!--android:text='@{collection.name+" ("+collection.key+")"}'-->
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
