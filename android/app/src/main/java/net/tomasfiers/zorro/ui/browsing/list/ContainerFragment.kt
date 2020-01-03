@@ -7,8 +7,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import kotlinx.coroutines.launch
+import net.tomasfiers.zorro.data.Key
+import net.tomasfiers.zorro.data.getValue
 import net.tomasfiers.zorro.dataRepo
 import net.tomasfiers.zorro.databinding.BrowsingListContainerFragmentBinding
 import net.tomasfiers.zorro.util.ZorroViewModelFactory
@@ -33,22 +37,19 @@ class ContainerFragment : Fragment() {
         binding.lifecycleOwner = this
         setupRecyclerView()
         setupPullToRefresh()
+        autoNavIntoSubcollectionAtStartup()
         return binding.root
     }
 
     private fun setupRecyclerView() {
-        val collectionClickListener =
-            ListElementClicklistener { collection ->
-                findNavController().navigate(
-                    ContainerFragmentDirections.actionNavigateIntoCollection(collection.key)
-                )
-            }
-        val itemClickListener =
-            ListElementClicklistener { item ->
-                val itemDetailFragment = ItemdetailContainerFragment(item.key)
-                val fragmentManager = requireActivity().supportFragmentManager
-                itemDetailFragment.show(fragmentManager, null)
-            }
+        val collectionClickListener = ListElementClicklistener { collection ->
+            navigateIntoCollection(collection.key)
+        }
+        val itemClickListener = ListElementClicklistener { item ->
+            val itemDetailFragment = ItemdetailContainerFragment(item.key)
+            val fragmentManager = requireActivity().supportFragmentManager
+            itemDetailFragment.show(fragmentManager, null)
+        }
         val adapter = RecyclerViewAdapter(collectionClickListener, itemClickListener)
         binding.recyclerView.adapter = adapter
 
@@ -66,4 +67,16 @@ class ContainerFragment : Fragment() {
             binding.pullToRefresh.isRefreshing = isSyncing
         })
     }
+
+    private fun autoNavIntoSubcollectionAtStartup() = lifecycleScope.launch {
+        if (dataRepo.getValue(Key.DEVELOPER_MODE) && !dataRepo.autoNavigatedToSubcollection) {
+            dataRepo.autoNavigatedToSubcollection = true
+            navigateIntoCollection("838WYWGX")
+        }
+    }
+
+    private fun navigateIntoCollection(collectionKey: String?) =
+        findNavController().navigate(
+            ContainerFragmentDirections.actionNavigateIntoCollection(collectionKey)
+        )
 }

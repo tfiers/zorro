@@ -36,6 +36,8 @@ class DataRepo(
     val downloadProgress = Transformations.map(numCompletedRequests) {
         (it ?: 0).toFloat() / (numRequests.value ?: 1)
     }
+    // In developer mode, we navigate straight to a subcollection at startup.
+    var autoNavigatedToSubcollection = false
 }
 
 /**
@@ -45,4 +47,3 @@ class DataRepo(
  */
 suspend fun DataRepo.clearLocalData() =
     withContext(Dispatchers.IO) { database.clearAllTables() }
-
