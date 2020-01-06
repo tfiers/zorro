@@ -13,7 +13,8 @@ import net.tomasfiers.zorro.data.setValue
 class DrawerMenuViewModel(private val dataRepo: DataRepo) : ViewModel() {
 
     val lastSyncText = dataRepo.lastSyncText
-    val developerMode = MutableLiveData(false)
+    val developerMode = MutableLiveData<Boolean>()
+    val developerModeToggled = MutableLiveData<Boolean>(false)
 
     init {
         viewModelScope.launch {
@@ -25,6 +26,10 @@ class DrawerMenuViewModel(private val dataRepo: DataRepo) : ViewModel() {
         developerMode.value = !developerMode.value!!
         viewModelScope.launch {
             dataRepo.setValue(Key.DEVELOPER_MODE, developerMode.value)
+        }
+        // We only want to display a message the first time developer mode is toggled on or off.
+        if (developerModeToggled.value == false) {
+            developerModeToggled.value = true
         }
     }
 
