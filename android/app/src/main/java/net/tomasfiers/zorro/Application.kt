@@ -28,4 +28,3 @@ class ZorroApplication : Application() {
 // Inject dataRepo in each Fragment
 val Fragment.dataRepo: DataRepo
     get() = (requireActivity().application as ZorroApplication).dataRepo
-
