@@ -7,14 +7,14 @@ import net.tomasfiers.zorro.data.entities.Field
 import net.tomasfiers.zorro.data.entities.ItemType
 import net.tomasfiers.zorro.data.entities.ItemTypeCreatorTypeAssociation
 import net.tomasfiers.zorro.data.entities.ItemTypeFieldAssociation
-import net.tomasfiers.zorro.data.getValue
-import net.tomasfiers.zorro.data.setValue
+import net.tomasfiers.zorro.data.getPersistentValue
+import net.tomasfiers.zorro.data.setPersistentValue
 import net.tomasfiers.zorro.zotero_api.SchemaJson
 
 
 suspend fun DataRepo.syncSchema() {
     val schemaResponse = zoteroAPIClient.getSchema(
-        checkIfSchemaUpdated = getValue(Key.LOCAL_SCHEMA_ETAG)
+        checkIfSchemaUpdated = getPersistentValue(Key.LOCAL_SCHEMA_ETAG)
     )
     if (schemaResponse.code() == 304) {
         // Schema not modified since last check.
@@ -24,7 +24,7 @@ suspend fun DataRepo.syncSchema() {
         clearSchema()
         insertSchema(schemaResponse.body()!!)
         // Only update local schema tag when all db inserts have completed succesfully.
-        setValue(Key.LOCAL_SCHEMA_ETAG, schemaResponse.headers()["ETag"])
+        setPersistentValue(Key.LOCAL_SCHEMA_ETAG, schemaResponse.headers()["ETag"])
     }
 }
 

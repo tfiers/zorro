@@ -12,10 +12,10 @@ enum class Key(val dataType: DataType, val defaultValue: Any?) {
     enum class DataType { STRING, INT, BOOLEAN }
 }
 
-suspend fun DataRepo.setValue(key: Key, value: Any?) =
+suspend fun DataRepo.setPersistentValue(key: Key, value: Any?) =
     database.keyValPair.insert(KeyValPair(key.name, value.toString()))
 
-suspend inline fun <reified T> DataRepo.getValue(key: Key): T {
+suspend inline fun <reified T> DataRepo.getPersistentValue(key: Key): T {
     val stringValue = database.keyValPair.get(key.name)?.value
     return when (stringValue) {
         null -> key.defaultValue

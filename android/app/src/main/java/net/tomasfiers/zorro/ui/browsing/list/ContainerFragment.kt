@@ -12,7 +12,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import kotlinx.coroutines.launch
 import net.tomasfiers.zorro.data.Key
-import net.tomasfiers.zorro.data.getValue
+import net.tomasfiers.zorro.data.getPersistentValue
 import net.tomasfiers.zorro.dataRepo
 import net.tomasfiers.zorro.databinding.BrowsingListContainerFragmentBinding
 import net.tomasfiers.zorro.util.ZorroViewModelFactory
@@ -69,7 +69,7 @@ class ContainerFragment : Fragment() {
     }
 
     private fun autoNavIntoSubcollectionAtStartup() = lifecycleScope.launch {
-        if (dataRepo.getValue(Key.DEVELOPER_MODE) && !dataRepo.autoNavigatedToSubcollection) {
+        if (dataRepo.getPersistentValue(Key.DEVELOPER_MODE) && !dataRepo.autoNavigatedToSubcollection) {
             dataRepo.autoNavigatedToSubcollection = true
             navigateIntoCollection("838WYWGX")
         }

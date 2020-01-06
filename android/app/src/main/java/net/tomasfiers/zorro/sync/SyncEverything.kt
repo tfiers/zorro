@@ -4,7 +4,7 @@ import net.tomasfiers.zorro.BuildConfig
 import net.tomasfiers.zorro.data.DataRepo
 import net.tomasfiers.zorro.data.INITIAL_LOCAL_LIBRARY_VERSION
 import net.tomasfiers.zorro.data.Key
-import net.tomasfiers.zorro.data.setValue
+import net.tomasfiers.zorro.data.setPersistentValue
 import org.threeten.bp.Instant.now
 
 class RemoteLibraryUpdatedSignal : Exception()
@@ -25,7 +25,7 @@ suspend fun DataRepo.syncLibrary() {
             syncItems(remoteLibVersionAtStartSync)
             // Update local library version only after all requests and database inserts have
             // completed.
-            setValue(
+            setPersistentValue(
                 Key.LOCAL_LIBRARY_VERSION,
                 remoteLibVersionAtStartSync ?: INITIAL_LOCAL_LIBRARY_VERSION
             )

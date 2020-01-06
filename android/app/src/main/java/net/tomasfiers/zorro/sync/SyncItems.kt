@@ -6,13 +6,13 @@ import net.tomasfiers.zorro.data.entities.Creator
 import net.tomasfiers.zorro.data.entities.Item
 import net.tomasfiers.zorro.data.entities.ItemCollectionAssociation
 import net.tomasfiers.zorro.data.entities.ItemFieldValue
-import net.tomasfiers.zorro.data.getValue
+import net.tomasfiers.zorro.data.getPersistentValue
 import net.tomasfiers.zorro.zotero_api.MAX_ITEMS_PER_RESPONSE
 import net.tomasfiers.zorro.zotero_api.remoteLibraryVersion
 
 suspend fun DataRepo.syncItems(remoteLibVersionAtStartSync: Int?) {
     val itemVersions = zoteroAPIClient.getItemVersions(
-        sinceLibraryVersion = getValue(Key.LOCAL_LIBRARY_VERSION)
+        sinceLibraryVersion = getPersistentValue(Key.LOCAL_LIBRARY_VERSION)
     )
     val itemKeys = itemVersions.keys
     if (itemKeys.isNotEmpty()) {
