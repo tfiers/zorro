@@ -5,12 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import net.tomasfiers.zorro.data.entities.ItemFieldValue
 import net.tomasfiers.zorro.data.entities.ItemWithReferences
 import net.tomasfiers.zorro.dataRepo
 import net.tomasfiers.zorro.databinding.BrowsingItemdetailContainerFragmentBinding
+import net.tomasfiers.zorro.zotero_api.ABSTRACT
 import net.tomasfiers.zorro.zotero_api.TITLE
 
 class ContainerFragment(val itemKey: String) : BottomSheetDialogFragment() {
@@ -34,21 +36,31 @@ class ContainerFragment(val itemKey: String) : BottomSheetDialogFragment() {
 
         item.fieldValues
             .find { it.fieldName == TITLE }
-            ?.let { addFieldValueToLayout(it, item) }
+            ?.let { makeFieldData(it, item) }
+            ?.let { TitleFieldFragment(it) }
+            ?.let { addFieldFragmentToLayout(it) }
 
         item.sortedFieldValues
             .filter { it.fieldName != TITLE }
-            .forEach { addFieldValueToLayout(it, item) }
+            .forEach {
+                val data = makeFieldData(it, item)
+                val fragment = if (it.fieldName == ABSTRACT) {
+                    AbstractFieldFragment(data)
+                } else {
+                    FieldFragment(data)
+                }
+                addFieldFragmentToLayout(fragment)
+            }
     }
 
-    private fun addFieldValueToLayout(
-        itemFieldValue: ItemFieldValue,
-        item: ItemWithReferences
-    ) {
+    private fun makeFieldData(itemFieldValue: ItemFieldValue, item: ItemWithReferences): FieldData {
+        val field = item.fields.find { it.name == itemFieldValue.fieldName }!!
+        return FieldData(field.friendlyName, itemFieldValue.value)
+    }
+
+    private fun addFieldFragmentToLayout(fieldFragment: Fragment) {
         val fragmentContainer = FrameLayout(requireContext())
         fragmentContainer.id = View.generateViewId()
-        val field = item.fields.find { it.name == itemFieldValue.fieldName }!!
-        val fieldFragment = FieldFragment(field.friendlyName, itemFieldValue.value)
         childFragmentManager
             .beginTransaction()
             .add(fragmentContainer.id, fieldFragment, null)
