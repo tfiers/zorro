@@ -38,7 +38,7 @@
                     android:theme="@style/ThemeOverlay.MaterialComponents.Toolbar.Primary"
                     app:layout_constraintTop_toTopOf="parent"
                     app:subtitle="@{vm.syncStatus}"
-                    app:subtitleTextAppearance="@style/TextAppearance.SyncStatus"
+                    app:subtitleTextAppearance="@style/TextAppearance.Zorro.SyncStatus"
                     app:subtitleTextColor="@color/primaryTextMuted"
                     app:title="@string/app_name"
                     app:titleTextColor="@color/primaryText"
